@@ -1,6 +1,6 @@
 export default {
-  basename: "/elite-able/react",
-  defaultPath: "/dashboard/default",
+  basename: "/",
+  defaultPath: "/",
   collapseMenu: false,
   layout: 'vertical', // vertical, horizontal
   layoutType: 'default', //default, light, dark
