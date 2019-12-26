@@ -6,17 +6,6 @@ import ReactNumeric, { predefinedOptions } from "react-numeric"
 import MainCard from "../../components/mainCard/mainCard"
 import { useParams } from 'react-router-dom'
 
-const FullCard = props => (
-  <Col md={6}>
-    <Card>
-      <CardHeader>
-        <h5>{props.title}</h5>
-      </CardHeader>
-      <CardBody>{props.children}</CardBody>
-    </Card>
-  </Col>
-)
-
 class ViewVideo extends Component {
   constructor(props) {
     super(props)
@@ -37,46 +26,54 @@ class ViewVideo extends Component {
   }
 
   render() {
-    const { source } = this.state
+    const { source, title, description } = this.state
     const videoPath = `http://localhost:3333/videos/${source}`
     if (!source) return (<div></div>)
     return (
-      <Row>
-        <Col sm={12} lg={8}>
-          <MainCard title="Video" isOption>
+      <Row id='view-video'>
+        <Col sm={12} lg={8} id='video-wrapper'>
+          <Card>
+            <CardBody>
               <video
-              id="my-video"
-              className="video-js"
-              controls
-              preload="auto"
-              width="640"
-              height="264"
-              poster="MY_VIDEO_POSTER.jpg"
-              data-setup="{}"
-            >
-              <source src={`${videoPath}`} type="video/mp4" />
-              <source src="MY_VIDEO.webm" type="video/webm" />
-              <p className="vjs-no-js">
-                To view this video please enable JavaScript, and consider upgrading to a
-                web browser that
-                <a href="https://videojs.com/html5-video-support/" target="_blank"
-                  >supports HTML5 video</a>
-               </p>
-              </video>
-            </MainCard>
+                id="primary-video"
+                className="video-js"
+                controls
+                preload="auto"
+                width="100%"
+                poster="MY_VIDEO_POSTER.jpg"
+                data-setup="{}"
+                autoPlay={true}
+                muted={true}
+              >
+                <source src={`${videoPath}`} type="video/mp4" />
+                <source src="MY_VIDEO.webm" type="video/webm" />
+                <p className="vjs-no-js">
+                  To view this video please enable JavaScript, and consider upgrading to a
+                  web browser that
+                  <a href="https://videojs.com/html5-video-support/" target="_blank"
+                    >supports HTML5 video</a>
+                </p>
+                </video>
+                <div id='primary-video-info'>
+                  <p>{description}</p>
+                </div>
+              </CardBody>
+            </Card>
           </Col>
           <Col sm={12} lg={4}>
-            <MainCard title="Sidebar" isOption>
-              <p>
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                aliquip ex ea commodo consequat. Duis aute irure dolor in
-                reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                culpa qui officia deserunt mollit anim id est laborum."
-              </p>
-            </MainCard>
+            <Card>
+              <CardBody>
+                <p>
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+                  minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                  aliquip ex ea commodo consequat. Duis aute irure dolor in
+                  reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                  pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                  culpa qui officia deserunt mollit anim id est laborum."
+                </p>
+              </CardBody>
+            </Card>
           </Col>
         </Row>
     )
