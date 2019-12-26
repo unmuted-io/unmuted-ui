@@ -1,8 +1,9 @@
-import React, { Component, Fragment } from "react";
-import { Row, Col, Card, CardHeader, CardBody, Button, FormGroup, Label, Input } from "reactstrap";
-import DropzoneComponent from "react-dropzone-component";
-import InputMask from "react-input-mask";
-import ReactNumeric, { predefinedOptions } from "react-numeric";
+import React, { Component, Fragment } from "react"
+import { Row, Col, Card, CardHeader, CardBody, Button, FormGroup, Label, Input } from "reactstrap"
+import DropzoneComponent from "react-dropzone-component"
+import InputMask from "react-input-mask"
+import ReactNumeric, { predefinedOptions } from "react-numeric"
+import { useHistory } from 'react-router-dom'
 
 const FullCard = props => (
   <Col md={6}>
@@ -13,11 +14,11 @@ const FullCard = props => (
       <CardBody>{props.children}</CardBody>
     </Card>
   </Col>
-);
+)
 
 class UploadVideo extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       videoTitle: '',
       videoDescription: '',
@@ -28,7 +29,7 @@ class UploadVideo extends Component {
       acceptedFiles: "video/mp4",
       autoProcessQueue: false,
       uploadprogress: 100
-    };
+    }
     this.componentConfig = {
       iconFiletypes: [".mp4"],
       showFiletypeIcon: true,
@@ -37,17 +38,18 @@ class UploadVideo extends Component {
 
     // If you want to attach multiple callbacks, simply
     // create an array filled with all your callbacks.
-    this.callbackArray = [() => console.log('Hi!'), () => console.log('Ho!')];
+    this.callbackArray = [() => console.log('Hi!'), () => console.log('Ho!')]
 
     // Simple callbacks work too, of course
-    this.callback = () => console.log('Hello!');
-    this.success = file => console.log('kylan uploaded', file);
-    this.removedfile = file => console.log('removing...', file);
+    this.callback = () => console.log('Hello!')
+    this.success = file => console.log('kylan uploaded', file)
+    this.removedfile = file => console.log('removing...', file)
     this.addedfile = (file) => console.log('addedFile: ', file)
-    this.dropzone = null;
+    this.dropzone = null
   }
 
   handlePost = async () => {
+    const { history } = this.props
     const { videoFile, videoTitle, videoDescription } = this.state
     const formData = new FormData()
     formData.append('title', videoTitle)
@@ -57,11 +59,12 @@ class UploadVideo extends Component {
       method: 'POST',
       body: formData
     })
-    console.log('resp: ', resp)
+    if (!resp.ok) return
+    const data = await resp.json()
+    history.push(`/videos/${data.rand}`)
   }
 
   onChangeInput = (event, callback) => {
-    console.log('event: ', event, 'callback: ', callback)
     this.setState({
       [`video${callback}`]: event.target.value
     })
@@ -119,8 +122,8 @@ class UploadVideo extends Component {
           </FullCard>
         </Row>
       </Fragment>
-    );
+    )
   }
 }
 
-export default UploadVideo;
+export default UploadVideo
