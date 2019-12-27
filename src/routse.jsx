@@ -1,7 +1,7 @@
 import { lazy } from 'react';
 
 const Homepage = lazy(() => import("./views/homepage/homepage"))
-const UploadVideo = lazy(() => import("./views/uploadVideo/uploadVideo"))
+const UploadVideoWizard = lazy(() => import("./views/uploadVideoWizard/uploadVideoWizard"))
 const ViewVideo = lazy(() => import("./views/viewVideo/viewVideo"))
 
 const Analytic = lazy(() => import("./views/dashboard/analytic"))
@@ -120,7 +120,7 @@ const RouteList = [
   { exact: true, path: "/", name: "Homepage", component: Homepage },
 
   /* Videos */
-  { exact: true, path: "/upload-video", name: "Upload Video", component: UploadVideo },
+  { exact: true, path: "/upload-video", name: "Upload Video", component: UploadVideoWizard },
   { exact: false, path: "/videos/:rand", name: "View Video", component: ViewVideo },
 
   /* Dashboard */
