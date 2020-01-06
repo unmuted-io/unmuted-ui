@@ -1,4 +1,5 @@
 import React, { Suspense } from 'react';
+import { connect } from 'react-redux'
 import { Redirect, Route, Switch } from 'react-router-dom';
 import routes from '../../routse'
 import Spinner from '../../components/spinner/Spinner';
@@ -13,7 +14,15 @@ const Routes = props => (
             exact={obj.exact}
             path={obj.path}
             render={matchProps => (
-              <obj.component {...matchProps} />
+              obj.protected ? (
+                props.account ? (
+                  <obj.component {...matchProps} />
+                ) : (
+                  <Redirect from="/" to="/login" />
+                )
+              ) : (
+                <obj.component {...matchProps} />
+              )
             )}
           />) : (null)
           })
@@ -23,5 +32,10 @@ const Routes = props => (
   </Suspense>
 )
 
+const mapStateToProps = (state) => {
+  return {
+    account: state.account
+  }
+}
 
-export default Routes
+export default connect(mapStateToProps)(Routes)

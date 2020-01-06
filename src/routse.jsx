@@ -4,6 +4,9 @@ const Homepage = lazy(() => import("./views/homepage/homepage"))
 const UploadVideoWizard = lazy(() => import("./views/uploadVideoWizard/uploadVideoWizard"))
 const ViewVideo = lazy(() => import("./views/viewVideo/viewVideo"))
 
+/* Auth */
+const Login = lazy(() => import("./views/authentication/authSingin"))
+
 const Analytic = lazy(() => import("./views/dashboard/analytic"))
 const Sales = lazy(() => import("./views/dashboard/sales"))
 const Crypto = lazy(() => import("./views/dashboard/crypto"))
@@ -120,8 +123,11 @@ const RouteList = [
   { exact: true, path: "/", name: "Homepage", component: Homepage },
 
   /* Videos */
-  { exact: true, path: "/upload-video", name: "Upload Video", component: UploadVideoWizard },
+  { exact: true, protected: true, path: "/upload-video", name: "Upload Video", component: UploadVideoWizard },
   { exact: false, path: "/videos/:rand", name: "View Video", component: ViewVideo },
+
+  /* Auth */
+  { exact: true, protected: false, path: "/login", name: "Login", component: Login },
 
   /* Dashboard */
   { exact: true, path: "/dashboard/default", name: "Analytic", component: Analytic },

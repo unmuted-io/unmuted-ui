@@ -17,8 +17,10 @@ import { Link } from "react-router-dom";
 import logoDark from "../../assets/images/logo-dark.png";
 import authBg from "../../assets/images/auth-bg.jpg";
 
+console.log('loading AuthSingin')
 class AuthSingin extends Component {
   render() {
+    console.log('renderin AuthSingin')
     return (
       <div className="auth-wrapper" style={{ background: "#eff3f6" }}>
         <div className="auth-content container">
