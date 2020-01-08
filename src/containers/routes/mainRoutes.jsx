@@ -34,7 +34,7 @@ const Routes = props => (
 
 const mapStateToProps = (state) => {
   return {
-    account: state.account
+    account: state.auth.account
   }
 }
 

@@ -21,6 +21,7 @@
     "@fullcalendar/react": "^4.1.0",
     "@fullcalendar/timegrid": "^4.1.0",
     "@tinymce/tinymce-react": "^3.0.1",
+    "@types/react-redux": "^7.1.5",
     "aphrodite": "^2.3.1",
     "bootstrap": "^4.3.1",
     "chart.js": "^2.8.0",
@@ -30,6 +31,7 @@
     "echarts": "^4.2.1",
     "echarts-for-react": "^2.0.15-beta.0",
     "flag-icon-css": "^3.3.0",
+    "form-data": "^3.0.0",
     "google-maps-react": "^2.0.2",
     "parallax-js": "^3.1.0",
     "peity-react": "0.0.7",
@@ -80,6 +82,7 @@
     "redux-thunk": "^2.3.0",
     "rumble-charts": "^2.0.0",
     "sweetalert": "^2.1.2",
+    "typescript": "^3.7.4",
     "video.js": "^7.6.6"
   },
   "scripts": {

@@ -1,10 +1,11 @@
 import { lazy } from 'react';
 
 const Homepage = lazy(() => import("./views/homepage/homepage"))
-const UploadVideoWizard = lazy(() => import("./views/uploadVideoWizard/uploadVideoWizard"))
+const UploadVideoWizard = lazy(() => import("./redux/connectors/UploadVidoConnector"))
 const ViewVideo = lazy(() => import("./views/viewVideo/viewVideo"))
 
 /* Auth */
+const Register = lazy(() => import("./redux/connectors/RegisterConnector"))
 const Login = lazy(() => import("./views/authentication/authSingin"))
 
 const Analytic = lazy(() => import("./views/dashboard/analytic"))
@@ -128,6 +129,7 @@ const RouteList = [
 
   /* Auth */
   { exact: true, protected: false, path: "/login", name: "Login", component: Login },
+  { exact: true, protected: false, path: "/register", name: "Register", component: Register },
 
   /* Dashboard */
   { exact: true, path: "/dashboard/default", name: "Analytic", component: Analytic },

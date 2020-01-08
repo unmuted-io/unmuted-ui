@@ -714,7 +714,7 @@ export default {
               id: 'signup-1',
               title: 'Sign up',
               type: 'item',
-              url: '/maint/singup1',
+              url: '/register',
               target: true,
               breadcrumbs: false
             },

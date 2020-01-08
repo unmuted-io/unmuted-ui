@@ -18,6 +18,15 @@ import logoDark from "../../assets/images/logo-dark.png"
 import authBg from "../../assets/images/auth-bg.jpg"
 
 class AuthSingup extends Component {
+  createUser = () => {
+    const { createUser, history } = this.props
+    createUser({
+      username: 'testUser',
+      email: 'test@email.com',
+      password: 'myPassword'
+    }, history)
+  }
+
   render() {
     return (
       <div className="auth-wrapper" style={{ background: "#eff3f6" }}>
@@ -74,15 +83,8 @@ class AuthSingup extends Component {
                       </i>
                       Twitter
                     </Button>
-                    <FormGroup className="text-left mt-2">
-                      <div className="checkbox checkbox-primary d-inline">
-                        <input type="checkbox" id="checkbox-1" />
-                        <Label for="checkbox-1" className="cr">
-                          Send me the <Link to="#"> Newsletter</Link> weekly.
-                        </Label>
-                      </div>
-                    </FormGroup>
-                    <Button color="primary" className="mb-4">
+                    <br />
+                    <Button onClick={this.createUser} color="primary" className="mb-4">
                       Sign up
                     </Button>
                     <p className="mb-2">
