@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import { connect } from 'react-redux'
 import {
   Row,
   Col,
@@ -114,7 +115,7 @@ class UploadVideoWizard extends Component {
   }
 
   handlePost = async () => {
-    const { history } = this.props
+    const { history, token } = this.props
     const { videoFile, videoTitle, videoDescription } = this.state
     const formData = new FormData()
     formData.append('title', videoTitle)
@@ -122,7 +123,10 @@ class UploadVideoWizard extends Component {
     formData.append('file', videoFile)
     const resp = await fetch('http://localhost:3333/videos', {
       method: 'POST',
-      body: formData
+      body: formData,
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     })
     if (!resp.ok) return
     const data = await resp.json()
@@ -160,4 +164,10 @@ class UploadVideoWizard extends Component {
   }
 }
 
-export default UploadVideoWizard
+const mapStateToProps = (state) => {
+  return {
+    token: state.auth.account.loginData.access_token.token
+  }
+}
+
+export default connect(mapStateToProps)(UploadVideoWizard)
