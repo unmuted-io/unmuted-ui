@@ -1,6 +1,23 @@
 
 import FormData from 'form-data'
-import { UserInfo } from '../../utility/types'
+import { UserInfo, LoginResponseData } from '../../utility/types'
+import { useHistory } from "react-router-dom"
+
+export const attemptAutoLoginFromCookies = (history: any) => (dispatch: any, getState: any) => {
+  const username = localStorage.getItem('username')
+  const email = localStorage.getItem('email')
+  const id = localStorage.getItem('id')
+  const password = localStorage.getItem('password')
+  const access_token = localStorage.getItem('access_token')
+  const type = localStorage.getItem('access_type')
+  if (!username || !email || !password) return
+  const userInfo = {
+    username,
+    email,
+    password
+  }
+  dispatch(login(userInfo, history))
+}
 
 export const createUser = (newUserInfo: UserInfo , history: Object ) => async (dispatch: any, getState: any) => {
   dispatch({ type: 'IS_CREATING_ACCOUNT', data: true })
@@ -50,12 +67,12 @@ export const login = (userInfo: UserInfo, history: any, isAnimated?: boolean) =>
       console.log(loginResponse.statusText)
       throw new Error (loginResponse.statusText)
     }
-    const loginData = await loginResponse.json()
-    const { id, access_token } = loginData
+    const loginData: LoginResponseData = await loginResponse.json()
+    const { user, access_token } = loginData
     localStorage.setItem('email', email)
     localStorage.setItem('username', username)
-    localStorage.setItem('id', id)
-    localStorage.setItem('passwordHash', loginData.password)
+    localStorage.setItem('id', user.id)
+    localStorage.setItem('password', password)
     localStorage.setItem('access_type', access_token.type)
     localStorage.setItem('access_token', access_token.token)
     // const currentTimestamp = new Date().getTime()
@@ -64,7 +81,6 @@ export const login = (userInfo: UserInfo, history: any, isAnimated?: boolean) =>
     dispatch({ type: 'ACCOUNT', data: { loginData } })
     // localStorage.setItem('expiration', futureTimestamp)
     history.push('/upload-video')
-    console.log('history pushed')
   } catch (e) {
     console.log('Error: ', e)
     dispatch({ type: 'AUTH_ERROR', data: { authError: 'There was a problem logging in with those credentials. Please check your credentials and try again.' } })
