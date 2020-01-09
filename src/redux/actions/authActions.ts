@@ -4,6 +4,7 @@ import { UserInfo, LoginResponseData } from '../../utility/types'
 import { useHistory } from "react-router-dom"
 
 export const attemptAutoLoginFromCookies = (history: any) => (dispatch: any, getState: any) => {
+  console.log('attemptAutoLoginFromCookies')
   const username = localStorage.getItem('username')
   const email = localStorage.getItem('email')
   const id = localStorage.getItem('id')
@@ -80,7 +81,11 @@ export const login = (userInfo: UserInfo, history: any, isAnimated?: boolean) =>
     // const futureTimestamp = (currentTimestampFixed + 86400).toString()
     dispatch({ type: 'ACCOUNT', data: { loginData } })
     // localStorage.setItem('expiration', futureTimestamp)
-    history.push('/upload-video')
+    if (history.location.pathname === '/register') {
+      // history.goBack()
+      history.push('/upload-video')
+    } else {
+    }
   } catch (e) {
     console.log('Error: ', e)
     dispatch({ type: 'AUTH_ERROR', data: { authError: 'There was a problem logging in with those credentials. Please check your credentials and try again.' } })

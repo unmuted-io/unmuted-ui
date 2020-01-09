@@ -27,7 +27,7 @@ class ViewVideo extends Component {
 
   render() {
     const { source, title, description } = this.state
-    const videoPath = `http://localhost:3333/videos/${source}`
+    const videoPath = `http://localhost:3333/videos/processed/${source}`
     if (!source) return (<div></div>)
     return (
       <Row id='view-video'>

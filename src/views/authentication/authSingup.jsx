@@ -20,10 +20,11 @@ import authBg from "../../assets/images/auth-bg.jpg"
 class AuthSingup extends Component {
   createUser = () => {
     const { createUser, history } = this.props
+    const randInt = Math.floor(Math.random() * 100000)
     createUser({
-      username: 'testUser',
-      email: 'test@email.com',
-      password: 'myPassword'
+      username: 'testUser' + randInt,
+      email: 'test@email.com' + randInt,
+      password: 'myPassword' + randInt
     }, history)
   }
 
