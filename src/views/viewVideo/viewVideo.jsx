@@ -4,7 +4,9 @@ import DropzoneComponent from "react-dropzone-component"
 import InputMask from "react-input-mask"
 import ReactNumeric, { predefinedOptions } from "react-numeric"
 import MainCard from "../../components/mainCard/mainCard"
+import WebSocketChat from '../../components/WebSocketChat/WebSocketChat'
 import { useParams } from 'react-router-dom'
+
 
 class ViewVideo extends Component {
   constructor(props) {
@@ -72,6 +74,7 @@ class ViewVideo extends Component {
                   pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
                   culpa qui officia deserunt mollit anim id est laborum."
                 </p>
+                <WebSocketChat />
               </CardBody>
             </Card>
           </Col>

@@ -84,7 +84,8 @@
     "rumble-charts": "^2.0.0",
     "sweetalert": "^2.1.2",
     "typescript": "^3.7.4",
-    "video.js": "^7.6.6"
+    "video.js": "^7.6.6",
+    "websocket": "^1.0.31"
   },
   "scripts": {
     "start": "react-scripts start",
