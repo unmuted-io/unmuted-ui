@@ -9,7 +9,6 @@ import navigation from '../../menus';
 import NavContent from './navcontent';
 import NavLogo from './navlogo/navLogo';
 
-
 class Sidebar extends Component {
   state = {
     upgrate: true,
@@ -99,16 +98,6 @@ class Sidebar extends Component {
             subUi="pcoded-submenu"
             {...this.props}
           />
-          {this.state.upgrate ?
-            (<div className="card text-center">
-              <div className="card-block">
-                <button onClick={this.upgrate} className="close" type="button">×</button>
-                <i className="feather icon-sunset f-40"></i>
-                <h6 className="mt-3">Upgrade to pro</h6>
-                <p>upgrade for get full themes and 30min support</p>
-                <Link to="#" className="btn btn-gradient-primary btn-sm text-white m-0">Upgrade</Link>
-              </div>
-            </div>) : null}
         </PerfectScrollbar>)
     }
     return (
