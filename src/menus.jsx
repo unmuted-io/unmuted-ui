@@ -1120,38 +1120,6 @@ export default {
           icon: 'feather icon-sidebar'
         }
       ]
-    },
-    {
-      id: 'support',
-      title: 'Support',
-      type: 'group',
-      icon: 'icon-support',
-      children: [
-        {
-          id: 'documentation',
-          title: 'Documentation',
-          type: 'item',
-          icon: 'feather icon-book',
-          classes: 'nav-item',
-          url: '#!',
-          target: true,
-          external: true
-        },
-        {
-          id: 'need-support',
-          title: 'Need Support?',
-          type: 'item',
-          icon: 'feather icon-help-circle',
-          classes: 'nav-item',
-          url: '#!',
-          target: true,
-          external: true,
-          badge: {
-            title: 'v1.0.1',
-            type: 'label-primary'
-          }
-        }
-      ]
     }
   ]
 }

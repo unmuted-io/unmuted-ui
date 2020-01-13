@@ -6,7 +6,9 @@ import ReactNumeric, { predefinedOptions } from "react-numeric"
 import MainCard from "../../components/mainCard/mainCard"
 import WebSocketChat from '../../components/WebSocketChat/WebSocketChat'
 import { useParams } from 'react-router-dom'
+import EOSIOClient from '../../eosioClient'
 
+const eosClient = new EOSIOClient('haytemrtg4ge') // hardcode app name
 
 class ViewVideo extends Component {
   constructor(props) {
@@ -25,6 +27,9 @@ class ViewVideo extends Component {
     this.setState({
       ...videoData[0]
     })
+    setTimeout(() => {
+      eosClient.transaction()
+    }, 2000)
   }
 
   render() {
