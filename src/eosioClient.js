@@ -6,7 +6,7 @@ import ScatterEOS from '@scatterjs/eosjs2'
 const network = ScatterJS.Network.fromJson({
   blockchain: "eos",
   protocol: "https",
-  host: "mainnet.eosn.io",
+  host: "api.eossweden.org",
   port: 443,
   chainId: "aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906"
 })
