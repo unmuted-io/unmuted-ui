@@ -1234,6 +1234,25 @@
   resolved "https://registry.yarnpkg.com/@rooks/use-mutation-observer/-/use-mutation-observer-3.4.0.tgz#5e4c122401ae1f790a24c64763a2910d0199a909"
   integrity sha512-q10+v3WbvSt5fj55VMikTPaUZ9Yl+IYDsymodWr2+cKx0PD97VBeWYjk3xHJPqJgejBHwnrwiNkJKGFY5iW+WQ==
 
+"@scatterjs/core@^2.7.48":
+  version "2.7.48"
+  resolved "https://registry.yarnpkg.com/@scatterjs/core/-/core-2.7.48.tgz#f6891a8cbfe139097748d889dd999c89e0fbe354"
+  integrity sha512-s1U8DQZVyR/FoVL2ZEPCGsnelndEbQxgolCMrqhngjiYaFKEh0igAV5teMHm7bnbV+pZy6n60grWO9Sfx4ul+w==
+  dependencies:
+    create-hash "^1.2.0"
+    device-uuid "^1.0.4"
+    es6-promise "^4.2.4"
+    get-random-values "^1.2.0"
+    isomorphic-ws "^4.0.1"
+    ws "^6.1.0"
+
+"@scatterjs/eosjs2@^1.5.30":
+  version "1.5.30"
+  resolved "https://registry.yarnpkg.com/@scatterjs/eosjs2/-/eosjs2-1.5.30.tgz#f1aafeb3c0d2bef7f0153f04097541c4379005ef"
+  integrity sha512-0IOUWto33r8V7vkw9DA8g1CQSYi0ukyP+SNQkDUBz3geFK+DNBc6jWxvG6ySdIALO9wQtrLvzsEgTIN/mfpzsg==
+  dependencies:
+    "@scatterjs/core" "^2.7.48"
+
 "@svgr/babel-plugin-add-jsx-attribute@^4.2.0":
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/@svgr/babel-plugin-add-jsx-attribute/-/babel-plugin-add-jsx-attribute-4.2.0.tgz#dadcb6218503532d6884b210e7f3c502caaa44b1"
@@ -4791,6 +4810,11 @@ detect-port-alt@1.1.6:
     address "^1.0.1"
     debug "^2.6.0"
 
+device-uuid@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/device-uuid/-/device-uuid-1.0.4.tgz#f6973e58f19b92a237aeca7b16a395ae7195a883"
+  integrity sha1-9pc+WPGbkqI3rsp7FqOVrnGVqIM=
+
 dezalgo@^1.0.0, dezalgo@~1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/dezalgo/-/dezalgo-1.0.3.tgz#7f742de066fc748bc8db820569dddce49bf0d456"
@@ -5136,7 +5160,7 @@ eosjs-ecc@4.0.4:
     ecurve "^1.0.5"
     randombytes "^2.0.5"
 
-eosjs@^20.0.0:
+eosjs@20.0.0:
   version "20.0.0"
   resolved "https://registry.yarnpkg.com/eosjs/-/eosjs-20.0.0.tgz#43940abfe15cd191ce4027d60294036e914613e9"
   integrity sha512-Ak9CPtZgCFayUmq43X3Nsn4v67lkLfSzEdTUfMk1XAWA5s4HRn7lBTeTeDCzJ/rggi+dZ170VeJwc5T3gPk4HQ==

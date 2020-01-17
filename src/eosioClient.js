@@ -1,19 +1,17 @@
-import React from "react"
+import React, { Component } from "react"
 import { Api, JsonRpc, JsSignatureProvider } from "eosjs"
-import ScatterJS from "scatterjs-core"
-import ScatterEOS from "scatterjs-plugin-eosjs2"
+import ScatterJS from '@scatterjs/core'
+import ScatterEOS from '@scatterjs/eosjs2'
 
-const endpoint = "https://eos.greymass.com"
-
-const network = {
+const network = ScatterJS.Network.fromJson({
   blockchain: "eos",
-  protocol: "http",
-  host: "https://eos.greymass.com",
+  protocol: "https",
+  host: "mainnet.eosn.io",
   port: 443,
   chainId: "aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906"
-}
+})
 
-export default class EOSIOClient extends React.Component {
+export default class EOSIOClient extends Component {
   constructor(contractAccount) {
     super(contractAccount)
     this.contractAccount = contractAccount
@@ -21,22 +19,17 @@ export default class EOSIOClient extends React.Component {
     ScatterJS.plugins(new ScatterEOS())
 
     try {
-      ScatterJS.scatter.connect(this.contractAccount).then(connected => {
-        if (!connected) return console.log("Issue Connecting")
-        const scatter = ScatterJS.scatter
-        const requiredFields = {
-          accounts: [network] // We defined this above
-        }
-        scatter.getIdentity(requiredFields).then(() => {
-          this.account = scatter.identity.accounts.find(
-            x => x.blockchain === "eos"
-          )
-          const rpc = new JsonRpc(endpoint)
-          console.log('eos being set')
-          this.eos = scatter.eos(network, Api, { rpc })
-        })
-        window.ScatterJS = null // Don't forget to do this!
+      const rpc = new JsonRpc(network.fullhost())
+      console.log('rpc is: ', rpc)
+      ScatterJS.connect('YourAppName', { network }).then(connected => {
+        if (!connected) return console.error('no scatter')
 
+        this.eos = ScatterJS.eos(network, Api, { rpc })
+        console.log('this.eos is: ', this.eos)
+        ScatterJS.login().then(id => {
+          if (!id) return console.error('no identity')
+          this.account = ScatterJS.account('eos')
+        })
       })
     } catch (error) {
       console.log(error)
@@ -57,10 +50,9 @@ export default class EOSIOClient extends React.Component {
               }
             ],
             data: { // from, to, quantity, memo
-              ...data,
               from: this.account.name,
               to: 'matthewedge1',
-              quantity: '0.01 EOS',
+              quantity: '0.0001 EOS',
               memo: 'This is my memo!'
             }
           }
@@ -70,6 +62,11 @@ export default class EOSIOClient extends React.Component {
         blocksBehind: 3,
         expireSeconds: 30
       }
-    )
+    ).then(res => {
+              console.log('sent: ', res)
+            }).catch(err => {
+              console.error('error: ', err)
+            })
+
   }
 }

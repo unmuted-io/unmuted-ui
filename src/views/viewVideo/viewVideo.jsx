@@ -28,8 +28,9 @@ class ViewVideo extends Component {
       ...videoData[0]
     })
     setTimeout(() => {
+      console.log('attempting transaction')
       eosClient.transaction()
-    }, 2000)
+    }, 5000)
   }
 
   render() {

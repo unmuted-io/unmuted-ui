@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Button } from 'reactstrap'
 import { w3cwebsocket as W3CWebSocket } from "websocket"
 
-const client = new W3CWebSocket('ws://127.0.0.1:8000')
+const client = new W3CWebSocket('ws://127.0.0.1:3333/chat')
 
 export class WebSocketChat extends Component {
 
@@ -17,7 +17,7 @@ export class WebSocketChat extends Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     client.onopen = () => {
     console.log('WebSocket Client Connected');
     };
