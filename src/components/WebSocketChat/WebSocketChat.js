@@ -59,15 +59,18 @@ export class WebSocketChat extends Component {
     this.chat.on('message', (message) => {
       const { chat } = this.state
       console.log('message from server: ', message)
-      this.setState({
-        chat: {
-          ...chat,
-          [message.timestamp]: {
-            username: message.username,
-            content: message.content
+      if (message.username && message.content) {
+        this.setState({
+          chat: {
+            ...chat,
+            [message.timestamp]: {
+              username: message.username,
+              content: message.content,
+              amount: message.amount
+            }
           }
-        }
-      })
+        })
+      }
     })
   }
 
@@ -123,7 +126,22 @@ export class WebSocketChat extends Component {
       <div className={'chat'} style={{ alignSelf: 'flex-end', width: '100%' }}>
         <div>
           {Object.keys(chat).sort().map(timestamp => {
-            return <Fragment key={timestamp}><span><strong>{chat[timestamp].username}</strong>: {chat[timestamp].content}</span><br /></Fragment>
+            let fontSize = 14
+            const amountText = chat[timestamp].amount
+            console.log('chat[timestamp]: ', chat[timestamp])
+            if (amountText) {
+              const amount = parseFloat(amountText.replace(' EOS'))
+              const magnitude = Math.ceil(Math.log10(amount) * 2)
+              console.log('magnitude ceiling is: ', magnitude)
+              fontSize += magnitude
+            }
+            return (
+              <Fragment key={timestamp}>
+                <span style={{ fontSize }}>
+                  <strong>{chat[timestamp].username}</strong>: {chat[timestamp].content}
+                </span><br />
+              </Fragment>
+            )
           })}
         </div>
         <div className='chat-area'>
