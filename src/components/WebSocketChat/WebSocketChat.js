@@ -1,27 +1,62 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { Button } from 'reactstrap'
-import { w3cwebsocket as W3CWebSocket } from "websocket"
+// import { w3cwebsocket as W3CWebSocket } from "websocket"
+import Ws from '@adonisjs/websocket-client'
 
-const client = new W3CWebSocket('ws://127.0.0.1:3333/chat')
+let client
 
 export class WebSocketChat extends Component {
 
   constructor () {
     super()
+    this.ws = Ws('ws://localhost:3333', {
+      reconnection: true,
+      query: {
+        message: 'This is a test'
+      }
+    })
+    this.client = this.ws.connect()
+    this.chat = this.ws.subscribe('chat')
     this.state = {
       chat: {
 
       } ,
-      input: ''
+      input: '',
+      isConnected: false
     }
+
+    this.ws.on('open', () => {
+
+      this.setState({
+        isConnected: true
+      })
+    })
+
+    this.ws.on('close', () => {
+      this.setState({
+        isConnected: false
+      })
+    })
+    this.chat.on('ready', () => {
+      this.chat.emit('message', 'hello')
+      console.log('chat ready')
+    })
+
+    this.chat.on('error', (error) => {
+      console.log('chat error: ', error)
+    })
+
+    this.chat.on('close', () => {
+      console.log('chat close')
+    })
   }
 
   componentDidMount() {
-    client.onopen = () => {
+    this.client.onopen = () => {
     console.log('WebSocket Client Connected');
     };
-    client.onmessage = (message) => {
+    this.client.onmessage = (message) => {
       const { chat } = this.state
       const response = JSON.parse(message.data);
       console.log('response: ', response)
@@ -55,6 +90,10 @@ export class WebSocketChat extends Component {
     this.setState({
       input: value
     })
+  }
+
+  componentWillUnmount = () => {
+    this.ws.close()
   }
 
   render() {

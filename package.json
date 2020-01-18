@@ -3,6 +3,7 @@
   "version": "1.0.1",
   "private": true,
   "dependencies": {
+    "@adonisjs/websocket-client": "^1.0.9",
     "@amcharts/amcharts4": "^4.3.5",
     "@amcharts/amcharts4-geodata": "^4.1.4",
     "@ckeditor/ckeditor5-build-balloon": "^12.1.0",
