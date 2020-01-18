@@ -36,7 +36,12 @@ export default class EOSIOClient extends Component {
     }
   }
 
-  transaction = (action, data) => {
+  transaction = (data) => {
+    const memo = JSON.stringify({
+      c: data.input,
+      u: data.username,
+      z: 'dStream'
+    })
     return this.eos.transact(
       {
         actions: [
@@ -52,8 +57,8 @@ export default class EOSIOClient extends Component {
             data: { // from, to, quantity, memo
               from: this.account.name,
               to: 'matthewedge1',
-              quantity: '0.0001 EOS',
-              memo: 'This is my memo!'
+              quantity: `${data.amount} EOS`,
+              memo
             }
           }
         ]
@@ -63,10 +68,10 @@ export default class EOSIOClient extends Component {
         expireSeconds: 30
       }
     ).then(res => {
-              console.log('sent: ', res)
-            }).catch(err => {
-              console.error('error: ', err)
-            })
+        console.log('sent: ', res)
+      }).catch(err => {
+        console.error('error: ', err)
+      })
 
   }
 }

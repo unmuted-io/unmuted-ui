@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { Button } from 'reactstrap'
+import { Button, Input, InputGroup, InputGroupAddon } from 'reactstrap'
 // import { w3cwebsocket as W3CWebSocket } from "websocket"
 import Ws from '@adonisjs/websocket-client'
 
@@ -20,17 +20,19 @@ export class WebSocketChat extends Component {
 
       } ,
       input: '',
-      isConnected: false
+      isConnected: false,
+      superChatAmount: 0
     }
 
     this.ws.on('open', () => {
-
+      console.log('websocket open')
       this.setState({
         isConnected: true
       })
     })
 
     this.ws.on('close', () => {
+      console.log('websocket close')
       this.setState({
         isConnected: false
       })
@@ -60,7 +62,10 @@ export class WebSocketChat extends Component {
       this.setState({
         chat: {
           ...chat,
-          [message.timestamp]: `${message.username}: ${message.content}`
+          [message.timestamp]: {
+            username: message.username,
+            content: message.content
+          }
         }
       })
     })
@@ -81,6 +86,25 @@ export class WebSocketChat extends Component {
     })
   }
 
+  changeSuperChatAmount = (e) => {
+    const { value } = e.target
+    console.log('superChatAmount: ', value)
+    this.setState({
+      superChatAmount: value
+    })
+  }
+
+  onClickSuperChat = () => {
+    const { username } = this.props
+    const { input, superChatAmount } = this.state
+    const data = {
+      input,
+      amount: superChatAmount,
+      userame: username || 'fakeUser'
+    }
+    this.props.sendSuperChat(data)
+  }
+
   onChangeInput = (e) => {
     const { value } = e.target
     this.setState({
@@ -95,16 +119,27 @@ export class WebSocketChat extends Component {
   render() {
     const { chat, input } = this.state
     return (
-      <div>
+      <div className={'chat'} style={{ alignSelf: 'flex-end', width: '100%' }}>
         <div>
           {Object.keys(chat).sort().map(timestamp => {
-            return <Fragment key={timestamp}><span>{chat[timestamp]}</span><br /></Fragment>
+            return <Fragment key={timestamp}><span><strong>{chat[timestamp].username}</strong>: {chat[timestamp].content}</span><br /></Fragment>
           })}
         </div>
-        <input type='text' value={input} onChange={this.onChangeInput} />
-        <Button onClick={this.onClickSubmit} color="primary" className="mb-4">
-          Submit
-        </Button>
+        <div className='chat-area'>
+          <input className={'chat-area-input'} type='text' value={input} onChange={this.onChangeInput} />
+          <Button onClick={this.onClickSubmit} color="primary" className="mb-4">
+            Submit
+          </Button>
+        </div>
+        <div className='chat-area'>
+        <InputGroup>
+          <Input onChange={this.changeSuperChatAmount} placeholder="Amount" min={.001} type="number" step=".001" />
+          <InputGroupAddon addonType="append">EOS</InputGroupAddon>
+          </InputGroup>
+          <Button onClick={this.onClickSuperChat} color="success" className="mb-4">
+            SuperChat
+          </Button>
+        </div>
       </div>
     );
   }

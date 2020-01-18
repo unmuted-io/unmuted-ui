@@ -27,10 +27,10 @@ class ViewVideo extends Component {
     this.setState({
       ...videoData[0]
     })
-    setTimeout(() => {
-      // console.log('attempting transaction')
-      // eosClient.transaction()
-    }, 5000)
+  }
+
+  sendSuperChat = (data) => {
+    eosClient.transaction(data)
   }
 
   render() {
@@ -70,17 +70,8 @@ class ViewVideo extends Component {
           </Col>
           <Col sm={12} lg={4}>
             <Card>
-              <CardBody>
-                <p>
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                  minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                  aliquip ex ea commodo consequat. Duis aute irure dolor in
-                  reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                  pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                  culpa qui officia deserunt mollit anim id est laborum."
-                </p>
-                <WebSocketChat />
+              <CardBody style={{ height: 480, display: 'flex', flexDirection: 'row' }}>
+                <WebSocketChat sendSuperChat={this.sendSuperChat} />
               </CardBody>
             </Card>
           </Col>
