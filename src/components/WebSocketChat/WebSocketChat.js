@@ -97,9 +97,10 @@ export class WebSocketChat extends Component {
   onClickSuperChat = () => {
     const { username } = this.props
     const { input, superChatAmount } = this.state
+    console.log('superChatAmount is: ', superChatAmount)
     const data = {
       input,
-      amount: superChatAmount,
+      amount: parseFloat(superChatAmount).toFixed(4).toString(),
       userame: username || 'fakeUser'
     }
     this.props.sendSuperChat(data)

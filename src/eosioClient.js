@@ -37,6 +37,7 @@ export default class EOSIOClient extends Component {
   }
 
   transaction = (data) => {
+    console.log('tx data is ', data)
     const memo = JSON.stringify({
       c: data.input,
       u: data.username,
