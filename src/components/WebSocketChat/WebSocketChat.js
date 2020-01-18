@@ -126,7 +126,7 @@ export class WebSocketChat extends Component {
       <div className={'chat'} style={{ alignSelf: 'flex-end', width: '100%' }}>
         <div>
           {Object.keys(chat).sort().map(timestamp => {
-            let fontSize = 14
+            let fontSize = 12
             const amountText = chat[timestamp].amount
             console.log('chat[timestamp]: ', chat[timestamp])
             if (amountText) {
