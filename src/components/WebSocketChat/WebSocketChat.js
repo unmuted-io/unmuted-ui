@@ -11,10 +11,7 @@ export class WebSocketChat extends Component {
   constructor () {
     super()
     this.ws = Ws('ws://localhost:3333', {
-      reconnection: true,
-      query: {
-        message: 'This is a test'
-      }
+      reconnection: true
     })
     this.client = this.ws.connect()
     this.chat = this.ws.subscribe('chat')
@@ -39,7 +36,8 @@ export class WebSocketChat extends Component {
       })
     })
     this.chat.on('ready', () => {
-      this.chat.emit('message', 'hello')
+      const output = { message: 'hello' }
+      this.chat.emit('message', output)
       console.log('chat ready')
     })
 
@@ -53,20 +51,19 @@ export class WebSocketChat extends Component {
   }
 
   componentDidMount() {
-    this.client.onopen = () => {
-    console.log('WebSocket Client Connected');
-    };
-    this.client.onmessage = (message) => {
+    this.client.on('open', () => {
+      console.log('WebSocket Client Connected')
+    })
+    this.chat.on('message', (message) => {
       const { chat } = this.state
-      const response = JSON.parse(message.data);
-      console.log('response: ', response)
+      console.log('message from server: ', message)
       this.setState({
         chat: {
           ...chat,
-          [response.timestamp]: `${response.username}: ${response.content}`
+          [message.timestamp]: `${message.username}: ${message.content}`
         }
       })
-    }
+    })
   }
 
   onClickSubmit = () => {
@@ -74,11 +71,11 @@ export class WebSocketChat extends Component {
     if (!input) return
     const { username } = this.props
     console.log('sending to websockets')
-    client.send(JSON.stringify({
+    this.chat.emit('message', {
       type: "chatSubmission",
       username,
       content: input
-    }))
+    })
     this.setState({
       input: ''
     })
@@ -86,7 +83,6 @@ export class WebSocketChat extends Component {
 
   onChangeInput = (e) => {
     const { value } = e.target
-    console.log('value is: ', value)
     this.setState({
       input: value
     })
