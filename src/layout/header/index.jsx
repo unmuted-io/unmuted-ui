@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Row } from 'reactstrap';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -10,6 +10,7 @@ import { openChatBox } from '../../redux/actions/chatActions';
 import UserProfile from './component/userprofile';
 import MainSearch from './component/search';
 import Breadcrumb from '../breadcrumb/breadcrumb';
+import { UserProfileConnector } from '../../redux/connectors/UserProfileConnector'
 
 class Header extends Component {
   state = {
@@ -24,6 +25,7 @@ class Header extends Component {
     }
   }
   render() {
+    const { account } = this.props
     return (
       <header className={classnames("navbar pcoded-header navbar-expand-lg navbar-light", {
         "headerpos-fixed": this.props.headerFixed,
@@ -79,19 +81,23 @@ class Header extends Component {
                 <li className="nav-item">
                   <MainSearch />
                 </li>
-                <li><Notification /></li>
-                <li>
-                  <Link
-                    to="#"
-                    className="displayChatbox"
-                    onClick={() => this.props.openChatBox()}
-                  >
-                    <i className="icon feather icon-mail"></i>
-                  </Link>
-                </li>
-                <li>
-                  <UserProfile />
-                </li>
+                {account &&  (
+                  <Fragment>
+                    <li><Notification /></li>
+                    <li>
+                      <Link
+                        to="#"
+                        className="displayChatbox"
+                        onClick={() => this.props.openChatBox()}
+                      >
+                        <i className="icon feather icon-mail"></i>
+                      </Link>
+                    </li>
+                    <li>
+                      <UserProfileConnector />
+                    </li>
+                  </Fragment>
+                )}
               </ul>
             </React.Fragment>
           ) :
@@ -111,23 +117,27 @@ class Header extends Component {
                       </li>
                     </ul>) : null
                 }
-                < ul className="navbar-nav ml-auto">
+                <ul className="navbar-nav ml-auto">
                   <li className="nav-item">
                     <MainSearch />
                   </li>
-                  <li><Notification /></li>
-                  <li>
-                    <Link
-                      to="#"
-                      className="displayChatbox"
-                      onClick={() => this.props.openChatBox()}
-                    >
-                      <i className="icon feather icon-mail"></i>
-                    </Link>
-                  </li>
-                  <li>
-                    <UserProfile />
-                  </li>
+                  {account && (
+                    <Fragment>
+                      <li><Notification /></li>
+                      <li>
+                        <Link
+                          to="#"
+                          className="displayChatbox"
+                          onClick={() => this.props.openChatBox()}
+                        >
+                          <i className="icon feather icon-mail"></i>
+                        </Link>
+                      </li>
+                      <li>
+                        <UserProfileConnector />
+                      </li>
+                    </Fragment>
+                  )}
                 </ul>
               </React.Fragment>
             )
@@ -138,7 +148,8 @@ class Header extends Component {
   }
 }
 const mapStateToProps = state => ({
-  navUpdate: state.Navigation.navUpdate
+  navUpdate: state.Navigation.navUpdate,
+  account: state.auth.account
 })
 const mapDispatchToDispatch = {
   openChatBox

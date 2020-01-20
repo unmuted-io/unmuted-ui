@@ -13,7 +13,7 @@ import "flag-icon-css/sass/flag-icon.scss"
 
 
 const App = lazy(() => import("./App/App"))
-
+console.echo = (variable) => console.log(`${variable}: `, variable)
 const root = document.getElementById("root");
 
 ReactDOM.render(

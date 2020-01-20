@@ -166,7 +166,7 @@ class UploadVideoWizard extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    token: state.auth.account.loginData.access_token.token
+    token: state.auth.account.token
   }
 }
 

@@ -40,7 +40,10 @@ export const createUser = (newUserInfo: UserInfo , history: Object ) => async (d
       throw new Error(createUserData.message)
     }
     if (createUserData.user) {
-      newUserInfo.access_token = createUserData.access_token
+      const extendedUserInfo = {
+        ...createUserData,
+        ...createUserData.access_token
+      }
       dispatch(login(newUserInfo, history, false))
     }
   } catch (e) {
@@ -79,7 +82,7 @@ export const login = (userInfo: UserInfo, history: any, isAnimated?: boolean) =>
     // const currentTimestamp = new Date().getTime()
     // const currentTimestampFixed = currentTimestamp / 1000
     // const futureTimestamp = (currentTimestampFixed + 86400).toString()
-    dispatch({ type: 'ACCOUNT', data: { loginData } })
+    dispatch({ type: 'ACCOUNT', data: { ...loginData.user, ...loginData.access_token } })
     // localStorage.setItem('expiration', futureTimestamp)
     if (history.location.pathname === '/register') {
       // history.goBack()

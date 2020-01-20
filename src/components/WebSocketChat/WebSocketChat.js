@@ -38,7 +38,7 @@ export class WebSocketChat extends Component {
       })
     })
     this.chat.on('ready', () => {
-      const output = { message: 'hello' }
+      const output = { message: 'howdy' }
       this.chat.emit('message', output)
       console.log('chat ready')
     })
@@ -166,7 +166,7 @@ export class WebSocketChat extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    username: state.auth.account.loginData.user.username
+    username: state.auth.account
   }
 }
 

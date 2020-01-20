@@ -21,9 +21,9 @@ export default class EOSIOClient extends Component {
     try {
       const rpc = new JsonRpc(network.fullhost())
       console.log('rpc is: ', rpc)
-      ScatterJS.connect('YourAppName', { network }).then(connected => {
+      ScatterJS.connect('YourAppName1', { network }).then(connected => {
         if (!connected) return console.error('no scatter')
-
+        console.log('connected: ', connected)
         this.eos = ScatterJS.eos(network, Api, { rpc })
         console.log('this.eos is: ', this.eos)
         ScatterJS.login().then(id => {
