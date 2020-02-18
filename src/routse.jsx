@@ -1,6 +1,7 @@
 import { lazy } from 'react';
 
 const Homepage = lazy(() => import("./views/homepage/homepage"))
+const LoggedInHomepage = lazy(() => import("./views/homepage/loggedInHomepage"))
 const UploadVideoWizard = lazy(() => import("./redux/connectors/UploadVidoConnector"))
 const ViewVideo = lazy(() => import("./views/viewVideo/viewVideo"))
 
@@ -122,6 +123,7 @@ const Layout12 = lazy(() => import("./views/prebuild/layout12")) */
 const RouteList = [
   /* Homepage */
   { exact: true, path: "/", name: "Homepage", component: Homepage },
+  { exact: true, path: "/welcome", name: "Logged In Homepage", component: LoggedInHomepage },
 
   /* Videos */
   { exact: true, protected: true, path: "/upload-video", name: "Upload Video", component: UploadVideoWizard },
