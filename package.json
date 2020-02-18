@@ -34,6 +34,7 @@
     "deni-react-treeview": "^0.2.20",
     "echarts": "^4.2.1",
     "echarts-for-react": "^2.0.15-beta.0",
+    "edge-login-ui-web": "^0.6.2",
     "eosjs": "20.0.0",
     "flag-icon-css": "^3.3.0",
     "form-data": "^3.0.0",
@@ -97,7 +98,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "yarn build && firebase deploy"
   },
   "eslintConfig": {
     "extends": "react-app"
