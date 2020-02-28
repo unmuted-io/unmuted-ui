@@ -102,3 +102,10 @@ export const logout = () => (dispatch: any, getState: any) => {
   })
   localStorage.clear()
 }
+
+export const updateEdgeAccount = (account: any) => (dispatch: any, getState: any) => {
+  dispatch({
+    type: 'EDGE_ACCOUNT',
+    data: account
+  })
+}

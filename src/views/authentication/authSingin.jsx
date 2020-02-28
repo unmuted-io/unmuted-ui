@@ -24,6 +24,7 @@ const assetsPath = 'http://localhost:11234'
 class AuthSingin extends Component {
 
   componentDidMount = async () => {
+    const { updateEdgeAccount } = this.props
     try {
       const context = await makeEdgeUiContext({
         apiKey: 'aac3421135575c7433551969b28f72c5b74d7b78',
@@ -32,16 +33,11 @@ class AuthSingin extends Component {
         assetsPath: assetsPath
       })
       edgeUiContext = context
-      console.log('context is: ', context)
       edgeUiContext.on('login', async edgeAccount => {
-        console.log('EdgeAccount is: ', edgeAccount)
         // Find the app wallet, or create one if necessary:
         const walletInfo = edgeAccount.getFirstWalletInfo('wallet:telos')
-        console.log('walletInfo: ', walletInfo)
         let currencyWallet
-        console.log('currencyWallet is: ', currencyWallet)
         if (!walletInfo) {
-          console.log('about to createCurrencyWallet')
           currencyWallet = await edgeAccount.createCurrencyWallet('wallet:telos', {
             name: "Imported CaptainCrypt",
             fiatCurreencyCode: "iso:USD",
@@ -49,16 +45,12 @@ class AuthSingin extends Component {
             importText: "5KYuUHyzNqNd9gszoEQZZPmzSM478uBcTPn9Epdx9ZtuUpwLkfA"
           })
         } else {
-          console.log('about to waitForCurrencyWallet')
           currencyWallet = await edgeAccount.waitForCurrencyWallet(walletInfo.id)
         }
         // let currencyWallet =  walletInfo == null ? await edgeAccount.createCurrencyWallet('wallet:eos') : await edgeAccount.waitForCurrencyWallet(walletInfo.id)
-        console.log('currencyWallet: ', currencyWallet)
         // Get an address from the wallet:
         const addressInfo = await currencyWallet.getReceiveAddress()
-        console.log('wallet addressInfo: ', addressInfo)
         const address = addressInfo.publicAddress
-        console.log('wallet address: ', address)
         // this.props.history.push('/welcome', { wallet: currencyWallet })
         const edgeUnsignedTransaction = {
             // Amounts:
@@ -101,7 +93,8 @@ class AuthSingin extends Component {
         }
         let edgeSignedTransaction = await currencyWallet.signTx(edgeUnsignedTransaction)
         edgeSignedTransaction = await currencyWallet.broadcastTx(edgeSignedTransaction)
-        console.log('edgeSignedTransaction: ', edgeSignedTransaction)
+        updateEdgeAccount(edgeAccount)
+        this.props.history.push('/welcome')
       })
     } catch (e) {
       console.log('Edge error: ', e)
