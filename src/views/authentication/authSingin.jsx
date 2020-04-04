@@ -10,43 +10,42 @@ import {
   Form,
   Input,
   FormGroup,
-  Label
+  Label,
 } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import logoDark from "../../assets/images/logo-dark.png";
 import authBg from "../../assets/images/auth-bg.jpg";
-import { makeEdgeUiContext } from 'edge-login-ui-web'
-import edgeLoginLogo from '../../assets/images/auth/edge-login-logo.svg'
+import { makeEdgeUiContext } from "edge-login-ui-web";
+import edgeLoginLogo from "../../assets/images/auth/edge-login-logo.svg";
 
-let edgeUiContext
-const assetsPath = 'http://localhost:11234'
+let edgeUiContext;
+const assetsPath = "http://localhost:11234"
 
 class AuthSingin extends Component {
-
   componentDidMount = async () => {
-    const { updateEdgeAccount } = this.props
+    const { updateEdgeAccount, history } = this.props;
     try {
       const context = await makeEdgeUiContext({
-        apiKey: 'aac3421135575c7433551969b28f72c5b74d7b78',
-        appId: 'com.dstream.web',
-        appName: 'CaptainsRelay',
-        assetsPath: assetsPath
-      })
-      edgeUiContext = context
-      edgeUiContext.on('login', async edgeAccount => {
-        console.log('kylan JUST SIGNED IN!')
-        updateEdgeAccount(edgeAccount)
-        this.props.history.push('/welcome')
-      })
+        apiKey: "aac3421135575c7433551969b28f72c5b74d7b78",
+        appId: "com.dstream.web",
+        appName: "CaptainsRelay",
+        assetsPath: assetsPath,
+      });
+      edgeUiContext = context;
+      edgeUiContext.on("login", async (edgeAccount) => {
+        console.log("kylan JUST SIGNED IN!");
+        updateEdgeAccount(edgeAccount);
+        history.push("/welcome");
+      });
     } catch (e) {
-      console.log('Edge error: ', e)
+      console.log("Edge error: ", e);
     }
-  }
+  };
 
   onClickEdgeLogin = () => {
-    console.log('onClickEdgeLogin executing')
-    edgeUiContext.showLoginWindow()
+    console.log("onClickEdgeLogin executing");
+    edgeUiContext.showLoginWindow();
 
     // if (edgeContext) {
     //   _abcUi.openLoginWindow({
@@ -58,15 +57,20 @@ class AuthSingin extends Component {
     //     }
     //   })
     // }
+  };
+
+  onClickLogin = (e) => {
+    e.preventDefault()
+
   }
 
   render() {
-    console.log('renderin AuthSingin')
+    console.log("renderin AuthSingin");
     return (
       <div className="auth-wrapper" style={{ background: "#eff3f6" }}>
         <div className="auth-content container">
           <Card>
-            <Form onSubmit={e => e.preventDefault()}>
+            <Form onSubmit={this.onClickLogin}>
               <Row className="align-items-center">
                 <Col md={6}>
                   <CardBody>
@@ -109,7 +113,12 @@ class AuthSingin extends Component {
                       </i>
                       Twitter
                     </Button>
-                    <Button style={{ borderColor: '#2a5799', borderWidth: 1.5 }} color="edge" className="mb-2 mr-2" onClick={this.onClickEdgeLogin}>
+                    <Button
+                      style={{ borderColor: "#2a5799", borderWidth: 1.5 }}
+                      color="edge"
+                      className="mb-2 mr-2"
+                      onClick={this.onClickEdgeLogin}
+                    >
                       <img src={edgeLoginLogo} />
                     </Button>
                     <FormGroup className="text-left mt-2">
@@ -124,13 +133,13 @@ class AuthSingin extends Component {
                       Login
                     </Button>
                     <p className="mb-2 text-muted">
-                      Forgot password?
+                      Forgot password?&nbsp;
                       <Link to="/maint/reset" className="f-w-400">
                         Reset
                       </Link>
                     </p>
                     <p className="mb-0 text-muted">
-                      Don’t have an account?
+                      Don’t have an account?&nbsp;
                       <Link to="/register" className="f-w-400">
                         Register
                       </Link>

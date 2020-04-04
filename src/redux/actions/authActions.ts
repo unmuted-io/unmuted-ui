@@ -24,7 +24,8 @@ export const createUser = (newUserInfo: UserInfo , history: Object ) => async (d
   dispatch({ type: 'IS_CREATING_ACCOUNT', data: true })
   try {
     const { username, password, email } = newUserInfo
-    const url = `http://localhost:3333/auth/register`
+    const { REACT_APP_API_BASE_URL } = process.env
+    const url = `${REACT_APP_API_BASE_URL}/auth/register`
     const formData: FormData = new FormData()
     formData.append('username', username)
     formData.append('password', password)
@@ -32,6 +33,7 @@ export const createUser = (newUserInfo: UserInfo , history: Object ) => async (d
     // @ts-ignore
     const createUserResponse = await fetch(url, {
       method: 'POST',
+      // @ts-ignore
       body: formData
     })
     const createUserData = await createUserResponse.json()
@@ -58,13 +60,15 @@ export const login = (userInfo: UserInfo, history: any, isAnimated?: boolean) =>
   }
   try {
     const { username, password, email } = userInfo
-    const url = `http://localhost:3333/auth/login`
+    const { REACT_APP_API_BASE_URL } = process.env
+    const url = `${REACT_APP_API_BASE_URL}/auth/login`
     const formData: FormData = new FormData()
     formData.append('password', password)
     formData.append('email', email)
     // @ts-ignore
     const loginResponse = await fetch(url, {
       method: 'POST',
+      // @ts-ignore
       body: formData
     })
     if (!loginResponse.ok) {

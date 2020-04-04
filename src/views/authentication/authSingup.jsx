@@ -89,7 +89,7 @@ class AuthSingup extends Component {
                       Sign up
                     </Button>
                     <p className="mb-2">
-                      Already have an account?
+                      Already have an account?&nbsp;
                       <Link to="/maint/auth-singin" className="f-w-400">
                         Log in
                       </Link>
