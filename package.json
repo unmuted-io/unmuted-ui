@@ -81,6 +81,7 @@
     "react-tinymce": "^0.7.0",
     "react-to-print": "^2.1.2",
     "react-toast-notifications": "^1.4.0",
+    "react-toastify": "^5.5.0",
     "react-window-size": "^1.2.2",
     "reactour": "^1.13.4",
     "reactstrap": "^8.0.0",

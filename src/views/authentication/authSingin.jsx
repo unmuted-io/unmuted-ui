@@ -17,6 +17,7 @@ import { Link } from "react-router-dom";
 import logoDark from "../../assets/images/logo-dark.png";
 import authBg from "../../assets/images/auth-bg.jpg";
 import { makeEdgeUiContext } from 'edge-login-ui-web'
+import edgeLoginLogo from '../../assets/images/auth/edge-login-logo.svg'
 
 let edgeUiContext
 const assetsPath = 'http://localhost:11234'
@@ -34,65 +35,7 @@ class AuthSingin extends Component {
       })
       edgeUiContext = context
       edgeUiContext.on('login', async edgeAccount => {
-        // Find the app wallet, or create one if necessary:
-        const walletInfo = edgeAccount.getFirstWalletInfo('wallet:telos')
-        let currencyWallet
-        if (!walletInfo) {
-          currencyWallet = await edgeAccount.createCurrencyWallet('wallet:telos', {
-            name: "Imported CaptainCrypt",
-            fiatCurreencyCode: "iso:USD",
-            keyOptions: {},
-            importText: "5KYuUHyzNqNd9gszoEQZZPmzSM478uBcTPn9Epdx9ZtuUpwLkfA"
-          })
-        } else {
-          currencyWallet = await edgeAccount.waitForCurrencyWallet(walletInfo.id)
-        }
-        // let currencyWallet =  walletInfo == null ? await edgeAccount.createCurrencyWallet('wallet:eos') : await edgeAccount.waitForCurrencyWallet(walletInfo.id)
-        // Get an address from the wallet:
-        const addressInfo = await currencyWallet.getReceiveAddress()
-        const address = addressInfo.publicAddress
-        // this.props.history.push('/welcome', { wallet: currencyWallet })
-        const edgeUnsignedTransaction = {
-            // Amounts:
-            currencyCode: 'TLOS',
-            nativeAmount: '-10000',
-
-            // Fees:
-            networkFee: '0',
-
-            // Confirmation status:
-            blockHeight: 0,
-            date: 0,
-
-            // Transaction info:
-            txid: '',
-            signedTx: '',
-            ourReceiveAddresses: [],
-            otherParams: {
-              transactionJson: {
-                actions: [
-                  {
-                    account: 'eosio.token',
-                    name: 'transfer',
-                    authorization: [
-                      {
-                        actor: 'captaincrypt',
-                        permission: 'active'
-                      }
-                    ],
-                    data: {
-                      from: 'captaincrypt',
-                      to: 'haytemrtg4ge',
-                      quantity: '1.0000 TLOS',
-                      memo: 'KylanTx1'
-                    }
-                  }
-                ]
-              }
-            }
-        }
-        let edgeSignedTransaction = await currencyWallet.signTx(edgeUnsignedTransaction)
-        edgeSignedTransaction = await currencyWallet.broadcastTx(edgeSignedTransaction)
+        console.log('kylan JUST SIGNED IN!')
         updateEdgeAccount(edgeAccount)
         this.props.history.push('/welcome')
       })
@@ -166,8 +109,8 @@ class AuthSingin extends Component {
                       </i>
                       Twitter
                     </Button>
-                    <Button color="edge" className="mb-2 mr-2" onClick={this.onClickEdgeLogin}>
-                      Edge
+                    <Button style={{ borderColor: '#2a5799', borderWidth: 1.5 }} color="edge" className="mb-2 mr-2" onClick={this.onClickEdgeLogin}>
+                      <img src={edgeLoginLogo} />
                     </Button>
                     <FormGroup className="text-left mt-2">
                       <div className="checkbox checkbox-primary d-inline">
