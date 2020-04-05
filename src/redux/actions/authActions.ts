@@ -4,7 +4,6 @@ import { UserInfo, LoginResponseData } from '../../utility/types'
 import { useHistory } from "react-router-dom"
 
 export const attemptAutoLoginFromCookies = (history: any) => (dispatch: any, getState: any) => {
-  console.log('attemptAutoLoginFromCookies')
   const username = localStorage.getItem('username')
   const email = localStorage.getItem('email')
   const id = localStorage.getItem('id')
