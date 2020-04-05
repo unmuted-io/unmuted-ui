@@ -1,12 +1,13 @@
-import React from "react";
-import Layout from '../layout/';
-import { library } from "@fortawesome/fontawesome-svg-core";
-import '../index.scss';
+import React from "react"
+import Layout from '../layout/'
+import { library } from "@fortawesome/fontawesome-svg-core"
+import '../index.scss'
+import fontAwesomeIcon from "../utility/icons/fontawesome"
 
-import fontAwesomeIcon from "../utility/icons/fontawesome";
-library.add(fontAwesomeIcon);
+library.add(fontAwesomeIcon)
 
+console.log('process.env: ', process.env)
 
-const App = () => <Layout />;
+const App = () => <Layout />
 
-export default App;
+export default App

@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 
-const Homepage = lazy(() => import("./views/homepage/homepage"))
+const Homepage = lazy(() => import("./views/homepage/homepage.tsx"))
 const LoggedInHomepage = lazy(() => import("./redux/connectors/LoggedInHomepageConnector"))
 const UploadVideoWizard = lazy(() => import("./redux/connectors/UploadVidoConnector"))
 const ViewVideo = lazy(() => import("./views/viewVideo/viewVideo"))

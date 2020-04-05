@@ -65,6 +65,7 @@ File: style.css
 
 //pages
 @import "partials/pages/view-video.scss";
+@import "partials/pages/recommended-videos-grid.scss";
 @import "partials/pages/upload-video.scss";
 @import "partials/pages/gallery.scss";
 @import "partials/pages/pages.scss";
@@ -77,4 +78,5 @@ File: style.css
 
 // components
 
-@import "partials/components/chat.scss"
+@import "partials/components/chat.scss";
+@import "partials/components/videoThumbnail/videoThumbnail.scss";

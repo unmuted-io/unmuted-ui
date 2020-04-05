@@ -1,0 +1,33 @@
+.video-thumbnail {
+  width: 23%;
+  display: block;
+  float: left;
+  height: 320px;
+  padding: 12px;
+
+  &-image {
+    width: 100%;
+    height: auto;
+
+    &-content {
+      width: 100%;
+    }
+  }
+
+  &-info {
+    width: 100%;
+    padding-top: 6px;
+
+    &-text {
+
+      &-title {
+        font-weight: bold;
+        font-size: 1.1em;
+      }
+    }
+  }
+
+  &-thumbnail {
+
+  }
+}

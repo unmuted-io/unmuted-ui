@@ -6,11 +6,11 @@ import {
 import axios from 'axios'
 
 function* fetchRecommendedVideos() {
-  const { REACT_APP_API_URL } = process.env
-  const recommendedVideos = yield call(() => axios.get(`${REACT_APP_API_URL}/recommended-videos`))
+  const { REACT_APP_API_BASE_URL } = process.env
+  const recommendedVideos = yield call(() => axios.get(`${REACT_APP_API_BASE_URL}/videos/rec`))
   yield put({
     type: 'FETCH_RECOMMENDED_VIDEOS_SUCCESS',
-    data: recommendedVideos.data
+    data: recommendedVideos.data.videos
   })
 }
 
