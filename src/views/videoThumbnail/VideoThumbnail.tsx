@@ -26,7 +26,7 @@ class VideoThumbnail extends React.Component<VideoThumbnailProps, VideoThumbnail
       source,
       created_at
     } = this.props
-    const shortenedTitle = cutOffText(title, 80)
+    const shortenedTitle = cutOffText(title, 60)
     return (
       <div className='video-thumbnail'>
         <div className='video-thumbnail-image'>
