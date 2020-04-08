@@ -21,8 +21,9 @@ class ViewVideo extends Component {
   }
 
   componentWillMount = async () => {
+    const { REACT_APP_API_BASE_URL } = process.env
     const { rand } = this.props.match.params
-    const videoResponse = await fetch(`http://localhost:3333/videos/${rand}`)
+    const videoResponse = await fetch(`${REACT_APP_API_BASE_URL}/videos/TZAWGQLDZMAR2`)
     const videoData = await videoResponse.json()
     this.setState({
       ...videoData[0]
@@ -34,8 +35,9 @@ class ViewVideo extends Component {
   }
 
   render() {
+    const { REACT_APP_API_BASE_URL } = process.env
     const { source, title, description } = this.state
-    const videoPath = `http://localhost:3333/videos/processed/${source}`
+    const videoPath = `${REACT_APP_API_BASE_URL}/videos/processed/${source}`
     if (!source) return (<div></div>)
     return (
       <Row id='view-video'>

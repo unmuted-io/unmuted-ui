@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
+import { NavLink } from 'react-router-dom'
 import { Video } from '../../types/'
 import {
   cutOffText,
   secondsToHms
 } from '../../utility/utility'
-import PlaceholderImage from "../../assets/images/placeholder.png";
+import PlaceholderImage from "../../assets/images/placeholder.png"
 
 export interface VideoThumbnailProps {
   title: string,
@@ -34,15 +35,20 @@ class VideoThumbnail extends React.Component<VideoThumbnailProps, VideoThumbnail
     const nowTime = (new Date()).getTime()
     const msTimeDifference = nowTime - createdAtTime
     const timeAgo = secondsToHms(msTimeDifference / 1000)
+    const rand = 'TZAWGQLDZMAR2' // remove later
     return (
       <div className='video-thumbnail'>
         <div className='video-thumbnail-image'>
-          <img className='video-thumbnail-image-content' src={PlaceholderImage} />
+          <NavLink to={`/videos/${rand}`}>
+            <img className='video-thumbnail-image-content' src={PlaceholderImage} />
+          </NavLink>
         </div>
         <div className='video-thumbnail-info'>
           <div className='video-thumbnail-avatar'></div>
           <div className='video-thumbnail-info-text'>
-            <span className='video-thumbnail-info-text-title'>{shortenedTitle}</span><br />
+            <NavLink to={`/videos/${rand}`}>
+              <span className='video-thumbnail-info-text-title'>{shortenedTitle}</span>
+            </NavLink><br />
             <span className='video-thumbnail-info-text-user'>User1asdf</span><br />
             <span className='video-thumbnail-info-text-views'>99 Views</span> | <span className='video-thumbnail-info-text-time'>{`${timeAgo} ago`}</span>
           </div>
