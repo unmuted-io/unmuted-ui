@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { Video } from '../../types/'
-import { cutOffText } from '../../utility/utility'
+import {
+  cutOffText,
+  secondsToHms
+} from '../../utility/utility'
 import PlaceholderImage from "../../assets/images/placeholder.png";
 
 export interface VideoThumbnailProps {
@@ -27,6 +30,10 @@ class VideoThumbnail extends React.Component<VideoThumbnailProps, VideoThumbnail
       created_at
     } = this.props
     const shortenedTitle = cutOffText(title, 60)
+    const createdAtTime = (new Date(created_at)).getTime()
+    const nowTime = (new Date()).getTime()
+    const msTimeDifference = nowTime - createdAtTime
+    const timeAgo = secondsToHms(msTimeDifference / 1000)
     return (
       <div className='video-thumbnail'>
         <div className='video-thumbnail-image'>
@@ -35,7 +42,9 @@ class VideoThumbnail extends React.Component<VideoThumbnailProps, VideoThumbnail
         <div className='video-thumbnail-info'>
           <div className='video-thumbnail-avatar'></div>
           <div className='video-thumbnail-info-text'>
-            <span className='video-thumbnail-info-text-title'>{shortenedTitle}</span>
+            <span className='video-thumbnail-info-text-title'>{shortenedTitle}</span><br />
+            <span className='video-thumbnail-info-text-user'>User1asdf</span><br />
+            <span className='video-thumbnail-info-text-views'>99 Views</span> | <span className='video-thumbnail-info-text-time'>{`${timeAgo} ago`}</span>
           </div>
         </div>
       </div>

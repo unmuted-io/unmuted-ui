@@ -7,6 +7,7 @@ const ViewVideo = lazy(() => import("./views/viewVideo/viewVideo"))
 
 /* Auth */
 const Register = lazy(() => import("./redux/connectors/RegisterConnector"))
+const AuthUsername = lazy(() => import("./views/authentication/authUsername"))
 const LoginConnector = lazy(() => import("./redux/connectors/AuthSinginConnector"))
 
 const Analytic = lazy(() => import("./views/dashboard/analytic"))
@@ -124,6 +125,7 @@ const RouteList = [
   /* Homepage */
   { exact: true, path: "/", name: "Homepage", component: Homepage },
   { exact: true, path: "/welcome", name: "Logged In Homepage", component: LoggedInHomepage },
+  { exact: true, path: '/username', name: 'Choose Username', component: AuthUsername },
 
   /* Videos */
   { exact: true, protected: true, path: "/upload-video", name: "Upload Video", component: UploadVideoWizard },

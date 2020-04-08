@@ -1,9 +1,15 @@
 import { combineReducers } from 'redux'
 
 export const account = (state = null, action: any) => {
+  const { data } = action
   switch (action.type) {
     case 'ACCOUNT':
-      return action.data
+      return data
+    case 'UPDATE_USERNAME_SUCCESS':
+      return {
+        ...state,
+        username: data
+      }
     default:
       return state
   }

@@ -1,7 +1,6 @@
 
 import FormData from 'form-data'
 import { UserInfo, LoginResponseData } from '../../utility/types'
-import { useHistory } from "react-router-dom"
 
 export const attemptAutoLoginFromCookies = (history: any) => (dispatch: any, getState: any) => {
   const username = localStorage.getItem('username')
@@ -87,9 +86,14 @@ export const login = (userInfo: UserInfo, history: any, isAnimated?: boolean) =>
     // const futureTimestamp = (currentTimestampFixed + 86400).toString()
     dispatch({ type: 'ACCOUNT', data: { ...loginData.user, ...loginData.access_token } })
     // localStorage.setItem('expiration', futureTimestamp)
-    if (history.location.pathname === '/register') {
+    if (history.location.pathname === '/register') { // vs what?
       // history.goBack()
-      history.push('/upload-video')
+      history.push({
+        pathname: '/username',
+        state: {
+          ...userInfo
+        }
+      })
     } else {
     }
   } catch (e) {
