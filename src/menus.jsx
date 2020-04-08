@@ -53,7 +53,7 @@ export default {
           title: 'Upload Video',
           type: 'item',
           icon: 'feather icon-upload',
-          url: '/upload-video',
+          url: '/upload',
         },
         {
           id: 'layout',

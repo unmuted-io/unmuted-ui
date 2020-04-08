@@ -128,7 +128,7 @@ const RouteList = [
   { exact: true, path: '/username', name: 'Choose Username', component: AuthUsername },
 
   /* Videos */
-  { exact: true, protected: true, path: "/upload-video", name: "Upload Video", component: UploadVideoWizard },
+  { exact: true, protected: true, path: "/upload", name: "Upload Video", component: UploadVideoWizard },
   { exact: false, path: "/videos/:rand", name: "View Video", component: ViewVideo },
 
   /* Auth */
