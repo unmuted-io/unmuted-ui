@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from "react"
 import {
   Card,
   CardBody,
@@ -11,20 +11,22 @@ import {
   Input,
   FormGroup,
   Label,
-} from "reactstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
-import logoDark from "../../assets/images/logo-dark.png";
-import authBg from "../../assets/images/auth-bg.jpg";
-import { makeEdgeUiContext } from "edge-login-ui-web";
-import edgeLoginLogo from "../../assets/images/auth/edge-login-logo.svg";
+} from "reactstrap"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { Link } from "react-router-dom"
+import logoDark from "../../assets/images/logo-dark.png"
+import authBg from "../../assets/images/auth-bg.jpg"
+import { makeEdgeUiContext } from "edge-login-ui-web"
+import edgeLoginLogo from "../../assets/images/auth/edge-login-logo.svg"
+import axios from 'axios'
 
 let edgeUiContext;
 const assetsPath = "http://localhost:11234"
 
 class AuthSingin extends Component {
   componentDidMount = async () => {
-    const { updateEdgeAccount, history } = this.props;
+    const { updateEdgeAccount, history } = this.props
+    const { REACT_APP_API_BASE_URL } = process.env
     try {
       const context = await makeEdgeUiContext({
         apiKey: "aac3421135575c7433551969b28f72c5b74d7b78",
@@ -34,14 +36,27 @@ class AuthSingin extends Component {
       });
       edgeUiContext = context;
       edgeUiContext.on("login", async (edgeAccount) => {
-        console.log("kylan JUST SIGNED IN!");
-        updateEdgeAccount(edgeAccount);
-        history.push("/welcome");
-      });
+        console.log("JUST SIGNED IN!")
+        // dispatch the Edge account info to Redux
+        updateEdgeAccount(edgeAccount)
+        // check if a user with this Edge Account username exists in our database
+        const response = await axios.get(`${REACT_APP_API_BASE_URL}/auth/edge_username/${edgeAccount.username}`)
+        if (response.status === 204) { // no one with this Edge username exists in db
+          // send user to get a username (email too?)
+          history.push({
+            pathname: '/username',
+            state: {
+              edgeUsername: edgeAccount.username
+            }
+          })
+        } else if (response.statius === 200) { // user *does* exist
+          history.push("/")
+        }
+      })
     } catch (e) {
-      console.log("Edge error: ", e);
+      console.log("Edge error: ", e)
     }
-  };
+  }
 
   onClickEdgeLogin = () => {
     console.log("onClickEdgeLogin executing");

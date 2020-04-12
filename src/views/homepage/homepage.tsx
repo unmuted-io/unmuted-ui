@@ -5,16 +5,17 @@ import MainCard from "../../components/mainCard/mainCard"
 import LoggedInHomepage from './loggedInHomepage'
 
 interface HomepageProps {
-  account: object
+  account: object,
+  edgeAccount: object
 }
 
 class Homepage extends Component<HomepageProps> {
   render() {
-    const { account } = this.props
+    const { account, edgeAccount } = this.props
     return (
       <Row>
         <Col sm={12}>
-            {account ? (
+            {(account || edgeAccount) ? (
               <LoggedInHomepage />
             ) : (
               <div />
@@ -27,7 +28,8 @@ class Homepage extends Component<HomepageProps> {
 
 const mapStateToProps = (state) => {
   return {
-    account: state.auth.account
+    account: state.auth.account,
+    edgeAccount: state.auth.edgeAccount
   }
 }
 

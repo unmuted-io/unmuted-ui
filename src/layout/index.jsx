@@ -40,7 +40,7 @@ class Layout extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        account: state.auth.account
+
     }
 }
 

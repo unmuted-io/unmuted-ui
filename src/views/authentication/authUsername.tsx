@@ -23,8 +23,10 @@ import axios from 'axios'
 import { withRouter } from 'react-router-dom'
 
 interface AuthUsernameProps {
-  email: string,
-  password: string,
+  email?: string,
+  password?: string,
+  edgeUsername?: string,
+  location: any,
   history: any,
   updateUsername: (username: string, history: any) => void
 }
@@ -38,10 +40,15 @@ class AuthUsername extends Component<AuthUsernameProps, AuthUsernameState> {
   constructor (props: AuthUsernameProps) {
     super(props)
     this.state = {
-      username: '',
+      username: props.location.state.edgeUsername || '',
       validity: ''
     }
     this.fetchUsernameAvailability = debounce(this.fetchUsernameAvailability, 400, false)
+  }
+
+  componentDidMount = async () => {
+    const { username } = this.state
+    if (username) this.fetchUsernameAvailability(username)
   }
 
   onChangeUsername = (e) => {
@@ -59,7 +66,7 @@ class AuthUsername extends Component<AuthUsernameProps, AuthUsernameState> {
     this.setState({
       validity: ''
     })
-    const result = await axios.get(`${REACT_APP_API_BASE_URL}/auth/username/${username}`)
+    const result = await axios.get(`${REACT_APP_API_BASE_URL}/auth/check-username/${username}`)
     this.setState({
       validity: result.data.isAvailable ? 'valid' : 'invalid'
     })
@@ -73,7 +80,7 @@ class AuthUsername extends Component<AuthUsernameProps, AuthUsernameState> {
   }
 
   render() {
-    const { validity } = this.state
+    const { validity, username } = this.state
     let validProp = {}
     let feedback = ''
     if (validity == 'valid') {
@@ -103,7 +110,7 @@ class AuthUsername extends Component<AuthUsernameProps, AuthUsernameState> {
                             <i className="feather icon-user" />
                           </span>
                         </InputGroupAddon>
-                        <Input type="text" placeholder="Username" onChange={this.onChangeUsername} {...validProp} />
+                        <Input type="text" placeholder="Username" value={username} onChange={this.onChangeUsername} {...validProp} />
                         <FormFeedback {...validProp}>{feedback}&nbsp;</FormFeedback>
                       </InputGroup>
                     </FormGroup>

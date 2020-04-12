@@ -15,7 +15,7 @@ const Routes = props => (
             path={obj.path}
             render={matchProps => (
               obj.protected ? (
-                props.account ? (
+                (props.account || props.edgeAccount) ? (
                   <obj.component {...matchProps} />
                 ) : (
                   <Redirect from="/" to="/login" />
@@ -34,7 +34,8 @@ const Routes = props => (
 
 const mapStateToProps = (state) => {
   return {
-    account: state.auth.account
+    account: state.auth.account,
+    edgeAccount: state.auth.edgeAccount
   }
 }
 
