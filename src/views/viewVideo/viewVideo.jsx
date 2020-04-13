@@ -7,8 +7,9 @@ import MainCard from "../../components/mainCard/mainCard"
 import WebSocketChat from '../../components/WebSocketChat/WebSocketChat'
 import { useParams } from 'react-router-dom'
 import EOSIOClient from '../../eosioClient'
+// import videojs from 'video.js'
 
-const eosClient = new EOSIOClient('haytemrtg4ge') // hardcode app name
+// const eosClient = new EOSIOClient('haytemrtg4ge') // hardcode app name
 
 class ViewVideo extends Component {
   constructor(props) {
@@ -30,9 +31,9 @@ class ViewVideo extends Component {
     })
   }
 
-  sendSuperChat = (data) => {
-    eosClient.transaction(data)
-  }
+  // sendSuperChat = (data) => {
+  //   eosClient.transaction(data)
+  // }
 
   render() {
     const { REACT_APP_API_BASE_URL } = process.env
@@ -44,18 +45,19 @@ class ViewVideo extends Component {
         <Col sm={12} lg={8} id='video-wrapper'>
           <Card>
             <CardBody>
-              <video
+              <video  data-vjs-player
                 id="primary-video"
-                className="video-js"
+                className="video-js vjs-default-skin"
                 controls
+                width='100%'
                 preload="auto"
-                width="100%"
                 poster="MY_VIDEO_POSTER.jpg"
-                data-setup="{}"
+                data-setup="{ 'fluid': true }"
                 autoPlay={true}
                 muted={true}
+                style={{ display: 'flex' }}
               >
-                <source src={`${videoPath}`} type="video/mp4" />
+                <source src='https://coolestguidesontheplanet.com/videodrome/cgp_video/mymoviei.mp4' type="video/mp4" />
                 <source src="MY_VIDEO.webm" type="video/webm" />
                 <p className="vjs-no-js">
                   To view this video please enable JavaScript, and consider upgrading to a

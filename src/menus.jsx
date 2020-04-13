@@ -54,6 +54,7 @@ export default {
           type: 'item',
           icon: 'feather icon-upload',
           url: '/upload',
+          protected: true
         },
         {
           id: 'layout',

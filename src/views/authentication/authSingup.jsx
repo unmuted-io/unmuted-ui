@@ -30,7 +30,7 @@ class AuthSingup extends Component {
 
   render() {
     return (
-      <div className="auth-wrapper" style={{ background: "#eff3f6" }}>
+      <div className="auth-wrapper" style={{ backgroundColor: "#eff3f6" }}>
         <div className="auth-content container">
           <Card>
             <Form onSubmit={e => e.preventDefault()}>

@@ -18,7 +18,7 @@ export const attemptAutoLoginFromCookies = (history: any) => (dispatch: any, get
   dispatch(login(userInfo, history))
 }
 
-export const createUser = (newUserInfo: UserInfo , history: Object ) => async (dispatch: any, getState: any) => {
+export const createUser = (newUserInfo: UserInfo , history: object ) => async (dispatch: any, getState: any) => {
   dispatch({ type: 'IS_CREATING_ACCOUNT', data: true })
   try {
     const { username, password, email } = newUserInfo
@@ -94,7 +94,6 @@ export const login = (userInfo: UserInfo, history: any, isAnimated?: boolean) =>
           ...userInfo
         }
       })
-    } else {
     }
   } catch (e) {
     console.log('Error: ', e)
@@ -102,7 +101,7 @@ export const login = (userInfo: UserInfo, history: any, isAnimated?: boolean) =>
   }
 }
 
-export const logout = () => (dispatch: any, getState: any) => {
+export const logout = () => (dispatch: any): void => {
   dispatch({
     type: 'ACCOUNT',
     data: null
@@ -112,7 +111,7 @@ export const logout = () => (dispatch: any, getState: any) => {
 
 export const updateEdgeAccount = (account: any) => (dispatch: any, getState: any) => {
   dispatch({
-    type: 'EDGE_ACCOUNT',
+    type: 'UPDATE_EDGE_ACCOUNT',
     data: account
   })
 }

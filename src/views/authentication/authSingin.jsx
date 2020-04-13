@@ -18,40 +18,31 @@ import logoDark from "../../assets/images/logo-dark.png"
 import authBg from "../../assets/images/auth-bg.jpg"
 import { makeEdgeUiContext } from "edge-login-ui-web"
 import edgeLoginLogo from "../../assets/images/auth/edge-login-logo.svg"
-import axios from 'axios'
 
 let edgeUiContext;
 const assetsPath = "http://localhost:11234"
 
 class AuthSingin extends Component {
+  state = {
+    disabled: true
+  }
+
   componentDidMount = async () => {
-    const { updateEdgeAccount, history } = this.props
-    const { REACT_APP_API_BASE_URL } = process.env
+    const { authenticateEdgeLogin, history } = this.props
+    this.setState({
+      disabled: false
+    })
     try {
       const context = await makeEdgeUiContext({
         apiKey: "aac3421135575c7433551969b28f72c5b74d7b78",
         appId: "com.dstream.web",
         appName: "CaptainsRelay",
-        assetsPath: assetsPath,
+        assetsPath,
       });
       edgeUiContext = context;
-      edgeUiContext.on("login", async (edgeAccount) => {
-        console.log("JUST SIGNED IN!")
-        // dispatch the Edge account info to Redux
-        updateEdgeAccount(edgeAccount)
-        // check if a user with this Edge Account username exists in our database
-        const response = await axios.get(`${REACT_APP_API_BASE_URL}/auth/edge_username/${edgeAccount.username}`)
-        if (response.status === 204) { // no one with this Edge username exists in db
-          // send user to get a username (email too?)
-          history.push({
-            pathname: '/username',
-            state: {
-              edgeUsername: edgeAccount.username
-            }
-          })
-        } else if (response.statius === 200) { // user *does* exist
-          history.push("/")
-        }
+      edgeUiContext.on("login", (edgeAccount) => {
+        console.log("Edge login successful")
+        authenticateEdgeLogin(edgeAccount, history)
       })
     } catch (e) {
       console.log("Edge error: ", e)
@@ -61,17 +52,6 @@ class AuthSingin extends Component {
   onClickEdgeLogin = () => {
     console.log("onClickEdgeLogin executing");
     edgeUiContext.showLoginWindow();
-
-    // if (edgeContext) {
-    //   _abcUi.openLoginWindow({
-    //     onLogin (account) {
-    //       console.log('account is: ', account)
-    //     },
-    //     onClose () {
-    //       console.log('Closing window')
-    //     }
-    //   })
-    // }
   };
 
   onClickLogin = (e) => {
@@ -80,6 +60,7 @@ class AuthSingin extends Component {
   }
 
   render() {
+    const { disabled } = this.state
     console.log("renderin AuthSingin");
     return (
       <div className="auth-wrapper" style={{ background: "#eff3f6" }}>
@@ -110,19 +91,19 @@ class AuthSingin extends Component {
                     <div className="saprator">
                       <span>OR</span>
                     </div>
-                    <Button color="facebook" className="mb-2 mr-2">
+                    <Button disabled={disabled} color="facebook" className="mb-2 mr-2">
                       <i>
                         <FontAwesomeIcon icon={["fab", "facebook-f"]} />
                       </i>
                       facebook
                     </Button>
-                    <Button color="googleplus" className="mb-2 mr-2">
+                    <Button disabled={disabled} color="googleplus" className="mb-2 mr-2">
                       <i>
                         <FontAwesomeIcon icon={["fab", "google-plus-g"]} />
                       </i>
                       Google
                     </Button>
-                    <Button color="twitter" className="mb-2 mr-2">
+                    <Button disabled={disabled} color="twitter" className="mb-2 mr-2">
                       <i>
                         <FontAwesomeIcon icon={["fab", "twitter"]} />
                       </i>
@@ -133,6 +114,7 @@ class AuthSingin extends Component {
                       color="edge"
                       className="mb-2 mr-2"
                       onClick={this.onClickEdgeLogin}
+                      disabled={disabled}
                     >
                       <img src={edgeLoginLogo} />
                     </Button>
@@ -144,7 +126,7 @@ class AuthSingin extends Component {
                         </Label>
                       </div>
                     </FormGroup>
-                    <Button color="primary" className="mb-4">
+                    <Button disabled={disabled} color="primary" className="mb-4">
                       Login
                     </Button>
                     <p className="mb-2 text-muted">

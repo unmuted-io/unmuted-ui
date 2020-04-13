@@ -17,7 +17,7 @@ export const account = (state = null, action: any) => {
 
 export const edgeAccount = (state = null, action: any) => {
   switch (action.type) {
-    case 'EDGE_ACCOUNT':
+    case 'UPDATE_EDGE_ACCOUNT':
       return action.data
     default:
       return state

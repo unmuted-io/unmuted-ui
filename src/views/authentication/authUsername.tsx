@@ -23,24 +23,24 @@ import axios from 'axios'
 import { withRouter } from 'react-router-dom'
 
 interface AuthUsernameProps {
-  email?: string,
-  password?: string,
-  edgeUsername?: string,
-  location: any,
-  history: any,
-  updateUsername: (username: string, history: any) => void
+  email?: string;
+  password?: string;
+  edgeUsername?: string;
+  location: any;
+  history: any;
+  updateUsername: (username: string, history: any) => void;
 }
 
 interface AuthUsernameState {
-  username: string,
-  validity: 'valid' | 'invalid' | ''
+  username: string;
+  validity: 'valid' | 'invalid' | '';
 }
 
 class AuthUsername extends Component<AuthUsernameProps, AuthUsernameState> {
   constructor (props: AuthUsernameProps) {
     super(props)
     this.state = {
-      username: props.location.state.edgeUsername || '',
+      username: props.location && props.location.state && props.location.state.edgeUsername || '',
       validity: ''
     }
     this.fetchUsernameAvailability = debounce(this.fetchUsernameAvailability, 400, false)
@@ -83,7 +83,7 @@ class AuthUsername extends Component<AuthUsernameProps, AuthUsernameState> {
     const { validity, username } = this.state
     let validProp = {}
     let feedback = ''
-    if (validity == 'valid') {
+    if (validity === 'valid') {
       validProp = { valid: true }
       feedback = 'Username is available'
     } else if (validity === 'invalid') {

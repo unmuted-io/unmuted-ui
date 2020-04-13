@@ -125,7 +125,7 @@ const RouteList = [
   /* Homepage */
   { exact: true, path: "/", name: "Homepage", component: Homepage },
   { exact: true, path: "/welcome", name: "Logged In Homepage", component: LoggedInHomepage },
-  { exact: true, path: '/username', name: 'Choose Username', component: AuthUsername },
+  { exact: true, protected: true, path: '/username', name: 'Choose Username', component: AuthUsername },
 
   /* Videos */
   { exact: true, protected: true, path: "/upload", name: "Upload Video", component: UploadVideoWizard },

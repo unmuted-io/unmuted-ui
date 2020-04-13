@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 import AuthSingin from '../../views/authentication/authSingin'
-import { updateEdgeAccount } from '../actions/authActions'
 
 const mapStateToProps = (state: any) => {
   return {
@@ -10,8 +10,10 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    updateEdgeAccount:  (account: any) => dispatch(updateEdgeAccount(account))
+    authenticateEdgeLogin:  (account: any, history: any) => {
+      dispatch({ type: 'AUTHENTICATE_EDGE_LOGIN', data: { account, history } })
+    }
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AuthSingin)
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AuthSingin))

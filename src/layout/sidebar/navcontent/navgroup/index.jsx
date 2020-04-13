@@ -1,11 +1,13 @@
 import React, { Component, Fragment } from 'react';
 import NavCollapse from '../navcollapes';
 import NavItem from '../navitem';
-
+import { connect } from 'react-redux'
 
 class NavGroup extends Component {
   render() {
-    const props = this.props
+    const { props } = this
+    const { auth } = props
+
     const {
       parentLi,
       parentLiA,
@@ -22,6 +24,8 @@ class NavGroup extends Component {
       const groups = props.group.children;
       navItems = Object.keys(groups).map(item => {
         item = groups[item];
+        // remove protected routes if not logged in
+        if (item.protected && !auth.edgeAccount && !auth.account) return null
         switch (item.type) {
           case 'collapse':
             return <NavCollapse
@@ -52,11 +56,20 @@ class NavGroup extends Component {
     }
     return (
       <Fragment>
-        <li key={props.group.id} className={parentLiCa ? parentLiCa : null}><label>{props.group.title}</label></li>
+        <li key={props.group.id} className={parentLiCa ? parentLiCa : null}>
+          <label>{props.group.title}</label>
+        </li>
         {navItems}
-      </Fragment >
+      </Fragment>
     );
   }
 }
 
-export default NavGroup;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    auth: state.auth
+  }
+}
+
+
+export default connect(mapStateToProps)(NavGroup);
