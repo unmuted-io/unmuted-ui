@@ -1,45 +1,97 @@
 module.exports = {
     "env": {
         "browser": true,
-        "es6": true
+        "node": true
     },
     "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended",
-        "plugin:@typescript-eslint/eslint-recommended",
-        "standard-kit/prettier",
-        "standard-kit/prettier/node",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking"
     ],
-    "globals": {
-        "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly"
-    },
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": 2018,
+        "project": "tsconfig.json",
         "sourceType": "module"
     },
     "plugins": [
-        "react",
         "@typescript-eslint",
-        "only-warn"
+        "@typescript-eslint/tslint"
     ],
     "rules": {
-      "camelcase": "warn",
-      "no-throw-literal": "error",
-      "no-var": "error",
-      "prefer-const": "error",
-      "react/jsx-indent-props": ["error", 2],
-      "react/jsx-no-duplicate-props": ["error", { "ignoreCase": true }],
-      "react/no-array-index-key": "error",
-      "react/no-string-refs": 0,
-      "react/no-typos": "error",
-      "react/prop-types": 0,
-      "react/self-closing-comp": ["error", { "component": true }],
-      "simple-import-sort/sort": "error"
-      "max-len": ["error", 120]
+        "@typescript-eslint/array-type": "error",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-parameter-properties": "off",
+        "@typescript-eslint/no-use-before-define": "off",
+        "@typescript-eslint/prefer-for-of": "error",
+        "@typescript-eslint/prefer-function-type": "error",
+        "@typescript-eslint/unified-signatures": "error",
+        "camelcase": "off",
+        "@typescript-eslint/camelcase": "off",
+        "complexity": "off",
+        "constructor-super": "error",
+        "dot-notation": "error",
+        "eqeqeq": [
+            "error",
+            "smart"
+        ],
+        "guard-for-in": "error",
+        "id-blacklist": [
+            "error",
+            "any",
+            "Number",
+            "number",
+            "String",
+            "string",
+            "Boolean",
+            "boolean",
+            "Undefined",
+            "undefined"
+        ],
+        "id-match": "error",
+        "max-classes-per-file": [
+            "error",
+            1
+        ],
+        "new-parens": "error",
+        "no-bitwise": "error",
+        "no-caller": "error",
+        "no-cond-assign": "error",
+        "no-debugger": "error",
+        "no-empty": "error",
+        "no-eval": "error",
+        "no-fallthrough": "off",
+        "no-invalid-this": "off",
+        "no-new-wrappers": "error",
+        "no-shadow": [
+            "error",
+            {
+                "hoist": "all"
+            }
+        ],
+        "no-throw-literal": "error",
+        "no-trailing-spaces": "error",
+        "no-undef-init": "error",
+        "no-underscore-dangle": "error",
+        "no-unsafe-finally": "error",
+        "no-unused-expressions": "error",
+        "no-unused-labels": "error",
+        "object-shorthand": "warn",
+        "one-var": [
+            "error",
+            "never"
+        ],
+        "prefer-arrow/prefer-arrow-functions": "error",
+        "radix": "error",
+        "spaced-comment": "error",
+        "use-isnan": "error",
+        "valid-typeof": "off",
+        "@typescript-eslint/tslint/config": [
+            "error",
+            {
+                "rules": {
+                    "jsdoc-format": true,
+                    "no-reference-import": true
+                }
+            }
+        ]
     }
-};
+}

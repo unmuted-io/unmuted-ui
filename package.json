@@ -94,7 +94,7 @@
     "scatterjs-plugin-eosjs2": "^1.5.0",
     "sweetalert": "^2.1.2",
     "typescript": "^3.7.4",
-    "video.js": "^7.6.6",
+    "video.js": "^6.7.0",
     "websocket": "^1.0.31"
   },
   "scripts": {
@@ -118,8 +118,10 @@
     }
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^2.26.0",
-    "@typescript-eslint/parser": "^2.26.0",
+    "@typescript-eslint/eslint-plugin": "^2.27.0",
+    "@typescript-eslint/eslint-plugin-tslint": "^2.27.0",
+    "@typescript-eslint/parser": "^2.27.0",
+    "eslint": "^6.8.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-node": "^11.1.0",
@@ -128,6 +130,7 @@
     "eslint-plugin-standard": "^4.0.1",
     "husky": "^4.2.3",
     "node-sass": "^4.12.0",
-    "prettier": "2.0.2"
+    "prettier": "2.0.2",
+    "tslint": "^6.1.1"
   }
 }
