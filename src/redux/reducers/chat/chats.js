@@ -8,7 +8,7 @@ const chats = (state = chatData, action) => {
           ? Object.assign(
               {},
               chat,
-              chat.chatHistory[0][1]["to"].push(action.chatMsg)
+              chat.chatHistory[0][1].to.push(action.chatMsg)
             )
           : chat
       );

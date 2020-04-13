@@ -7,7 +7,7 @@ const emails = (state = emailData, action) => {
         email.id === action.id ? { ...email, starred: !email.starred } : email
       );
     case "TRASH_EMAIL":
-      let emails = [];
+      const emails = [];
       for (let i = 0; i < state.length; i++) {
         emails.push(state[i]);
         for (let j = 0; j < action.id.length; j++) {
