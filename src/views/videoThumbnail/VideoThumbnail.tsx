@@ -15,7 +15,9 @@ export interface VideoThumbnailProps {
   processed?: 0 | 1,
   id?: number,
   created_at: string,
-  updated_at: string
+  updated_at: string,
+  username: string,
+  count: number
 }
 
 export interface VideoThumbnailState {
@@ -28,7 +30,9 @@ class VideoThumbnail extends React.Component<VideoThumbnailProps, VideoThumbnail
       title,
       description,
       source,
-      created_at
+      created_at,
+      username,
+      count
     } = this.props
     const shortenedTitle = cutOffText(title, 60)
     const createdAtTime = (new Date(created_at)).getTime()
@@ -49,8 +53,8 @@ class VideoThumbnail extends React.Component<VideoThumbnailProps, VideoThumbnail
             <NavLink to={`/videos/${rand}`}>
               <span className='video-thumbnail-info-text-title'>{shortenedTitle}</span>
             </NavLink><br />
-            <span className='video-thumbnail-info-text-user'>User1asdf</span><br />
-            <span className='video-thumbnail-info-text-views'>99 Views</span> | <span className='video-thumbnail-info-text-time'>{`${timeAgo} ago`}</span>
+            <span className='video-thumbnail-info-text-user'>{username}</span><br />
+            <span className='video-thumbnail-info-text-views'>{count} Views</span> | <span className='video-thumbnail-info-text-time'>{`${timeAgo} ago`}</span>
           </div>
         </div>
       </div>
