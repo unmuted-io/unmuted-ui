@@ -1,4 +1,4 @@
-export interface AxioResponse {
+export interface AxiosResponse {
   data: any,
   status: number,
   statusText: string,

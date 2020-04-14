@@ -8,3 +8,13 @@ export interface Video {
     created_at: string,
     updated_at: string
 }
+
+
+export interface ViewCountUpdate {
+    sourceRand: string,
+    lastPosition: number
+}
+
+export interface ViewCountUpdateWithUser extends ViewCountUpdate {
+    user: string
+}

@@ -5,15 +5,16 @@ import {
   select
 } from 'redux-saga/effects'
 import axios from 'axios'
-import { AxioResponse } from '../../types'
+import { AxiosResponse } from '../../types'
+
+const { REACT_APP_API_BASE_URL } = process.env
 
 function* updateUsername(input: { type: string, data: { username: string, history: any } }) {
-  const { REACT_APP_API_BASE_URL } = process.env
   const state = yield select()
   // email will be present on regular account, edge_account on Edge Account
   const email = state.auth.account && state.auth.account.email
   const { edgeAccount } = state.auth
-  const response: AxioResponse = yield call(() => axios.put(`${REACT_APP_API_BASE_URL}/auth/username`, {
+  const response: AxiosResponse = yield call(() => axios.put(`${REACT_APP_API_BASE_URL}/auth/username`, {
     email,
     edge_username: edgeAccount.username,
     username: input.data.username
@@ -27,17 +28,16 @@ function* updateUsername(input: { type: string, data: { username: string, histor
 
 // login and possible register upon EdgeLogin
 function* authenticateEdgeLogin(data: any): any {
-  const { REACT_APP_API_BASE_URL } = process.env
   const { account, history } = data.data
   const state = yield select()
   yield put({ type: 'UPDATE_EDGE_ACCOUNT', data: account })
   // check if user exists
-  const checkUserResponse: AxioResponse = yield call(() => axios.get(`${REACT_APP_API_BASE_URL}/user/edge_username/${account.username}`))
+  const checkUserResponse: AxiosResponse = yield call(() => axios.get(`${REACT_APP_API_BASE_URL}/user/edge_username/${account.username}`))
   if (checkUserResponse.status === 204) { // no one with this Edge username exists in db
     // create new user
     const formData: FormData = new FormData()
     formData.append('edge_username', account.username)
-    const registerResponse: AxioResponse = yield call(() => axios.post(`${REACT_APP_API_BASE_URL}/auth/register`, {
+    const registerResponse: AxiosResponse = yield call(() => axios.post(`${REACT_APP_API_BASE_URL}/auth/register`, {
       edge_username: account.username
     }))
     // send user to get a username

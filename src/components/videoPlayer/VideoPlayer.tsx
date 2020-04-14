@@ -1,26 +1,44 @@
 import React from 'react'
 import videojs from 'video.js'
 import 'video.js/dist/video-js.css'
+import { connect } from 'react-redux'
+import { MapSeriesDataItem } from '@amcharts/amcharts4/maps'
+import { ViewCountUpdate } from '../../types'
 
-export default class VideoPlayer extends React.Component {
-  player: any
+interface VideoPlayerComponentProps {
+  updateViewCount: (data: ViewCountUpdate) => void,
+  sourceRand: string
+}
+
+interface VideoPlayerComponentState {
+
+}
+
+class VideoPlayer extends React.Component<VideoPlayerComponentProps, VideoPlayerComponentState> {
+  user?: any
   videoNode: any
   timeupdateCount: number
+  player: any
 
-  constructor (props) {
+  constructor (props: VideoPlayerComponentProps) {
     super(props)
     this.timeupdateCount = 0
   }
 
   componentDidMount(): void {
+    const { updateViewCount, sourceRand } = this.props
     // instantiate Video.js
     this.player = videojs(this.videoNode, this.props, function onPlayerReady() {
       console.log('onPlayerReady', this)
     })
     this.player.on('timeupdate', () => {
       if (this.timeupdateCount >= 40) {
+        const lastPosition = this.player.currentTime()
         // trigger movie watched
-
+        updateViewCount({
+          sourceRand,
+          lastPosition
+        })
         // then turn off this event
         this.player.off('timeupdate')
       }
@@ -48,3 +66,17 @@ export default class VideoPlayer extends React.Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateViewCount: (data: ViewCountUpdate) => dispatch({ type: 'UPDATE_VIEW_COUNT', data })
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(VideoPlayer)
