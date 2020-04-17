@@ -11,8 +11,15 @@
           margin-bottom: 20px;
         }
 
-        #primary-video-info {
+        .primary-video-info {
           padding: 20px;
+          flex: 1;
+
+          &-description {
+            &-stats {
+
+            }
+          }
         }
       }
     }
