@@ -61,7 +61,7 @@ class AuthSingin extends Component {
 
   render() {
     const { disabled } = this.state
-    console.log("renderin AuthSingin");
+
     return (
       <div className="auth-wrapper" style={{ background: "#eff3f6" }}>
         <div className="auth-content container">

@@ -10,15 +10,16 @@ import 'react-perfect-scrollbar/dist/css/styles.css';
 import "./index.scss"
 import "./assets/fonts/feather/css/feather.css";
 import "flag-icon-css/sass/flag-icon.scss"
-
+import { createBrowserHistory } from 'history'
 
 const App = lazy(() => import("./App/App"))
 console.echo = (variable) => console.log(`${variable}: `, variable)
 const root = document.getElementById("root");
+const history = createBrowserHistory()
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter basename={Config.basename}>
+    <BrowserRouter basename={Config.basename} history={history}>
       <Suspense fallback={<Spinner />}>
         <App />
       </Suspense>
