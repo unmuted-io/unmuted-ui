@@ -41,20 +41,20 @@ class VideoThumbnail extends React.Component<VideoThumbnailProps, VideoThumbnail
     const timeAgo = secondsToHms(msTimeDifference / 1000)
     const rand = 'TZAWGQLDZMAR2' // remove later
     return (
-      <div className='recently-viewed-thumbnail'>
-        <div className='recently-viewed-thumbnail-image'>
+      <div className='video-thumbnail'>
+        <div className='video-thumbnail-image'>
           <NavLink to={`/videos/${rand}`}>
-            <img className='recently-viewed-thumbnail-image-content' src={PlaceholderImage} />
+            <img className='video-thumbnail-image-content' src={PlaceholderImage} />
           </NavLink>
         </div>
-        <div className='recently-viewed-thumbnail-info'>
-          <div className='recently-viewed-thumbnail-avatar'></div>
-          <div className='recently-viewed-thumbnail-info-text'>
+        <div className='video-thumbnail-info'>
+          <div className='video-thumbnail-avatar'></div>
+          <div className='video-thumbnail-info-text'>
             <NavLink to={`/videos/${rand}`}>
-              <span className='recently-viewed-thumbnail-info-text-title'>{shortenedTitle}</span>
+              <span className='video-thumbnail-info-text-title'>{shortenedTitle}</span>
             </NavLink><br />
-            <span className='recently-viewed-thumbnail-info-text-user'>{username}</span><br />
-            <span className='recently-viewed-thumbnail-info-text-views'>{count} Views</span> | <span className='video-thumbnail-info-text-time'>{`${timeAgo} ago`}</span>
+            <span className='video-thumbnail-info-text-user'>{username}</span><br />
+            <span className='video-thumbnail-info-text-views'>{count} Views</span> | <span className='video-thumbnail-info-text-time'>{`${timeAgo} ago`}</span>
           </div>
         </div>
       </div>

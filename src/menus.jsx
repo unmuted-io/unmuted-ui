@@ -7,6 +7,20 @@ export default {
       icon: 'icon-navigation',
       children: [
         {
+          id: 'home',
+          title: 'Home',
+          type: 'item',
+          icon: 'feather icon-home',
+          url: '/'
+        },
+        {
+          id: 'recently-viewed',
+          title: 'Recently Viewed',
+          type: 'item',
+          icon: 'feather icon-eye',
+          url: '/recently-viewed'
+        },
+        {
           id: 'dashboard',
           title: 'Dashboard',
           type: 'collapse',

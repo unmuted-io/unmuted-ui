@@ -16,7 +16,7 @@ function* updateUsername(input: { type: string, data: { username: string, histor
   const { edgeAccount } = state.auth
   const response: AxiosResponse = yield call(() => axios.put(`${REACT_APP_API_BASE_URL}/auth/username`, {
     email,
-    edge_username: edgeAccount.username,
+    edge_username: (edgeAccount && edgeAccount.username) || null,
     username: input.data.username
   }))
   yield put({

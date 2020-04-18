@@ -10,6 +10,8 @@ const Register = lazy(() => import("./redux/connectors/RegisterConnector"))
 const AuthUsername = lazy(() => import("./views/authentication/authUsername"))
 const LoginConnector = lazy(() => import("./redux/connectors/AuthSinginConnector"))
 
+/* User */
+const RecentlyViewed = lazy(() => import("./views/recentlyViewed/recentlyViewed"))
 const Analytic = lazy(() => import("./views/dashboard/analytic"))
 const Sales = lazy(() => import("./views/dashboard/sales"))
 const Crypto = lazy(() => import("./views/dashboard/crypto"))
@@ -134,6 +136,9 @@ const RouteList = [
   /* Auth */
   { exact: true, protected: false, path: "/login", name: "Login", component: LoginConnector },
   { exact: true, protected: false, path: "/register", name: "Register", component: Register },
+
+  /* User-Specific */
+  { exact: true, protected: true, path: "/recently-viewed", name: "Recently Viewed", component: RecentlyViewed},
 
   /* Dashboard */
   { exact: true, path: "/dashboard/default", name: "Analytic", component: Analytic },
