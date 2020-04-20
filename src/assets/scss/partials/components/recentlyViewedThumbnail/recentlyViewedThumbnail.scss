@@ -1,13 +1,19 @@
-// below-480px first
+$title-line-height-small: 1.5em;
+$title-line-height-large: 2em;
 
+$description-line-height: 1.5em;
+
+// below-480px first
 .recently-viewed-thumbnail {
   width: 100%;
-  display: block;
+  display: flex;
+  flex: 1;
+  flex-direction: row;
   float: left;
   padding: 12px;
 
   &-image {
-    width: 100%;
+    flex: 1;
     height: auto;
 
     &-content {
@@ -16,19 +22,37 @@
   }
 
   &-info {
-    width: 100%;
+    flex: 1;
     height: 100px;
     padding-top: 6px;
+    margin-left: 10px;
+    flex-direction: column;
+    justify-content: space-between;
 
     &-text {
+      &-title-area {
+        height: 2 * $title-line-height-small;
+        overflow: hidden;
+        margin-bottom: .3em;
 
-      &-title {
-        font-weight: bold;
-        font-size: 1.1em;
+        &-content {
+          font-weight: bold;
+          font-size: 1.1em;
+        }
       }
 
       &-user {
+        margin-top: 10px;
+      }
 
+      &-description {
+        display: none;
+        line-height: $description-line-height;
+        margin-top: 8px;
+
+        &-break {
+          display: none;
+        }
       }
 
       &-views {
@@ -47,42 +71,85 @@
 }
 
 @media only screen and (min-width: 640px) and (max-width:992px) {
-  .video-thumbnail {
-    width: 49%;
-    margin-right: 2%;
+  .recently-viewed-thumbnail {
 
-    &:nth-child(2n) {
-      margin-right: 0px;
+    &-image {
+      width: 240px;
+      flex: none;
+    }
+
+    &-info {
+
+      &-text {
+        &-description {
+          display: block;
+          overflow: hidden;
+          height: $description-line-height * 2;
+
+          &-break {
+            display: block;
+          }
+        }
+      }
     }
   }
 }
 
 @media only screen and (min-width: 993px) and (max-width:1200px) {
-  .video-thumbnail {
-    width: 32%;
-    margin-right: 1%;
+  .recently-viewed-thumbnail {
 
-    &:nth-child(3n) {
-      margin-right: 0px;
+    &-image {
+      width: 280px;
+      flex: none;
     }
 
     &-info {
-      height: 120px;
+
+      &-text {
+        &-description {
+          display: block;
+          overflow: hidden;
+          height: $description-line-height * 2;
+
+          &-break {
+            display: block;
+          }
+        }
+      }
     }
   }
 }
 
 @media only screen and (min-width: 1201px) {
-  .video-thumbnail {
-    width: 22%;
-    margin-right: 3%;
+  .recently-viewed-thumbnail {
 
-    &:nth-child(4n) {
-      margin-right: 0px;
+    &-image {
+      width: 320px;
+      flex: none;
     }
 
     &-info {
-      height: 140px;
+
+      &-text {
+
+        &-title-area {
+          height: $title-line-height-large * 1;
+
+          &-content {
+            font-size: 1.4em;
+          }
+        }
+
+        &-description {
+          display: block;
+          overflow: hidden;
+          height: $description-line-height * 4;
+
+          &-break {
+            display: block;
+          }
+        }
+      }
     }
   }
 }

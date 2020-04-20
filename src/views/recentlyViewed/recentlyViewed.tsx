@@ -6,7 +6,7 @@ import {
 import MainCard from "../../components/mainCard/mainCard"
 import { ClipLoader } from 'react-spinners'
 import { connect, Connect } from 'react-redux'
-import VideoThumbnail from '../videoThumbnail/VideoThumbnail'
+import RecentlyViewedThumbnail from '../recentlyViewed/recentlyViewedThumbnail'
 
 export interface RecentlyViewedProps {
   fetchRecommendedVideos: () => void,
@@ -33,10 +33,10 @@ class RecentlyViewed extends React.Component<RecentlyViewedProps, RecentlyViewed
     return (
       <Row>
         <Col sm={12}>
-          <MainCard title="Recommended" isOption className='recommended-videos-grid'>
+          <MainCard title="Recently Viewed" isOption className='recommended-videos-grid'>
             {Object.values(recommended).map(video => {
               return (
-                <VideoThumbnail
+                <RecentlyViewedThumbnail
                   key={video.rand}
                   {...video}
                 />

@@ -18,7 +18,8 @@ export default {
           title: 'Recently Viewed',
           type: 'item',
           icon: 'feather icon-eye',
-          url: '/recently-viewed'
+          url: '/recently-viewed',
+          protected: true
         },
         {
           id: 'dashboard',

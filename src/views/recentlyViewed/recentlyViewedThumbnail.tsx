@@ -34,27 +34,29 @@ class VideoThumbnail extends React.Component<VideoThumbnailProps, VideoThumbnail
       username,
       count
     } = this.props
-    const shortenedTitle = cutOffText(title, 60)
     const createdAtTime = (new Date(created_at)).getTime()
     const nowTime = (new Date()).getTime()
     const msTimeDifference = nowTime - createdAtTime
     const timeAgo = secondsToHms(msTimeDifference / 1000)
     const rand = 'TZAWGQLDZMAR2' // remove later
     return (
-      <div className='video-thumbnail'>
-        <div className='video-thumbnail-image'>
+      <div className='recently-viewed-thumbnail'>
+        <div className='recently-viewed-thumbnail-image'>
           <NavLink to={`/videos/${rand}`}>
-            <img className='video-thumbnail-image-content' src={PlaceholderImage} />
+            <img className='recently-viewed-thumbnail-image-content' src={PlaceholderImage} />
           </NavLink>
         </div>
-        <div className='video-thumbnail-info'>
-          <div className='video-thumbnail-avatar'></div>
-          <div className='video-thumbnail-info-text'>
-            <NavLink to={`/videos/${rand}`}>
-              <span className='video-thumbnail-info-text-title'>{shortenedTitle}</span>
-            </NavLink><br />
-            <span className='video-thumbnail-info-text-user'>{username}</span><br />
-            <span className='video-thumbnail-info-text-views'>{count} Views</span> | <span className='video-thumbnail-info-text-time'>{`${timeAgo} ago`}</span>
+        <div className='recently-viewed-thumbnail-info'>
+          <div className='recently-viewed-thumbnail-avatar'></div>
+          <div className='recently-viewed-thumbnail-info-text'>
+            <div className='recently-viewed-thumbnail-info-text-title-area'>
+              <NavLink to={`/videos/${rand}`}>
+                <span className='recently-viewed-thumbnail-info-text-title-area-content'>{title}</span>
+              </NavLink>
+            </div>
+            <span className='recently-viewed-thumbnail-info-text-user'>{username}</span><br />
+            <span className='recently-viewed-thumbnail-info-text-views'>{count} Views</span> | <span className='video-thumbnail-info-text-time'>{`${timeAgo} ago`}</span>
+            <span className='recently-viewed-thumbnail-info-text-description'>{description}</span>
           </div>
         </div>
       </div>
