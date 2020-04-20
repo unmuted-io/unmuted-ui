@@ -82,8 +82,24 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
             <CardBody>
               <VideoPlayer {...videoJsOptions} sourceRand={sourceRand} />
               <div className="primary-video-info">
-                <h3 className="primary-video-info-title">{title}</h3>
-                <h4 className="primary-video-info-username">{username}</h4>
+                <div className='primary-video-info-upper'>
+                  <div className='primary-video-info-upper-summary'>
+                    <h3 className="primary-video-info-upper-summary-title">{title}</h3>
+                    <h4 className="primary-video-info-upper-summary-username">{username}</h4>
+                  </div>
+                  <div className='primary-video-info-upper-interaction'>
+                    <div className='votes'>
+                      <div className='vote-icon-wrap'>
+                        <i className='feather icon-thumbs-up vote-icon' />
+                        <span className='vote-count'>9999</span>
+                      </div>
+                      <div className='vote-icon-wrap'>
+                        <i className='feather icon-thumbs-down vote-icon' />
+                        <span className='vote-count'>9999</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <p className="primary-video-info-description">
                   <span className="primary-video-info-description-stats">
                     {count} views | {createdAtSyntax}
