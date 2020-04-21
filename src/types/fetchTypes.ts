@@ -4,5 +4,5 @@ export interface AxiosResponse {
   statusText: string,
   headers: object,
   config: object
-  request: object
+  request?: object
 }
