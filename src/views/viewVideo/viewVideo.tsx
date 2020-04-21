@@ -28,7 +28,9 @@ interface ViewVideoComponentState {
   created_at: string
   username: string
   count: number
-  videoRating: number
+  videoRating: number,
+  upvote: number,
+  downvote: number
 }
 
 class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentState> {
@@ -42,6 +44,8 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
       username: '',
       videoRating: 0,
       count: 0,
+      upvote: 0,
+      downvote: 0
     }
   }
 
@@ -53,6 +57,12 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
     this.setState({
       ...videoData,
       sourceRand: rand,
+    })
+    const videoRatingsStatsResponse: AxiosResponse = await axios.get(`${REACT_APP_API_BASE_URL}/video-rating/ZUBZGTYF6LQPS`)
+    const stats = videoRatingsStatsResponse.data
+    this.setState({
+      upvote: stats['1'],
+      downvote: stats['-1']
     })
     if (account) {
       const videoRatingResponse: AxiosResponse = await axios.get(
@@ -71,24 +81,53 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
   }
 
   onThumbClick = async (input: number) => {
-    const { videoRating, sourceRand } = this.state
+    const { videoRating, sourceRand, upvote, downvote } = this.state
     const { account } = this.props
+    // initialize variables as current state
+    let newRating = videoRating
+    let newUpvote = upvote
+    let newDownvote = downvote
     // ignore if not logged in
     if (!account) return
+    // if pressed up
     if (input === 1) {
+      // if already upvoted
       if (videoRating === 1) {
+        // then undo upvote
+        newRating = 0
+        newUpvote--
+        // if was 0 before
       } else if (videoRating === 0) {
+        // then add upvote
+        newRating = 1
+        newUpvote++
       } else {
+        // if was -1 before
+        newRating = 1
+        newUpvote++
+        newDownvote--
       }
     } else {
+      // if input is -1 and beforehand was positive 1
       if (videoRating === 1) {
+        newRating = -1
+        newUpvote--
+        newDownvote++
+        // if input is -1 and previous was 0
       } else if (videoRating === 0) {
+        newRating = -1
+        newDownvote++
       } else {
+        // if input is -1 and was already -1
+        newRating = 0
+        newDownvote--
       }
     }
     this.setState(
       {
-        videoRating: input,
+        videoRating: newRating,
+        upvote: newUpvote,
+        downvote: newDownvote
       },
       async () => {
         const response: AxiosResponse = await axios.post(`${REACT_APP_API_BASE_URL}/video-rating`, {
@@ -102,7 +141,17 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
 
   render() {
     const { REACT_APP_API_BASE_URL } = process.env
-    const { sourceRand, title, description, created_at, username, count, videoRating } = this.state
+    const {
+      sourceRand,
+      title,
+      description,
+      created_at,
+      username,
+      count,
+      videoRating,
+      upvote,
+      downvote
+    } = this.state
     if (!sourceRand) return <div />
     const videoPath = `${REACT_APP_API_BASE_URL}/videos/processed/${sourceRand}`
     const videoJsOptions = {
@@ -142,7 +191,7 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
                           onClick={() => this.onThumbClick(1)}
                           style={{ color: videoRating === 1 ? '#00cc00' : 'inherit' }}
                         />
-                        <span className="vote-count">9999</span>
+                        <span className="vote-count">{upvote}</span>
                       </div>
                       <div className="vote-icon-wrap">
                         <i
@@ -150,7 +199,7 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
                           onClick={() => this.onThumbClick(-1)}
                           style={{ color: videoRating === -1 ? 'red' : 'inherit' }}
                         />
-                        <span className="vote-count">9999</span>
+                        <span className="vote-count">{downvote}</span>
                       </div>
                     </div>
                   </div>
