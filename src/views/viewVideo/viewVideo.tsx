@@ -5,7 +5,7 @@ import DropzoneComponent from 'react-dropzone-component'
 import InputMask from 'react-input-mask'
 import ReactNumeric, { predefinedOptions } from 'react-numeric'
 import MainCard from '../../components/mainCard/mainCard'
-import WebSocketChat from '../../components/WebSocketChat/WebSocketChat'
+// import WebSocketChat from '../../components/WebSocketChat/WebSocketChat'
 import { useParams } from 'react-router-dom'
 import EOSIOClient from '../../eosioClient'
 import VideoPlayer from '../../components/videoPlayer/VideoPlayer'
@@ -52,13 +52,13 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
   componentWillMount = async () => {
     const { rand } = this.props.match.params
     const { account } = this.props
-    const videoResponse: AxiosResponse = await axios.get(`${REACT_APP_API_BASE_URL}/videos/ZUBZGTYF6LQPS`)
+    const videoResponse: AxiosResponse = await axios.get(`${REACT_APP_API_BASE_URL}/videos/${rand}`)
     const videoData = videoResponse.data
     this.setState({
       ...videoData,
       sourceRand: rand,
     })
-    const videoRatingsStatsResponse: AxiosResponse = await axios.get(`${REACT_APP_API_BASE_URL}/video-rating/ZUBZGTYF6LQPS`)
+    const videoRatingsStatsResponse: AxiosResponse = await axios.get(`${REACT_APP_API_BASE_URL}/video-rating/${rand}`)
     const stats = videoRatingsStatsResponse.data
     this.setState({
       upvote: stats['1'],
@@ -66,7 +66,7 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
     })
     if (account) {
       const videoRatingResponse: AxiosResponse = await axios.get(
-        `${REACT_APP_API_BASE_URL}/video-rating/ZUBZGTYF6LQPS/user/${account.username}`
+        `${REACT_APP_API_BASE_URL}/video-rating/${rand}/user/${account.username}`
       )
       const videoRating = videoRatingResponse.data
       this.setState({
@@ -157,6 +157,7 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
     const videoJsOptions = {
       autoplay: false,
       controls: true,
+      muted: true,
       sources: [
         {
           src: 'https://coolestguidesontheplanet.com/videodrome/cgp_video/mymoviei.mp4',
@@ -219,7 +220,7 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
         <Col sm={12} lg={4}>
           <Card>
             <CardBody style={{ height: 480, display: 'flex', flexDirection: 'row' }}>
-              <WebSocketChat sendSuperChat={this.sendSuperChat} />
+              {/*<WebSocketChat sendSuperChat={this.sendSuperChat} />*/}
             </CardBody>
           </Card>
         </Col>

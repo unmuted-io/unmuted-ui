@@ -15,11 +15,7 @@ class Homepage extends Component<HomepageProps> {
     return (
       <Row>
         <Col sm={12}>
-          {(account || edgeAccount) ? (
             <LoggedInHomepage />
-          ) : (
-            <LoggedInHomepage />
-          )}
         </Col>
       </Row>
     );

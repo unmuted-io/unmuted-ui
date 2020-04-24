@@ -32,14 +32,14 @@ class VideoThumbnail extends React.Component<VideoThumbnailProps, VideoThumbnail
       source,
       created_at,
       username,
-      count
+      count,
+      rand
     } = this.props
     const shortenedTitle = cutOffText(title, 60)
     const createdAtTime = (new Date(created_at)).getTime()
     const nowTime = (new Date()).getTime()
     const msTimeDifference = nowTime - createdAtTime
     const timeAgo = secondsToHms(msTimeDifference / 1000)
-    const rand = 'TZAWGQLDZMAR2' // remove later
     return (
       <div className='video-thumbnail'>
         <div className='video-thumbnail-image'>

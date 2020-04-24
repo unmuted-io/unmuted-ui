@@ -7,34 +7,45 @@ import MainCard from "../../components/mainCard/mainCard"
 import { ClipLoader } from 'react-spinners'
 import { connect, Connect } from 'react-redux'
 import RecentlyViewedThumbnail from '../recentlyViewed/recentlyViewedThumbnail'
+import axios from 'axios'
 
 export interface RecentlyViewedProps {
-  fetchRecommendedVideos: () => void,
-  recommended: any[]
+  account: any
 }
 
 export interface RecentlyViewedState {
-
+  recentlyViewed: any[]
 }
 
 class RecentlyViewed extends React.Component<RecentlyViewedProps, RecentlyViewedState> {
   constructor(props: RecentlyViewedProps) {
     super(props)
-
+    this.state = {
+      recentlyViewed: []
+    }
   }
 
   componentDidMount = () => {
-    const { fetchRecommendedVideos } = this.props
-    fetchRecommendedVideos()
+    this.fetchRecommendedVideos()
+  }
+
+  fetchRecommendedVideos = async () => {
+    const { REACT_APP_API_BASE_URL } = process.env
+    const { account } = this.props
+    const recentlyViewedVideoResponse = await axios
+      .get(`${REACT_APP_API_BASE_URL}/videos/recently-viewed/${account.username}/20`)
+    this.setState({
+      recentlyViewed: recentlyViewedVideoResponse.data
+    })
   }
 
   render() {
-    const { recommended } = this.props
+    const { recentlyViewed } = this.state
     return (
       <Row>
         <Col sm={12}>
           <MainCard title="Recently Viewed" isOption className='recommended-videos-grid'>
-            {Object.values(recommended).map(video => {
+            {Object.values(recentlyViewed).map(video => {
               return (
                 <RecentlyViewedThumbnail
                   key={video.rand}
@@ -51,13 +62,13 @@ class RecentlyViewed extends React.Component<RecentlyViewedProps, RecentlyViewed
 
 const mapStateToProps = (state) => {
   return {
-    recommended: state.videos.recommended
+    account: state.auth.account
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchRecommendedVideos: () => dispatch({ type: 'FETCH_RECOMMENDED_VIDEOS' })
+
   }
 }
 

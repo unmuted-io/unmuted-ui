@@ -15,7 +15,6 @@ interface VideoPlayerComponentState {
 }
 
 class VideoPlayer extends React.Component<VideoPlayerComponentProps, VideoPlayerComponentState> {
-  user?: any
   videoNode: any
   timeupdateCount: number
   player: any

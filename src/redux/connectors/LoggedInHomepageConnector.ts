@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import LoggedInHomepage from '../../views/homepage/loggedInHomepage_old'
+import LoggedInHomepage from '../../views/homepage/loggedInHomepage'
 
 const mapStateToProps = (state: any) => {
   return {

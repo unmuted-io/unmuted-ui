@@ -7,35 +7,47 @@ import MainCard from "../../components/mainCard/mainCard"
 import { ClipLoader } from 'react-spinners'
 import { connect, Connect } from 'react-redux'
 import VideoThumbnail from '../videoThumbnail/VideoThumbnail'
+import axios from 'axios'
 
 export interface LoggedInHomepageProps {
-  fetchRecommendedVideos: () => void,
-  recommended: any[]
+  account: any
 }
 
 export interface LoggedInHomepageState {
-
+  recommended: any[]
 }
 
 class LoggedInHomepage extends React.Component<LoggedInHomepageProps, LoggedInHomepageState> {
+
   constructor(props: LoggedInHomepageProps) {
     super(props)
-
+    this.state = {
+      recommended: []
+    }
   }
 
   componentDidMount = () => {
-    const { fetchRecommendedVideos } = this.props
-    fetchRecommendedVideos()
+    this.fetchRecommendedVideos()
+  }
+
+  fetchRecommendedVideos = async () => {
+    const { REACT_APP_API_BASE_URL } = process.env
+    const { account } = this.props
+    const username = account ? account.username : ''
+    const recommendedVideoResponse = await axios.get(`${REACT_APP_API_BASE_URL}/videos/rec/20/${username}`)
+    this.setState({
+      recommended: recommendedVideoResponse.data.videos
+    })
   }
 
   render() {
-    const { recommended } = this.props
+    const { recommended } = this.state
     return (
       <MainCard title="Recommended" isOption className='recommended-videos-grid'>
         {Object.values(recommended).map(video => {
           return (
             <VideoThumbnail
-              key={video.rand}
+              key={video.rand + Math.floor(Math.random() * 99999)}
               {...video}
             />
           )
@@ -47,13 +59,13 @@ class LoggedInHomepage extends React.Component<LoggedInHomepageProps, LoggedInHo
 
 const mapStateToProps = (state) => {
   return {
-    recommended: state.videos.recommended
+    account: state.auth.account
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchRecommendedVideos: () => dispatch({ type: 'FETCH_RECOMMENDED_VIDEOS' })
+
   }
 }
 
