@@ -46,7 +46,6 @@ const Pnotify = lazy(() => import("./views/ui-element/advance/pnotify"))
 const Rating = lazy(() => import("./views/ui-element/advance/rating"))
 /* const Rangeslider = lazy(() => import("./views/ui-element/advance/rangeslider"))
 const Sliders = lazy(() => import("./views/ui-element/advance/sliders"))
-const Highlighter = lazy(() => import("./views/ui-element/advance/highlighter"))
 const Tour = lazy(() => import("./views/ui-element/advance/tours"))
 const Treeview = lazy(() => import("./views/ui-element/advance/treeview"))
 const Toolbar = lazy(() => import("./views/ui-element/advance/toolbar"))
@@ -184,7 +183,6 @@ const RouteList = [
   { exact: true, path: "/ui/advance/rating", name: "Rating", component: Rating },
   /* { exact: true, path: "/ui/advance/rangeslider", name: "Rangeslider", component: Rangeslider },
   { exact: true, path: "/ui/advance/sliders", name: "Sliders", component: Sliders },
-  { exact: true, path: "/ui/advance/highlighter", name: "Highlighter", component: Highlighter },
   { exact: true, path: "/ui/advance/tour", name: "Tour", component: Tour },
   { exact: true, path: "/ui/advance/treeview", name: "Treeview", component: Treeview },
   { exact: true, path: "/ui/advance/toolbar", name: "Toolbar", component: Toolbar },
