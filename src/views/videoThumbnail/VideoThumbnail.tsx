@@ -54,6 +54,10 @@ class VideoThumbnail extends React.Component<VideoThumbnailProps, VideoThumbnail
     clearInterval(this.hoverInterval)
   }
 
+  componentWillUnmount = () => {
+    clearInterval(this.hoverInterval)
+  }
+
   render() {
     const {
       title,
@@ -72,7 +76,7 @@ class VideoThumbnail extends React.Component<VideoThumbnailProps, VideoThumbnail
     const timeAgo = secondsToHms(msTimeDifference / 1000)
     const thumbnailTimer = Math.floor(timer / 1000)
     const thumbnailIterator = (thumbnailTimer % 8) + 1
-    const thumbnailSource = `${REACT_APP_API_BASE_URL}/videos/processed/thumbnails/${source.replace('.mp4', '')}-${thumbnailIterator}.png`
+    const thumbnailSource = `${REACT_APP_API_BASE_URL}/videos/processed/thumbnails/${source.replace('.mp4', '')}-5.png`
     console.log('thumbnailSource: ', thumbnailSource)
     return (
       <div className='video-thumbnail'>

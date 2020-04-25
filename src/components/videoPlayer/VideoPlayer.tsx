@@ -35,7 +35,7 @@ class VideoPlayer extends React.Component<VideoPlayerComponentProps, VideoPlayer
         const lastPosition = this.player.currentTime()
         // trigger movie watched
         updateViewCount({
-          rand: rand,
+          rand,
           lastPosition
         })
         // then turn off this event
