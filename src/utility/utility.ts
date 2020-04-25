@@ -102,7 +102,7 @@ export const getTimeInMinutes = (params: { measurement: string, value: number })
   return strategy(value)
 }
 
-export function secondsToHms (seconds: number): string {
+export const secondsToHms = (seconds: number): string => {
   seconds = Number(seconds)
   const d = Math.floor(seconds / (3600 * 24))
   if (d > 0) return d + ' days'
@@ -113,4 +113,19 @@ export function secondsToHms (seconds: number): string {
   const s = Math.floor(seconds % 3600 % 60)
   if (s > 0) return s + ' seconds'
   return ''
+}
+
+export const secondsToHHMMSS = (inputVar: string | number): string => {
+  const inputNumber = Number(inputVar)
+  let hours: number | string = Math.floor(inputNumber / 3600)
+  let minutes:number | string = Math.floor((inputNumber - (hours * 3600)) / 60)
+  let seconds: number | string = inputNumber - (hours * 3600) - (minutes * 60)
+  if (hours < 1) {
+    hours = ''
+  } else {
+    hours   = `0${hours}:`
+  }
+  if (minutes < 10) minutes = `0${minutes}`
+  if (seconds < 10) seconds = `0${seconds}`
+  return `${hours}${minutes}:${seconds}`
 }

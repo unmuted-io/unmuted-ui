@@ -14,10 +14,37 @@ $description-line-height: 1.5em;
 
   &-image {
     flex: 1;
+    position: relative;
     height: auto;
 
     &-content {
       width: 100%;
+    }
+
+    .overlay {
+      display: flex;
+      width: 100%;
+      flex: 1;
+      position: absolute;
+      justify-content: space-between;
+      align-items: flex-start;
+      top: 0;
+      left: 0;
+
+      .info {
+        color: white;
+        background-color: black;
+        display: block;
+        padding: 1px 4px;
+        background-color: #333333;
+      }
+
+      .updated-at {
+        align-self: flex-start;
+      }
+      .last-position {
+        align-self: flex-end;
+      }
     }
   }
 
