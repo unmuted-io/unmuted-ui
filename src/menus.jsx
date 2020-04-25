@@ -413,12 +413,6 @@ export default {
               url: '"/ui/advance/gridstack'
             }, */
             {
-              id: 'light-box',
-              title: 'Light Box',
-              type: 'item',
-              url: '/ui/advance/lightbox'
-            },
-            {
               id: 'adv-modal',
               title: 'Modal',
               type: 'item',

@@ -39,7 +39,6 @@ const Collapse = lazy(() => import("./views/ui-element/basic/collapse"))
 const Sweetalert = lazy(() => import("./views/ui-element/advance/sweetalert"))
 const Datepicker = lazy(() => import("./views/ui-element/advance/datepicker"))
 //const Gridstack = lazy(() => import("./views/ui-element/advance/gridstack"))
-const Lightbox = lazy(() => import("./views/ui-element/advance/lightbox"))
 const ModalAdbance = lazy(() => import("./views/ui-element/advance/modal"))
 const Notification = lazy(() => import("./views/ui-element/advance/notification"))
 const Nestable = lazy(() => import("./views/ui-element/advance/nestable"))
@@ -178,7 +177,6 @@ const RouteList = [
   { exact: true, path: "/ui/advance/sweetalert", name: "Sweetalert", component: Sweetalert },
   { exact: true, path: "/ui/advance/datepicker", name: "Datepicker", component: Datepicker },
   //{ exact: true, path: "/ui/advance/gridstack", name: "Gridstack", component: Gridstack },
-  { exact: true, path: "/ui/advance/lightbox", name: "Lightbox", component: Lightbox },
   { exact: true, path: "/ui/advance/modalAdbance", name: "ModalAdbance", component: ModalAdbance },
   { exact: true, path: "/ui/advance/notification", name: "Notification", component: Notification },
   { exact: true, path: "/ui/advance/nestable", name: "Nestable", component: Nestable },
