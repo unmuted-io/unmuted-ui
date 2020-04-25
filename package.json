@@ -40,6 +40,7 @@
     "flag-icon-css": "^3.3.0",
     "form-data": "^3.0.0",
     "google-maps-react": "^2.0.2",
+    "isomorphic-ws": "^4.0.1",
     "parallax-js": "^3.1.0",
     "peity-react": "0.0.7",
     "pnotify": "^4.0.0",
@@ -95,7 +96,8 @@
     "sweetalert": "^2.1.2",
     "typescript": "^3.7.4",
     "video.js": "^6.7.0",
-    "websocket": "^1.0.31"
+    "websocket": "^1.0.31",
+    "ws": "^7.2.3"
   },
   "scripts": {
     "start": "react-scripts start",

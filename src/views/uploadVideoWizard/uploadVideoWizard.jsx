@@ -8,6 +8,7 @@ import {
   CardBody,
   ButtonGroup,
   Button,
+  Progress
 } from "reactstrap"
 import Loki from "react-loki"
 import { Link } from "react-router-dom"
@@ -15,12 +16,43 @@ import FormWizardForm from "../forms/wizard/wizard"
 import { UploadVideo } from './uploadVideo'
 import { SubmitBasicVideoInfo } from './submitBasicVideoInfo'
 
+const ws = new WebSocket('ws://localhost:9824')
 class UploadVideoWizard extends Component {
   state = {
     isFinished: false,
     videoTitle: '',
     videoDescription: '',
-    videoFile: null
+    videoFile: null,
+    progress: 0,
+    sourceRand: ''
+  }
+
+  constructor (props) {
+    super(props)
+    ws.onopen = () => {
+      console.log('connected')
+      ws.send('in the browser right now')
+    }
+    ws.onclose = () => {
+      console.log('disconnected')
+    }
+
+    ws.onmessage = (message) =>  {
+      const { progress, sourceRand } = this.state
+      const { history } = this.props
+      const newProgress = parseFloat(message.data)
+      if (newProgress > progress) {
+        this.setState({
+          progress: newProgress
+        }, () => {
+          if (newProgress === 100) {
+            setTimeout(() => {
+              history.push(`/videos/${sourceRand}`)
+            }, 2000)
+          }
+        })
+      }
+    }
   }
 
   onChangeInput = (event, callback) => {
@@ -83,6 +115,7 @@ class UploadVideoWizard extends Component {
     isInFinalStep,
     backHandler,
     nextHandler,
+    progress
   }) => {
     return (
       <div className="btn-toolbar sw-toolbar sw-toolbar-bottom justify-content-end">
@@ -115,29 +148,36 @@ class UploadVideoWizard extends Component {
   }
 
   handlePost = async () => {
-    const { history, token } = this.props
+    const { account } = this.props
     const { videoFile, videoTitle, videoDescription } = this.state
     const formData = new FormData()
     formData.append('title', videoTitle)
     formData.append('description', videoDescription)
     formData.append('file', videoFile)
-    const resp = await fetch('http://localhost:3333/videos', {
-      method: 'POST',
-      body: formData,
-      headers: {
-        Authorization: `Bearer ${token}`
+    formData.append('username', account.username)
+    try {
+      const resp = await fetch('http://localhost:3333/videos', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          Authorization: `Bearer ${account.token}`
+        }
+      })
+      if (resp.ok) {
+        const rand = await resp.text()
+        this.setState({
+          sourceRand: rand
+        })
       }
-    })
-    if (!resp.ok) return
-    const data = await resp.json()
-    this.setState({
-      isFinished: true
-    }, () => {
-      history.push(`/videos/${data.rand}`)
-    })
+    } catch(e) {
+      console.log('error: ', e)
+    }
   }
 
   render() {
+    const { progress } = this.state
+    const color = progress < 100 ? '' : 'success'
+    const animated = progress < 100 ? true : false
     return (
       <Row>
         <Col sm={12}>
@@ -155,6 +195,7 @@ class UploadVideoWizard extends Component {
                   renderActions={this.customActions}
                   onFinish={this.handlePost}
                 />
+                <Progress animated={animated} color={color} value={progress} />
               </div>
             </CardBody>
           </Card>
@@ -166,7 +207,7 @@ class UploadVideoWizard extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    token: state.auth.account.token
+    account: state.auth.account
   }
 }
 
