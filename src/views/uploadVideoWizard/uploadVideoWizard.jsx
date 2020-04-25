@@ -24,7 +24,7 @@ class UploadVideoWizard extends Component {
     videoDescription: '',
     videoFile: null,
     progress: 0,
-    sourceRand: ''
+    rand: ''
   }
 
   constructor (props) {
@@ -38,7 +38,7 @@ class UploadVideoWizard extends Component {
     }
 
     ws.onmessage = (message) =>  {
-      const { progress, sourceRand } = this.state
+      const { progress, rand } = this.state
       const { history } = this.props
       const newProgress = parseFloat(message.data)
       if (newProgress > progress) {
@@ -47,7 +47,7 @@ class UploadVideoWizard extends Component {
         }, () => {
           if (newProgress === 100) {
             setTimeout(() => {
-              history.push(`/videos/${sourceRand}`)
+              history.push(`/videos/${rand}`)
             }, 2000)
           }
         })
@@ -166,7 +166,7 @@ class UploadVideoWizard extends Component {
       if (resp.ok) {
         const rand = await resp.text()
         this.setState({
-          sourceRand: rand
+          rand: rand
         })
       }
     } catch(e) {

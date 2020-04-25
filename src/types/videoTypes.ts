@@ -11,7 +11,7 @@ export interface Video {
 
 
 export interface ViewCountUpdate {
-    sourceRand: string,
+    rand: string,
     lastPosition: number,
     username?: string
 }

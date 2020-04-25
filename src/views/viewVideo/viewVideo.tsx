@@ -24,7 +24,8 @@ interface ViewVideoComponentProps {
 interface ViewVideoComponentState {
   title: string
   description: string
-  sourceRand: string
+  rand: string
+  source: string
   created_at: string
   username: string
   count: number
@@ -39,7 +40,8 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
     this.state = {
       title: '',
       description: '',
-      sourceRand: '',
+      rand: '',
+      source: '',
       created_at: '',
       username: '',
       videoRating: 0,
@@ -56,7 +58,7 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
     const videoData = videoResponse.data
     this.setState({
       ...videoData,
-      sourceRand: rand,
+      rand: rand,
     })
     const videoRatingsStatsResponse: AxiosResponse = await axios.get(`${REACT_APP_API_BASE_URL}/video-rating/${rand}`)
     const stats = videoRatingsStatsResponse.data
@@ -81,7 +83,7 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
   }
 
   onThumbClick = async (input: number) => {
-    const { videoRating, sourceRand, upvote, downvote } = this.state
+    const { videoRating, rand, upvote, downvote } = this.state
     const { account } = this.props
     // initialize variables as current state
     let newRating = videoRating
@@ -132,7 +134,7 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
       async () => {
         const response: AxiosResponse = await axios.post(`${REACT_APP_API_BASE_URL}/video-rating`, {
           username: account.username,
-          uuid: sourceRand,
+          uuid: rand,
           direction: input,
         })
       }
@@ -142,7 +144,7 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
   render() {
     const { REACT_APP_API_BASE_URL } = process.env
     const {
-      sourceRand,
+      rand,
       title,
       description,
       created_at,
@@ -150,22 +152,25 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
       count,
       videoRating,
       upvote,
-      downvote
+      downvote,
+      source
     } = this.state
-    if (!sourceRand) return <div />
-    const videoPath = `${REACT_APP_API_BASE_URL}/videos/processed/${sourceRand}`
+    if (!rand) return <div />
+    const videoPath = `${REACT_APP_API_BASE_URL}/videos/processed/${source}`
+    const poster = `${REACT_APP_API_BASE_URL}/videos/processed/thumbnails/${source.replace('.mp4', '')}-1.png`
     const videoJsOptions = {
       autoplay: false,
       controls: true,
       muted: true,
       sources: [
         {
-          src: 'https://coolestguidesontheplanet.com/videodrome/cgp_video/mymoviei.mp4',
+          src: videoPath,
           type: 'video/mp4',
         },
       ],
       fill: true,
       aspectRatio: '16:9',
+      poster
     }
     const date = new Date(created_at)
     const dtf = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'long', day: '2-digit' })
@@ -177,7 +182,7 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
         <Col sm={12} lg={8} id="video-wrapper">
           <Card>
             <CardBody>
-              <VideoPlayer {...videoJsOptions} sourceRand={sourceRand} />
+              <VideoPlayer {...videoJsOptions} rand={rand} />
               <div className="primary-video-info">
                 <div className="primary-video-info-upper">
                   <div className="primary-video-info-upper-summary">

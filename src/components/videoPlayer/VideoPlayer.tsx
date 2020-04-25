@@ -7,7 +7,7 @@ import { ViewCountUpdate } from '../../types'
 
 interface VideoPlayerComponentProps {
   updateViewCount: (data: ViewCountUpdate) => void,
-  sourceRand: string
+  rand: string
 }
 
 interface VideoPlayerComponentState {
@@ -25,7 +25,7 @@ class VideoPlayer extends React.Component<VideoPlayerComponentProps, VideoPlayer
   }
 
   componentDidMount(): void {
-    const { updateViewCount, sourceRand } = this.props
+    const { updateViewCount, rand } = this.props
     // instantiate Video.js
     this.player = videojs(this.videoNode, this.props, function onPlayerReady() {
       console.log('onPlayerReady', this)
@@ -35,7 +35,7 @@ class VideoPlayer extends React.Component<VideoPlayerComponentProps, VideoPlayer
         const lastPosition = this.player.currentTime()
         // trigger movie watched
         updateViewCount({
-          sourceRand,
+          rand: rand,
           lastPosition
         })
         // then turn off this event
