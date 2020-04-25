@@ -79,9 +79,6 @@ const GoogleChart = lazy(() => import("./views/chart/googleChart"))
 const PeityChart = lazy(() => import("./views/chart/peityChart"))
 const GoogleMap = lazy(() => import("./views/maps/googleMap/googleMap"))
 const StaticVectorMap = lazy(() => import("./views/maps/vectorMap/vectorMap"))
-const GalleryGrid = lazy(() => import("./views/gallery/galleryGrid"))
-const GalleryMasonry = lazy(() => import("./views/gallery/galleryMasonry"))
-const GalleryAdvance = lazy(() => import("./views/gallery/galleryAdvance"))
 const Chat = lazy(() => import("./views/chat/chat"))
 const Email = lazy(() => import("./views/email/email"))
 const SamplePage = lazy(() => import("./views/others/samplePage"))
@@ -237,10 +234,6 @@ const RouteList = [
   /* Map */
   { exact: true, path: "/map/google", name: "Google Map", component: GoogleMap },
   { exact: true, path: "/map/vector", name: "Vector Map", component: StaticVectorMap },
-  /* Image Gallery */
-  { exact: true, path: "/gallery/grid", name: "Gallery Grid", component: GalleryGrid },
-  { exact: true, path: "/gallery/masonry", name: "Gallery Masonry", component: GalleryMasonry },
-  { exact: true, path: "/gallery/advance", name: "Gallery Advance", component: GalleryAdvance },
   /* Other pages */
   { exact: true, path: "/page/sample-page", name: "Sample Page", component: SamplePage },
   { exact: true, path: "/page/animations", name: "Animations", component: Animations },

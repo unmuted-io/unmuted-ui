@@ -907,32 +907,6 @@ export default {
           ]
         },
         {
-          id: 'gallery',
-          title: 'Gallery',
-          type: 'collapse',
-          icon: 'feather icon-image',
-          children: [
-            {
-              id: 'grid',
-              title: 'Grid',
-              type: 'item',
-              url: '/gallery/grid'
-            },
-            {
-              id: 'masonry',
-              title: 'Masonry',
-              type: 'item',
-              url: '/gallery/masonry'
-            },
-            {
-              id: 'advance-gallery',
-              title: 'Advance',
-              type: 'item',
-              url: '/gallery/advance'
-            }
-          ]
-        },
-        {
           id: 'search',
           title: 'Search',
           type: 'collapse',
