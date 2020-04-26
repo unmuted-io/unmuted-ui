@@ -37,7 +37,6 @@ class Header extends Component {
   render() {
     const { account } = this.props
     const { pathname } = window.location
-    console.log('pathname: ', pathname)
     return (
       <header
         className={classnames('navbar pcoded-header navbar-expand-lg navbar-light', {

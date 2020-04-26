@@ -1,20 +1,17 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { Button, Input, InputGroup, InputGroupAddon } from 'reactstrap'
-// import { w3cwebsocket as W3CWebSocket } from "websocket"
-import Ws from '@adonisjs/websocket-client'
+import io from 'socket.io-client'
 
 let client
 
 export class WebSocketChat extends Component {
 
-  constructor () {
-    super()
-    this.ws = Ws('ws://localhost:3333', {
-      reconnection: true
-    })
-    this.client = this.ws.connect()
-    this.chat = this.ws.subscribe('chat')
+  constructor (props) {
+    super(props)
+    const { rand } = this.props
+    console.log('about to connect to websocket')
+    this.ws = io(`http://localhost:9825/${rand}`)
     this.state = {
       chat: {
 
@@ -24,49 +21,45 @@ export class WebSocketChat extends Component {
       superChatAmount: 0
     }
 
-    this.ws.on('open', () => {
+    this.ws.on('connect', () => {
       console.log('websocket open')
       this.setState({
         isConnected: true
       })
     })
 
-    this.ws.on('close', () => {
+    this.ws.on('disconnect', () => {
       console.log('websocket close')
       this.setState({
         isConnected: false
       })
     })
-    this.chat.on('ready', () => {
-      const output = { message: 'howdy' }
-      this.chat.emit('message', output)
-      console.log('chat ready')
+
+    this.ws.on('error', () => {
+      console.log('room error')
     })
 
-    this.chat.on('error', (error) => {
-      console.log('chat error: ', error)
-    })
-
-    this.chat.on('close', () => {
-      console.log('chat close')
+    this.ws.on('success', () => {
+      console.log('Room success')
     })
   }
 
   componentDidMount() {
-    this.client.on('open', () => {
+    this.ws.on('open', () => {
       console.log('WebSocket Client Connected')
     })
-    this.chat.on('message', (message) => {
+    this.ws.on('message', (message) => {
       const { chat } = this.state
       console.log('message from server: ', message)
       if (message.username && message.content) {
+        const { username, content, amount } = message
         this.setState({
           chat: {
             ...chat,
             [message.timestamp]: {
-              username: message.username,
-              content: message.content,
-              amount: message.amount
+              username,
+              content,
+              amount
             }
           }
         })
@@ -77,11 +70,11 @@ export class WebSocketChat extends Component {
   onClickSubmit = () => {
     const { input } = this.state
     if (!input) return
-    const { username } = this.props
+    const { account } = this.props
     console.log('sending to websockets')
-    this.chat.emit('message', {
+    this.ws.emit('userMessage', {
       type: "chatSubmission",
-      username,
+      username: account.username,
       content: input
     })
     this.setState({
@@ -98,13 +91,13 @@ export class WebSocketChat extends Component {
   }
 
   onClickSuperChat = () => {
-    const { username } = this.props
+    const { account } = this.props
     const { input, superChatAmount } = this.state
     console.log('superChatAmount is: ', superChatAmount)
     const data = {
       input,
       amount: parseFloat(superChatAmount).toFixed(4).toString(),
-      userame: username || 'fakeUser'
+      userame: account.username || 'fakeUser'
     }
     this.props.sendSuperChat(data)
   }
@@ -117,10 +110,11 @@ export class WebSocketChat extends Component {
   }
 
   componentWillUnmount = () => {
-    this.ws.close()
+
   }
 
   render() {
+    const { account } = this.props
     const { chat, input } = this.state
     return (
       <div className={'chat'} style={{ alignSelf: 'flex-end', width: '100%' }}>
@@ -128,7 +122,6 @@ export class WebSocketChat extends Component {
           {Object.keys(chat).sort().map(timestamp => {
             let fontSize = 12
             const amountText = chat[timestamp].amount
-            console.log('chat[timestamp]: ', chat[timestamp])
             if (amountText) {
               const amount = parseFloat(amountText.replace(' EOS'))
               const magnitude = Math.ceil(Math.log10(amount) * 2)
@@ -145,7 +138,7 @@ export class WebSocketChat extends Component {
           })}
         </div>
         <div className='chat-area'>
-          <input className={'chat-area-input'} type='text' value={input} onChange={this.onChangeInput} />
+          <input disabled={!account} className={'chat-area-input'} type='text' value={input} onChange={this.onChangeInput} />
           <Button onClick={this.onClickSubmit} color="primary" className="mb-4">
             Submit
           </Button>
@@ -166,7 +159,7 @@ export class WebSocketChat extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    username: state.auth.account
+    account: state.auth.account
   }
 }
 

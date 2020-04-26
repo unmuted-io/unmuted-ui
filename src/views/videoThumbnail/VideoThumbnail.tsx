@@ -39,18 +39,15 @@ class VideoThumbnail extends React.Component<VideoThumbnailProps, VideoThumbnail
     this.hoverInterval
   }
   onMouseIn = () => {
-    console.log('mouse in')
     this.hoverInterval = setInterval(() => {
       const { timer } = this.state
       this.setState({
         timer: timer + 100
       })
-      console.log('this.state.timer: ', this.state.timer)
     }, 100)
   }
 
   onMouseOut = () => {
-    console.log('mouse out')
     clearInterval(this.hoverInterval)
   }
 
@@ -77,7 +74,6 @@ class VideoThumbnail extends React.Component<VideoThumbnailProps, VideoThumbnail
     const thumbnailTimer = Math.floor(timer / 1000)
     const thumbnailIterator = (thumbnailTimer % 8) + 1
     const thumbnailSource = `${REACT_APP_API_BASE_URL}/videos/processed/thumbnails/${source.replace('.mp4', '')}-5.png`
-    console.log('thumbnailSource: ', thumbnailSource)
     return (
       <div className='video-thumbnail'>
         <div className='video-thumbnail-image'>

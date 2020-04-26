@@ -5,7 +5,7 @@ import DropzoneComponent from 'react-dropzone-component'
 import InputMask from 'react-input-mask'
 import ReactNumeric, { predefinedOptions } from 'react-numeric'
 import MainCard from '../../components/mainCard/mainCard'
-// import WebSocketChat from '../../components/WebSocketChat/WebSocketChat'
+import WebSocketChat from '../../components/WebSocketChat/WebSocketChat'
 import { useParams } from 'react-router-dom'
 import EOSIOClient from '../../eosioClient'
 import VideoPlayer from '../../components/videoPlayer/VideoPlayer'
@@ -225,7 +225,7 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
         <Col sm={12} lg={4}>
           <Card>
             <CardBody style={{ height: 480, display: 'flex', flexDirection: 'row' }}>
-              {/*<WebSocketChat sendSuperChat={this.sendSuperChat} />*/}
+              <WebSocketChat rand={rand} sendSuperChat={this.sendSuperChat} />
             </CardBody>
           </Card>
         </Col>
