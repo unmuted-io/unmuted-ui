@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
+import { Dispatch } from 'redux'
 import {
   Button,
   Input,
@@ -10,11 +11,37 @@ import {
 } from 'reactstrap'
 import QRCode from 'qrcode.react'
 import io from 'socket.io-client'
+import { Account } from '../../types'
 
 let client
 
-export class WebSocketChat extends Component {
-  constructor (props) {
+interface WebSocketChatOwnProps {
+  rand: string
+}
+
+interface WebSocketChatStateProps {
+  account: Account,
+  edgeAccount: any
+}
+
+interface WebSocketChatDispatchProps {
+  sendSuperChat: (data: { input: string, amount: string, username: string }) => void
+}
+
+type WebSocketChatProps = WebSocketChatOwnProps & WebSocketChatStateProps & WebSocketChatDispatchProps
+
+interface WebSocketChatState {
+  chat: object,
+  input: string,
+  isConnected: boolean,
+  superChatAmount: number,
+  uri: string
+}
+
+export class WebSocketChatComponent extends Component<WebSocketChatProps, WebSocketChatState> {
+  ws: any
+
+  constructor (props: WebSocketChatProps) {
     super(props)
     const { rand } = this.props
     console.log('about to connect to websocket')
@@ -101,15 +128,15 @@ export class WebSocketChat extends Component {
   }
 
   onClickSuperChat = () => {
-    const { account } = this.props
+    const { account, sendSuperChat } = this.props
     const { input, superChatAmount } = this.state
     console.log('superChatAmount is: ', superChatAmount)
     const data = {
       input,
-      amount: parseFloat(superChatAmount).toFixed(4).toString(),
-      userame: account.username || 'fakeUser'
+      amount: superChatAmount.toFixed(4).toString(),
+      username: account.username || 'fakeUser'
     }
-    this.props.sendSuperChat(data)
+    sendSuperChat(data)
   }
 
   onChangeInput = (e) => {
@@ -171,11 +198,17 @@ export class WebSocketChat extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state): WebSocketChatStateProps => {
   return {
     account: state.auth.account,
-    edgAccount: stat.auth.edgeAccount
+    edgeAccount: state.auth.edgeAccount
   }
 }
 
-export default connect(mapStateToProps)(WebSocketChat);
+const mapDispatchToProps = (dispatch: Dispatch): WebSocketChatDispatchProps => {
+  return {
+    sendSuperChat: (data: { input: string, amount: string, username: string }) => dispatch({ type: 'SEND_SUPER_CHAT', data })
+  }
+}
+
+export default connect(mapStateToProps)(WebSocketChatComponent)
