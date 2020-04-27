@@ -8,7 +8,7 @@ const ProfileSetting = lazy(() => import("./views/authentication/profileSetting"
 const Reset = lazy(() => import("./views/authentication/resetPassword"))
 const ChangePassword = lazy(() => import("./views/authentication/changePassword"))
 const AuthSingup1 = lazy(() => import("./views/authentication/authSingup1"))
-const AuthSingup = lazy(() => import("./views/authentication/authSingup"))
+const AuthSingup = lazy(() => import("./views/authentication/Register"))
 const AuthSingin2 = lazy(() => import("./views/authentication/authSingin2"))
 const AuthSingin1 = lazy(() => import("./views/authentication/authSingin1"))
 

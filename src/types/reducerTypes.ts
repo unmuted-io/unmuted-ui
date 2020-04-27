@@ -17,6 +17,7 @@ export interface EdgeAccount {
 
 export interface AuthReducer {
   isLoggingIn: boolean,
+  isRegistering: boolean,
   account: Account,
   edgeAccount: any
 }

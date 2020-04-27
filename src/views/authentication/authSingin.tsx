@@ -167,7 +167,7 @@ export class AuthSinginComponent extends Component<AuthSinginComponentProps, Aut
                         </Label>
                       </div>
                     </FormGroup>
-                    <Button onClick={this.onClickLogin} disabled={disabled} color="primary" className="mb-4 login">
+                    <Button onClick={this.onClickLogin} disabled={isLoggingIn} color="primary" className="mb-4 login">
                       {isLoggingIn ? <Spinner size="sm" /> : 'Login'}
                     </Button>
                     <p className="mb-2 text-muted">

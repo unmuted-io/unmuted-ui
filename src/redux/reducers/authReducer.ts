@@ -3,6 +3,7 @@ import { Account, AuthReducer } from '../../types'
 
 const INITIAL_STATE = {
   isLoggingIn: false,
+  isRegistering: false,
   account: null
 }
 
@@ -46,8 +47,21 @@ export const isLoggingIn = (state: boolean = false, action: IsLoggingInAction): 
   }
 }
 
+type IsRegisteringAction = { type: 'UPDATE_IS_REGISTERING', data: { isRegistering: boolean } }
+
+export const isRegistering = (state: boolean = false, action: IsRegisteringAction): boolean => {
+  const { data, type } = action
+  switch (type) {
+    case 'UPDATE_IS_REGISTERING':
+      return data.isRegistering
+    default:
+      return state
+  }
+}
+
 export const authReducer: Reducer<AuthReducer> = combineReducers({
   account,
   edgeAccount,
-  isLoggingIn
+  isLoggingIn,
+  isRegistering
 })
