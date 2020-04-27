@@ -11,6 +11,7 @@ import {
   Input,
   FormGroup,
   Label,
+  Spinner
 } from 'reactstrap'
 import { RouteComponentProps } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -20,12 +21,13 @@ import authBg from '../../assets/images/auth-bg.jpg'
 import { makeEdgeUiContext } from 'edge-login-ui-web'
 import edgeLoginLogo from '../../assets/images/auth/edge-login-logo.svg'
 import { UserInfo } from '../../types'
+import { isLoggingIn } from '../../redux/reducers/authReducer';
 
 let edgeUiContext
 const assetsPath = 'http://localhost:11234'
 
 export interface AuthSinginComponentStateProps {
-
+  isLoggingIn: boolean
 }
 
 export interface AuthSinginComponentDispatchProps {
@@ -100,7 +102,7 @@ export class AuthSinginComponent extends Component<AuthSinginComponentProps, Aut
 
   render() {
     const { disabled } = this.state
-
+    const { isLoggingIn } = this.props
     return (
       <div className="auth-wrapper" style={{ background: '#eff3f6' }}>
         <div className="auth-content container">
@@ -165,8 +167,8 @@ export class AuthSinginComponent extends Component<AuthSinginComponentProps, Aut
                         </Label>
                       </div>
                     </FormGroup>
-                    <Button onClick={this.onClickLogin} disabled={disabled} color="primary" className="mb-4">
-                      Login
+                    <Button onClick={this.onClickLogin} disabled={disabled} color="primary" className="mb-4 login">
+                      {isLoggingIn ? <Spinner size="sm" /> : 'Login'}
                     </Button>
                     <p className="mb-2 text-muted">
                       Forgot password?&nbsp;

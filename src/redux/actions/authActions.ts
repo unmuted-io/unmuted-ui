@@ -89,6 +89,8 @@ export const login = (userInfo: UserInfo, history: any, isAnimated?: boolean) =>
     console.log('Error: ', e)
     dispatch({ type: 'AUTH_ERROR', data: { authError: 'There was a problem logging in with those credentials. Please check your credentials and try again.' } })
   }
+  // should isLoggingIn reducer just look at ACCOUNT action?
+  dispatch({ type: 'IS_LOGGING_IN', data: { isLoggingIn: false}})
 }
 
 export const logout = () => (dispatch: any): void => {
