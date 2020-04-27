@@ -1,6 +1,13 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { Button, Input, InputGroup, InputGroupAddon } from 'reactstrap'
+import {
+  Button,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  Form,
+  FormGroup
+} from 'reactstrap'
 import QRCode from 'qrcode.react'
 import io from 'socket.io-client'
 
@@ -68,7 +75,8 @@ export class WebSocketChat extends Component {
     })
   }
 
-  onClickSubmit = () => {
+  onSubmit = (e) => {
+    e.preventDefault()
     console.log('onClickSubmit triggered, this is: ', this)
     const { input } = this.state
     if (!input) return
@@ -140,21 +148,23 @@ export class WebSocketChat extends Component {
             )
           })}
         </div>
-        <div className='chat-area'>
-          <input disabled={!account} className={'chat-area-input'} type='text' value={input} onChange={this.onChangeInput} />
-          <Button onClick={this.onClickSubmit} color="primary" className="mb-4">
-            Submit
-          </Button>
-        </div>
-        <div className='chat-area'>
-        <InputGroup>
-          <Input onChange={this.changeSuperChatAmount} placeholder="Amount" min={.001} type="number" step=".001" />
-          <InputGroupAddon addonType="append">EOS</InputGroupAddon>
-          </InputGroup>
-          <Button onClick={this.onClickSuperChat} color="success" className="mb-4">
-            SuperChat
-          </Button>
-        </div>
+        <Form type="submit" onSubmit={this.onSubmit}>
+          <div className='chat-area'>
+            <input disabled={!account} className={'chat-area-input'} type='text' value={input} onChange={this.onChangeInput} />
+            <Button  color="primary" className="mb-4">
+              Submit
+            </Button>
+          </div>
+          <div className='chat-area'>
+          <InputGroup>
+            <Input onChange={this.changeSuperChatAmount} placeholder="Amount" min={.001} type="number" step=".001" />
+            <InputGroupAddon addonType="append">EOS</InputGroupAddon>
+            </InputGroup>
+            <Button onClick={this.onClickSuperChat} color="success" className="mb-4">
+              SuperChat
+            </Button>
+          </div>
+        </Form>
         <QRCode value={encodedUri} />
       </div>
     );
@@ -163,7 +173,8 @@ export class WebSocketChat extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    account: state.auth.account
+    account: state.auth.account,
+    edgAccount: stat.auth.edgeAccount
   }
 }
 
