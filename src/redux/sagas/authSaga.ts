@@ -21,7 +21,7 @@ function* updateUsername(input: { type: string, data: { username: string, histor
   }))
   yield put({
     type: 'UPDATE_USERNAME_SUCCESS',
-    data: response.data.username
+    data: response.data
   })
   input.data.history.push('/')
 }

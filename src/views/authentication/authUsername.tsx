@@ -23,12 +23,12 @@ import axios from 'axios'
 import { withRouter } from 'react-router-dom'
 
 interface AuthUsernameProps {
-  email?: string;
-  password?: string;
-  edgeUsername?: string;
-  location: any;
-  history: any;
-  updateUsername: (username: string, history: any) => void;
+  email?: string,
+  password?: string,
+  edgeUsername?: string,
+  location: any,
+  history: any,
+  dispatch: any
 }
 
 interface AuthUsernameState {
@@ -73,10 +73,10 @@ class AuthUsername extends Component<AuthUsernameProps, AuthUsernameState> {
   }
 
   onClickSubmit = (e) => {
-    const { updateUsername, history } = this.props
+    const { dispatch, history } = this.props
     const { username } = this.state
     e.preventDefault()
-    updateUsername(username, history)
+    dispatch({ type: 'UPDATE_USERNAME', data: { username, history } })
   }
 
   render() {
@@ -146,7 +146,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateUsername: (username: string, history: any) => dispatch({ type: 'UPDATE_USERNAME', data: { username, history } })
+    dispatch
   }
 }
 

@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component } from 'react'
 import {
   Card,
   CardBody,
@@ -11,59 +11,98 @@ import {
   Input,
   FormGroup,
   Label,
-} from "reactstrap"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { Link } from "react-router-dom"
-import logoDark from "../../assets/images/logo-dark.png"
-import authBg from "../../assets/images/auth-bg.jpg"
-import { makeEdgeUiContext } from "edge-login-ui-web"
-import edgeLoginLogo from "../../assets/images/auth/edge-login-logo.svg"
+} from 'reactstrap'
+import { RouteComponentProps } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Link } from 'react-router-dom'
+import logoDark from '../../assets/images/logo-dark.png'
+import authBg from '../../assets/images/auth-bg.jpg'
+import { makeEdgeUiContext } from 'edge-login-ui-web'
+import edgeLoginLogo from '../../assets/images/auth/edge-login-logo.svg'
+import { UserInfo } from '../../types'
 
-let edgeUiContext;
-const assetsPath = "http://localhost:11234"
+let edgeUiContext
+const assetsPath = 'http://localhost:11234'
 
-class AuthSingin extends Component {
+export interface AuthSinginComponentStateProps {
+
+}
+
+export interface AuthSinginComponentDispatchProps {
+  dispatch: any,
+  login: (userInfo: UserInfo, history: any, isAnimated?: boolean) => void
+}
+
+
+export type AuthSinginComponentProps = AuthSinginComponentStateProps & AuthSinginComponentDispatchProps & RouteComponentProps
+
+export interface AuthSinginComponentState {
+
+}
+
+export class AuthSinginComponent extends Component<AuthSinginComponentProps, AuthSinginComponentState> {
   state = {
-    disabled: true
+    disabled: true,
+    email: '',
+    password: ''
   }
 
   componentDidMount = async () => {
-    const { authenticateEdgeLogin, history } = this.props
+    const { history, dispatch } = this.props
     this.setState({
-      disabled: false
+      disabled: false,
     })
     try {
       const context = await makeEdgeUiContext({
-        apiKey: "aac3421135575c7433551969b28f72c5b74d7b78",
-        appId: "com.dstream.web",
-        appName: "CaptainsRelay",
+        apiKey: 'aac3421135575c7433551969b28f72c5b74d7b78',
+        appId: 'com.dstream.web',
+        appName: 'CaptainsRelay',
         assetsPath,
-      });
-      edgeUiContext = context;
-      edgeUiContext.on("login", (edgeAccount) => {
-        console.log("Edge login successful")
-        authenticateEdgeLogin(edgeAccount, history)
+      })
+      edgeUiContext = context
+      edgeUiContext.on('login', (edgeAccount) => {
+        console.log('Edge login successful')
+        dispatch({
+          type: 'AUTHENTICATE_EDGE_LOGIN',
+          data: { account: edgeAccount, history }
+        })
       })
     } catch (e) {
-      console.log("Edge error: ", e)
+      console.log('Edge error: ', e)
     }
   }
 
+  onChangeEmail = (e: any) => {
+    const email: string = e.target.value
+    this.setState({
+      email
+    })
+  }
+
+  onChangePassword = (e: any) => {
+    const password: string = e.target.value
+    this.setState({
+      password
+    })
+  }
+
   onClickEdgeLogin = () => {
-    console.log("onClickEdgeLogin executing");
-    edgeUiContext.showLoginWindow();
-  };
+    console.log('onClickEdgeLogin executing')
+    edgeUiContext.showLoginWindow()
+  }
 
   onClickLogin = (e) => {
     e.preventDefault()
-
+    const { login, history } = this.props
+    const { email, password } = this.state
+    login({ email, password }, history)
   }
 
   render() {
     const { disabled } = this.state
 
     return (
-      <div className="auth-wrapper" style={{ background: "#eff3f6" }}>
+      <div className="auth-wrapper" style={{ background: '#eff3f6' }}>
         <div className="auth-content container">
           <Card>
             <Form onSubmit={this.onClickLogin}>
@@ -78,7 +117,7 @@ class AuthSingin extends Component {
                           <i className="feather icon-mail" />
                         </span>
                       </InputGroupAddon>
-                      <Input type="email" placeholder="Email address" />
+                      <Input onChange={this.onChangeEmail} type="email" placeholder="Email address" />
                     </InputGroup>
                     <InputGroup className="mb-2">
                       <InputGroupAddon addonType="prepend">
@@ -86,31 +125,31 @@ class AuthSingin extends Component {
                           <i className="feather icon-lock" />
                         </span>
                       </InputGroupAddon>
-                      <Input type="password" placeholder="Password" />
+                      <Input onChange={this.onChangePassword} type="password" placeholder="Password" />
                     </InputGroup>
                     <div className="saprator">
                       <span>OR</span>
                     </div>
                     <Button disabled={disabled} color="facebook" className="mb-2 mr-2">
                       <i>
-                        <FontAwesomeIcon icon={["fab", "facebook-f"]} />
+                        <FontAwesomeIcon icon={['fab', 'facebook-f']} />
                       </i>
                       facebook
                     </Button>
                     <Button disabled={disabled} color="googleplus" className="mb-2 mr-2">
                       <i>
-                        <FontAwesomeIcon icon={["fab", "google-plus-g"]} />
+                        <FontAwesomeIcon icon={['fab', 'google-plus-g']} />
                       </i>
                       Google
                     </Button>
                     <Button disabled={disabled} color="twitter" className="mb-2 mr-2">
                       <i>
-                        <FontAwesomeIcon icon={["fab", "twitter"]} />
+                        <FontAwesomeIcon icon={['fab', 'twitter']} />
                       </i>
                       Twitter
                     </Button>
                     <Button
-                      style={{ borderColor: "#2a5799", borderWidth: 1.5 }}
+                      style={{ borderColor: '#2a5799', borderWidth: 1.5 }}
                       color="edge"
                       className="mb-2 mr-2"
                       onClick={this.onClickEdgeLogin}
@@ -126,7 +165,7 @@ class AuthSingin extends Component {
                         </Label>
                       </div>
                     </FormGroup>
-                    <Button disabled={disabled} color="primary" className="mb-4">
+                    <Button onClick={this.onClickLogin} disabled={disabled} color="primary" className="mb-4">
                       Login
                     </Button>
                     <p className="mb-2 text-muted">
@@ -151,8 +190,6 @@ class AuthSingin extends Component {
           </Card>
         </div>
       </div>
-    );
+    )
   }
 }
-
-export default AuthSingin;

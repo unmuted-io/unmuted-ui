@@ -1,11 +1,11 @@
 
 import FormData from 'form-data'
-import { UserInfo, LoginResponseData } from '../../utility/types'
+import { UserInfo, LoginSuccessResponse, RegisterSuccessResponse, RegisterFailResponse } from '../../types'
+import { AxiosResponse } from '../../types/fetchTypes';
 
 export const attemptAutoLoginFromCookies = (history: any) => (dispatch: any, getState: any) => {
   const username = localStorage.getItem('username')
   const email = localStorage.getItem('email')
-  const id = localStorage.getItem('id')
   const password = localStorage.getItem('password')
   const access_token = localStorage.getItem('access_token')
   const type = localStorage.getItem('access_type')
@@ -29,23 +29,12 @@ export const createUser = (newUserInfo: UserInfo , history: object ) => async (d
     formData.append('password', password)
     formData.append('email', email)
     // @ts-ignore
-    const createUserResponse = await fetch(url, {
-      method: 'POST',
-      // @ts-ignore
+    const createUserResponse: AxiosResponse = await axios.post(url, {
       body: formData
     })
-    const createUserData = await createUserResponse.json()
-    if (!createUserResponse.ok) {
-      dispatch({ type: 'AUTH_ERROR', data: { authError: createUserData.message } })
-      throw new Error(createUserData.message)
-    }
-    if (createUserData.user) {
-      const extendedUserInfo = {
-        ...createUserData,
-        ...createUserData.access_token
-      }
-      dispatch(login(newUserInfo, history, false))
-    }
+
+    const createUserData: RegisterSuccessResponse | RegisterFailResponse = createUserResponse.data
+    dispatch(login(newUserInfo, history, false))
   } catch (e) {
     console.log('Error: ', e)
     dispatch({ type: 'AUTH_ERROR', data: { authError: e.message } })
@@ -54,7 +43,7 @@ export const createUser = (newUserInfo: UserInfo , history: object ) => async (d
 
 export const login = (userInfo: UserInfo, history: any, isAnimated?: boolean) => async (dispatch: any, getState: any) => {
   if (isAnimated !== false) {
-    dispatch({ type: 'IS_LOGGING_IN', data: true })
+    dispatch({ type: 'IS_LOGGING_IN', data: { isLoggingIn: true } })
   }
   try {
     const { username, password, email } = userInfo
@@ -73,20 +62,19 @@ export const login = (userInfo: UserInfo, history: any, isAnimated?: boolean) =>
       console.log(loginResponse.statusText)
       throw new Error (loginResponse.statusText)
     }
-    const loginData: LoginResponseData = await loginResponse.json()
+    const loginData: LoginSuccessResponse = await loginResponse.json()
     const { user, access_token } = loginData
     localStorage.setItem('email', email)
     localStorage.setItem('username', username)
-    localStorage.setItem('id', user.id)
     localStorage.setItem('password', password)
     localStorage.setItem('access_type', access_token.type)
     localStorage.setItem('access_token', access_token.token)
     // const currentTimestamp = new Date().getTime()
     // const currentTimestampFixed = currentTimestamp / 1000
     // const futureTimestamp = (currentTimestampFixed + 86400).toString()
-    dispatch({ type: 'ACCOUNT', data: { ...loginData.user, ...loginData.access_token } })
+    dispatch({ type: 'ACCOUNT', data: { account: { ...loginData.user, ...loginData.access_token } } })
     // localStorage.setItem('expiration', futureTimestamp)
-    if (history.location.pathname === '/register') { // vs what?
+    if (history.location.pathname === '/register') { // vs just logging in
       // history.goBack()
       history.push({
         pathname: '/username',
@@ -94,6 +82,8 @@ export const login = (userInfo: UserInfo, history: any, isAnimated?: boolean) =>
           ...userInfo
         }
       })
+    } else {
+      history.push('/')
     }
   } catch (e) {
     console.log('Error: ', e)
@@ -104,7 +94,7 @@ export const login = (userInfo: UserInfo, history: any, isAnimated?: boolean) =>
 export const logout = () => (dispatch: any): void => {
   dispatch({
     type: 'ACCOUNT',
-    data: null
+    data: { account: null }
   })
   localStorage.clear()
 }

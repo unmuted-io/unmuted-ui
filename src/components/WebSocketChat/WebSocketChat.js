@@ -1,12 +1,12 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { Button, Input, InputGroup, InputGroupAddon } from 'reactstrap'
+import QRCode from 'qrcode.react'
 import io from 'socket.io-client'
 
 let client
 
 export class WebSocketChat extends Component {
-
   constructor (props) {
     super(props)
     const { rand } = this.props
@@ -18,7 +18,8 @@ export class WebSocketChat extends Component {
       } ,
       input: '',
       isConnected: false,
-      superChatAmount: 0
+      superChatAmount: 0,
+      uri: ''
     }
 
     this.ws.on('connect', () => {
@@ -35,8 +36,8 @@ export class WebSocketChat extends Component {
       })
     })
 
-    this.ws.on('error', () => {
-      console.log('room error')
+    this.ws.on('error', (error) => {
+      console.log('room error', error)
     })
 
     this.ws.on('success', () => {
@@ -68,6 +69,7 @@ export class WebSocketChat extends Component {
   }
 
   onClickSubmit = () => {
+    console.log('onClickSubmit triggered, this is: ', this)
     const { input } = this.state
     if (!input) return
     const { account } = this.props
@@ -115,7 +117,8 @@ export class WebSocketChat extends Component {
 
   render() {
     const { account } = this.props
-    const { chat, input } = this.state
+    const { chat, input, superChatAmount } = this.state
+    const encodedUri = `eos:haytemrtg4ge?amount=${superChatAmount}`
     return (
       <div className={'chat'} style={{ alignSelf: 'flex-end', width: '100%' }}>
         <div>
@@ -152,6 +155,7 @@ export class WebSocketChat extends Component {
             SuperChat
           </Button>
         </div>
+        <QRCode value={encodedUri} />
       </div>
     );
   }
