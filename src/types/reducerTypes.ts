@@ -12,7 +12,35 @@ export type Account = {
 
 
 export interface EdgeAccount {
-
+  id: string,
+  keys: any,
+  username: string,
+  currencyConfig: any,
+  activeWalltIds: string[],
+  currencyWallets: {
+      [key: string]: {
+      fiatCurrencyCode: string,
+      balances: { [currencyCode: string]: string },
+      blockHeight: number,
+      syncRatio: number
+    }
+  },
+  currencyTools: {
+    [pluginName: string]: {
+      currencyInfo: {
+        currencyCode: string,
+        displayName: string,
+        pluginName: string,
+        walletType: string,
+        addressExplorer: string,
+        transactionExplorer: string,
+        denominations: any[],
+        symbolImage: string,
+        symbolImageDarkMono: string,
+        metaTokens: any[]
+      }
+    }
+  }
 }
 
 export interface AuthReducer {

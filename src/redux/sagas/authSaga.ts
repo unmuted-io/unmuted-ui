@@ -49,7 +49,11 @@ function* authenticateEdgeLogin(data: any): any {
     })
   } else if (checkUserResponse.status === 200) { // user *does* exist
     console.log('user does exist')
-    yield put({ type: 'ACCOUNT', data: { ...checkUserResponse.data } })
+    const account = {
+      ...checkUserResponse.data.user,
+      ...checkUserResponse.data.access_token
+    }
+    yield put({ type: 'ACCOUNT', data: { account } })
     history.push('/')
   }
   console.log('after conditionals')
