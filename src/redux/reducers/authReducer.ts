@@ -21,6 +21,8 @@ export const account = (state = null, action) => {
         ...state,
         username: data.username
       }
+    case 'LOGOUT':
+        return null
     default:
       return state
   }
@@ -30,6 +32,8 @@ export const edgeAccount = (state = null, action) => {
   switch (action.type) {
     case 'UPDATE_EDGE_ACCOUNT':
       return action.data
+    case 'LOGOUT':
+        return null
     default:
       return state
   }

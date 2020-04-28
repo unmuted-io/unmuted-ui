@@ -96,8 +96,7 @@ export const login = (userInfo: UserInfo, history: any, isAnimated?: boolean) =>
 
 export const logout = () => (dispatch: any): void => {
   dispatch({
-    type: 'ACCOUNT',
-    data: { account: null }
+    type: 'LOGOUT'
   })
   localStorage.clear()
 }

@@ -4,7 +4,7 @@ import { Dispatch } from 'redux'
 import { Button, Input, InputGroup, InputGroupAddon, Form, FormGroup } from 'reactstrap'
 import QRCode from 'qrcode.react'
 import io from 'socket.io-client'
-import { Account } from '../../types'
+import { Account, SuperChatData } from '../../types'
 
 let client
 
@@ -121,8 +121,9 @@ export class WebSocketChatComponent extends Component<WebSocketChatProps, WebSoc
   onClickSuperChat = () => {
     const { account, sendSuperChat } = this.props
     const { input, superChatAmount } = this.state
+    if (superChatAmount <= 0) return
     console.log('superChatAmount is: ', superChatAmount)
-    const data = {
+    const data: SuperChatData = {
       input,
       amount: superChatAmount.toFixed(4).toString(),
       username: account.username || 'fakeUser',
@@ -140,9 +141,11 @@ export class WebSocketChatComponent extends Component<WebSocketChatProps, WebSoc
   componentWillUnmount = () => {}
 
   render() {
-    const { account } = this.props
+    const { account, edgeAccount } = this.props
     const { chat, input, superChatAmount } = this.state
     const encodedUri = `eos:haytemrtg4ge?amount=${superChatAmount}`
+    const isSuperChatVisible = edgeAccount
+    const isSuperChatDisabled = !input || (superChatAmount <= 0)
     return (
       <div className={'chat'} style={{ alignSelf: 'flex-end', width: '100%' }}>
         <div>
@@ -152,6 +155,7 @@ export class WebSocketChatComponent extends Component<WebSocketChatProps, WebSoc
               let fontSize = 12
               const amountText = chat[timestamp].amount
               if (amountText) {
+                console.log('amountText: ', amountText)
                 const amount = parseFloat(amountText.replace(' EOS'))
                 const magnitude = Math.ceil(Math.log10(amount) * 2)
                 console.log('magnitude ceiling is: ', magnitude)
@@ -177,20 +181,24 @@ export class WebSocketChatComponent extends Component<WebSocketChatProps, WebSoc
               onChange={this.onChangeInput}
             />
             <Button color="primary" className="mb-4">
-              Submit
+              Chat
             </Button>
           </div>
-          <div className="chat-area">
-            <InputGroup>
-              <Input onChange={this.changeSuperChatAmount} placeholder="Amount" min={0.001} type="number" step=".001" />
-              <InputGroupAddon addonType="append">EOS</InputGroupAddon>
-            </InputGroup>
-            <Button onClick={this.onClickSuperChat} color="success" className="mb-4">
-              SuperChat
-            </Button>
-          </div>
+          {isSuperChatVisible && (
+            <>
+              <div className="chat-area">
+                <InputGroup>
+                  <Input onChange={this.changeSuperChatAmount} placeholder="Amount" min={0.001} type="number" step=".001" />
+                  <InputGroupAddon addonType="append">TLOS</InputGroupAddon>
+                </InputGroup>
+                <Button disabled={isSuperChatDisabled} onClick={this.onClickSuperChat} color="success" className="mb-4">
+                  SuperChat
+                </Button>
+              </div>
+              <QRCode value={encodedUri} />
+            </>
+          )}
         </Form>
-        <QRCode value={encodedUri} />
       </div>
     )
   }
