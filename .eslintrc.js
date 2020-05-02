@@ -1,21 +1,28 @@
 module.exports = {
     "env": {
         "browser": true,
-        "node": true
+        "es6": true
     },
     "extends": [
-        "plugin:@typescript-eslint/recommended",
-        "plugin:@typescript-eslint/recommended-requiring-type-checking",
-        "tslint-react"
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/eslint-recommended"
     ],
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
-        "project": "tsconfig.json",
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 2018,
         "sourceType": "module"
     },
     "plugins": [
-        "@typescript-eslint",
-        "@typescript-eslint/tslint"
+        "react",
+        "@typescript-eslint"
     ],
     "rules": {
         "@typescript-eslint/array-type": "error",
@@ -95,4 +102,4 @@ module.exports = {
             }
         ]
     }
-}
+};
