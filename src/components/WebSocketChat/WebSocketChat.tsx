@@ -26,7 +26,9 @@ interface WebSocketChatState {
   isConnected: boolean
   superChatAmount: number
   uri: string,
-  currentTab: string
+  currentTab: string,
+  isQrCodeVisible: boolean,
+  currentWalletId: string
 }
 
 export class WebSocketChatComponent extends Component<WebSocketChatProps, WebSocketChatState> {
@@ -34,8 +36,8 @@ export class WebSocketChatComponent extends Component<WebSocketChatProps, WebSoc
 
   constructor(props: WebSocketChatProps) {
     super(props)
-    const { rand } = this.props
-    console.log('about to connect to websocket')
+    const { rand, edgeAccount } = props
+    const activeWalletIds = (edgeAccount && edgeAccount.activeWalletIds) || []
     this.ws = io(`http://localhost:9825/${rand}`)
     this.state = {
       chat: {},
@@ -43,7 +45,9 @@ export class WebSocketChatComponent extends Component<WebSocketChatProps, WebSoc
       isConnected: false,
       superChatAmount: 0,
       uri: '',
-      currentTab: '1'
+      currentTab: '1',
+      isQrCodeVisible: false,
+      currentWalletId: (activeWalletIds && activeWalletIds[0]) || ''
     }
 
     this.ws.on('connect', () => {
@@ -94,26 +98,33 @@ export class WebSocketChatComponent extends Component<WebSocketChatProps, WebSoc
 
   onSubmit = (e) => {
     e.preventDefault()
-    console.log('onClickSubmit triggered, this is: ', this)
     const { input } = this.state
     if (!input) return
     const { account } = this.props
-    console.log('sending to websockets')
-    this.ws.emit('userMessage', {
-      type: 'chatSubmission',
-      username: account.username,
-      content: input,
-    })
     this.setState({
       input: '',
+    }, () => {
+      this.ws.emit('userMessage', {
+        type: 'chatSubmission',
+        username: account.username,
+        content: input,
+      })
     })
+  }
+
+  onChangeTab = (tab: string) => {
+    const { currentWalletId } = this.state
+    if (currentWalletId !== tab) {
+      this.setState({
+        currentWalletId: tab
+      })
+    }
   }
 
   onChangeSuperChatAmount = (e) => {
     const { value } = e.target
-    console.log('superChatAmount: ', value)
     this.setState({
-      superChatAmount: value,
+      superChatAmount: parseFloat(value),
     })
   }
 
@@ -128,6 +139,9 @@ export class WebSocketChatComponent extends Component<WebSocketChatProps, WebSoc
       username: account.username || 'fakeUser',
     }
     sendSuperChat(data)
+    this.setState({
+      isQrCodeVisible: true
+    })
   }
 
   onChangeInput = (e) => {
@@ -139,7 +153,13 @@ export class WebSocketChatComponent extends Component<WebSocketChatProps, WebSoc
 
   render() {
     const { rand, edgeAccount } = this.props
-    const { chat, input } = this.state
+    const {
+      chat,
+      input,
+      isQrCodeVisible,
+      superChatAmount,
+      currentWalletId
+    } = this.state
     const isBountiedChatVisible = !!edgeAccount
     return (
       <div className={'chat'} style={{ alignSelf: 'flex-end', width: '100%', flex: 1 }}>
@@ -171,21 +191,23 @@ export class WebSocketChatComponent extends Component<WebSocketChatProps, WebSoc
             rand={rand}
             input={input}
             onChangeInput={this.onChangeInput}
-            onClickSuperChat={this.onChangeSuperChatAmount}
+            onClickSuperChat={this.onClickSuperChat}
             onSubmit={this.onSubmit}
             onChangeSuperChatAmount={this.onChangeSuperChatAmount}
+            isQrCodeVisible={isQrCodeVisible}
+            superChatAmount={superChatAmount}
+            uri={`eos:haytemrtg4ge?amount=${superChatAmount}`}
+            onChangeTab={this.onChangeTab}
+            currentWalletId={currentWalletId}
           />
           ) : (
             <ChatForm
               rand={rand}
               input={input}
               onChangeInput={this.onChangeInput}
-              onClickSuperChat={this.onChangeSuperChatAmount}
               onSubmit={this.onSubmit}
-              onChangeSuperChatAmount={this.onChangeSuperChatAmount}
             />
           )}
-
       </div>
     )
   }

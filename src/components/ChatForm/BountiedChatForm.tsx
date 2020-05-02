@@ -11,18 +11,24 @@ import {
   NavItem,
   NavLink,
   TabContent,
-  TabPane
+  TabPane,
+  Collapse
 } from 'reactstrap'
 import QRCode from 'qrcode.react'
 import classnames from 'classnames'
 
 interface BountiedChatFormOwnProps {
   rand: string,
-  input: string,
   onSubmit: Function,
   onChangeInput: (input: any) => void,
   onClickSuperChat: Function,
-  onChangeSuperChatAmount: (input: any) => void
+  onChangeSuperChatAmount: (input: string) => void,
+  isQrCodeVisible: boolean,
+  superChatAmount: number,
+  uri: string,
+  input: string,
+  currentWalletId: string,
+  onChangeTab: (id: string) => void
 }
 
 interface BountiedChatFormStateProps {
@@ -36,38 +42,15 @@ interface BountiedChatFormDispatchProps {
 type BountiedChatFormProps = BountiedChatFormOwnProps & BountiedChatFormStateProps & BountiedChatFormDispatchProps
 
 interface BountiedChatFormState {
-  chat: object
-  input: string
   isConnected: boolean
-  superChatAmount: number
-  uri: string,
-  currentWalletId: string
 }
 
 class BountiedChatFormComponent extends React.Component<BountiedChatFormProps, BountiedChatFormState> {
   constructor(props: BountiedChatFormProps) {
     super(props)
-    const {
-      edgeAccount
-    } = props
-    const { activeWalletIds } = edgeAccount
-    this.state = {
-      chat: {},
-      input: '',
-      isConnected: false,
-      superChatAmount: 0,
-      uri: '',
-      // what if no wallets?
-      currentWalletId: activeWalletIds[0]
-    }
-  }
 
-  onChangeTab = (tab: string) => {
-    const { currentWalletId } = this.state
-    if (currentWalletId !== tab) {
-      this.setState({
-        currentWalletId: tab
-      })
+    this.state = {
+      isConnected: false
     }
   }
 
@@ -78,14 +61,17 @@ class BountiedChatFormComponent extends React.Component<BountiedChatFormProps, B
       onSubmit,
       onChangeInput,
       onClickSuperChat,
-      onChangeSuperChatAmount
+      onChangeSuperChatAmount,
+      superChatAmount,
+      isQrCodeVisible,
+      input,
+      currentWalletId,
+      uri,
+      onChangeTab
     } = this.props
-    const { superChatAmount, currentWalletId } = this.state
-    const { activeWalletIds, currencyWallets, input } = edgeAccount
-    console.log('')
+    const { activeWalletIds, currencyWallets } = edgeAccount
     const selectedWalletCurrencyInfo = currencyWallets[currentWalletId].currencyInfo
     const { currencyCode } = selectedWalletCurrencyInfo
-    const encodedUri = `eos:haytemrtg4ge?amount=${superChatAmount}`
     const isSuperChatDisabled = !input || (superChatAmount <= 0)
     return (
       <div className='bountied-chat-area'>
@@ -95,7 +81,7 @@ class BountiedChatFormComponent extends React.Component<BountiedChatFormProps, B
               <NavItem key={id}>
                 <NavLink
                   className={classnames({ active: currentWalletId === id })}
-                  onClick={() => this.onChangeTab(id)}
+                  onClick={() => onChangeTab(id)}
                 >
                   <img src={currencyWallets[id].currencyInfo.symbolImage} className='symbol-image' />&nbsp;&nbsp;
                   {currencyWallets[id].currencyInfo.currencyCode}
@@ -119,16 +105,20 @@ class BountiedChatFormComponent extends React.Component<BountiedChatFormProps, B
                   Chat
                 </Button>
               </div>
-              <div className="chat-area">
+              <div className="chat-area bountied-chat-input">
                 <InputGroup>
                   <Input onChange={onChangeSuperChatAmount} placeholder="Amount" min={0.001} type="number" step=".001" />
                   <InputGroupAddon addonType="append">{currencyCode}</InputGroupAddon>
                 </InputGroup>
-                <Button disabled={isSuperChatDisabled} onClick={onClickSuperChat} color="success" className="mb-4">
+                <Button disabled={isSuperChatDisabled} onClick={onClickSuperChat} color="success" className='mb-4'>
                   BountyChat
                 </Button>
               </div>
-              <QRCode value={encodedUri} />
+              <Collapse className='qr-code-collapsible' isOpen={isQrCodeVisible}>
+                <div className='qr-code-wrapper'>
+                  <QRCode className='qr-code' value={uri} size={256} />
+                </div>
+              </Collapse>
             </Form>
           </TabPane>
         </TabContent>

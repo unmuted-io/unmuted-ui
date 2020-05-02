@@ -11,8 +11,6 @@ interface ChatFormOwnProps {
   rand: string,
   onSubmit: Function,
   onChangeInput: (input: any) => void,
-  onClickSuperChat: Function,
-  onChangeSuperChatAmount: (input: any) => void,
   input: string
 }
 

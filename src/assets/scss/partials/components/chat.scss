@@ -31,12 +31,28 @@
       padding-left: 20px;
       padding-right: 20px;
       cursor: pointer;
+      &:hover {
+        color: #383c31
+      }
 
       img.symbol-image {
         height: 1em;
         width: 1em;
         bottom: 2px;
         position: relative;
+      }
+    }
+
+    .bountied-chat-input {
+      margin-bottom: 24px;
+    }
+
+    .qr-code-collapsible {
+
+      .qr-code-wrapper {
+        justify-content: center;
+        flex: 1;
+        display: flex;
       }
     }
   }
