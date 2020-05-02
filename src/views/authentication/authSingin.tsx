@@ -50,7 +50,9 @@ export class AuthSinginComponent extends Component<AuthSinginComponentProps, Aut
   }
 
   componentDidMount = async () => {
-    const { history, dispatch } = this.props
+    const { history, dispatch, location } = this.props
+    // @ts-ignore
+    const fromUrl = location.state && location.state.fromUrl
     this.setState({
       disabled: false,
     })
@@ -62,12 +64,22 @@ export class AuthSinginComponent extends Component<AuthSinginComponentProps, Aut
         assetsPath,
       })
       edgeUiContext = context
-      edgeUiContext.on('login', (edgeAccount) => {
+      edgeUiContext.on('login', async (edgeAccount) => {
         console.log('Edge login successful')
         dispatch({
           type: 'AUTHENTICATE_EDGE_LOGIN',
-          data: { account: edgeAccount, history }
+          data: { account: edgeAccount, history, fromUrl  }
         })
+        const walletInfo = edgeAccount.getFirstWalletInfo('wallet:ethereum')
+        const currencyWallet =
+          walletInfo == null
+            ? await edgeAccount.createCurrencyWallet('wallet:ethereum', { name: 'dStream ETH Wallet'})
+            : await edgeAccount.waitForCurrencyWallet(walletInfo.id)
+
+        // Get an address from the wallet:
+        // if no address then need to activate wallet / account
+        const addressInfo = await currencyWallet.getReceiveAddress()
+        const address = addressInfo.publicAddress
       })
     } catch (e) {
       console.log('Edge error: ', e)

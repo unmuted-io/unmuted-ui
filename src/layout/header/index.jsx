@@ -31,7 +31,8 @@ class Header extends Component {
 
   goToLogin= () => {
     const { history } = this.props
-    history.push('/login')
+    // @ts-ignore
+    history.push('/login', { fromUrl: history.location && history.location.pathname})
   }
 
   render() {

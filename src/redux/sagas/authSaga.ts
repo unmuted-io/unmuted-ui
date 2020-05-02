@@ -25,7 +25,7 @@ function* updateUsername(input: { type: string; data: { username: string; histor
 
 // login and possible register upon EdgeLogin
 function* authenticateEdgeLogin(data: any): any {
-  const { account, history } = data.data
+  const { account, history, fromUrl } = data.data
   const state = yield select()
   yield put({ type: 'UPDATE_EDGE_ACCOUNT', data: account })
   // check if user exists
@@ -57,7 +57,7 @@ function* authenticateEdgeLogin(data: any): any {
       ...checkUserResponse.data.access_token,
     }
     yield put({ type: 'ACCOUNT', data: { account } })
-    history.push('/')
+    history.push(fromUrl || '/')
   }
   console.log('after conditionals')
 }

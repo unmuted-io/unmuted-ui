@@ -77,11 +77,6 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
     }
   }
 
-  sendSuperChat = (data) => {
-    // change to Edge, or show QR code
-    // eosClient.transaction(data)
-  }
-
   onThumbClick = async (input: number) => {
     const { videoRating, rand, upvote, downvote } = this.state
     const { account } = this.props
@@ -223,9 +218,9 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
           </Card>
         </Col>
         <Col sm={12} lg={4}>
-          <Card>
-            <CardBody style={{ height: 480, display: 'flex', flexDirection: 'row' }}>
-              <WebSocketChat rand={rand} sendSuperChat={this.sendSuperChat} />
+          <Card style={{ height: '100%' }}>
+            <CardBody style={{ height: '100%', display: 'flex', flexDirection: 'row' }}>
+              <WebSocketChat rand={rand} />
             </CardBody>
           </Card>
         </Col>

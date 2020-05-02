@@ -62,7 +62,6 @@ const BasicBtTable = lazy(() => import("./views/table/bootstrap/basicTable"))
 const SizingTable = lazy(() => import("./views/table/bootstrap/sizingTable"))
 const BorderTable = lazy(() => import("./views/table/bootstrap/borderTable"))
 const StylingTable = lazy(() => import("./views/table/bootstrap/stylingTable"))
-const FullCalendar = lazy(() => import("./views/calendar/fullCalendar"))
 const FileUpload = lazy(() => import("./views/fileupload/fileUpload"))
 const TinymceEditor = lazy(() => import("./views/editor/tinymceEditor"))
 const CkClassicEditor = lazy(() => import("./views/editor/ck-editor/ckClassicEditor"))
@@ -212,7 +211,6 @@ const RouteList = [
   { exact: true, path: "/table/data/editable", name: "Editable Table", component: EditableTable },
   { exact: true, path: "/table/data/foo", name: "Foo Table", component: FooTable },
   /* Extension */
-  { exact: true, path: "/extension/calendar", name: "Calendar", component: FullCalendar },
   { exact: true, path: "/extension/fileUpload", name: "FileUpload", component: FileUpload },
   { exact: true, path: "/extension/image-cropper", name: "Image Cropper", component: ImageCropper },
   /* Editor */
