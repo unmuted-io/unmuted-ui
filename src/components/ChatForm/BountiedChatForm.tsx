@@ -71,20 +71,22 @@ class BountiedChatFormComponent extends React.Component<BountiedChatFormProps, B
     } = this.props
     const { activeWalletIds, currencyWallets } = edgeAccount
     const selectedWalletCurrencyInfo = currencyWallets[currentWalletId].currencyInfo
-    const { currencyCode } = selectedWalletCurrencyInfo
+    const { currencyCode: selectedCurrencyCode } = selectedWalletCurrencyInfo
     const isSuperChatDisabled = !input || (superChatAmount <= 0)
     return (
       <div className='bountied-chat-area'>
         <Nav tabs>
           {activeWalletIds.map((id: string) => {
+            const wallet = currencyWallets[id]
+            const { currencyInfo: { symbolImage, currencyCode } } = wallet
             return (
               <NavItem key={id}>
                 <NavLink
                   className={classnames({ active: currentWalletId === id })}
                   onClick={() => onChangeTab(id)}
                 >
-                  <img src={currencyWallets[id].currencyInfo.symbolImage} className='symbol-image' />&nbsp;&nbsp;
-                  {currencyWallets[id].currencyInfo.currencyCode}
+                  <img src={symbolImage} className='symbol-image' />&nbsp;&nbsp;
+                  {currencyCode}
                 </NavLink>
               </NavItem>
             )
@@ -102,13 +104,13 @@ class BountiedChatFormComponent extends React.Component<BountiedChatFormProps, B
                   onChange={onChangeInput}
                 />
                 <Button color="primary" className="mb-4">
-                  Chat
+                  Send
                 </Button>
               </div>
               <div className="chat-area bountied-chat-input">
                 <InputGroup>
                   <Input onChange={onChangeSuperChatAmount} placeholder="Amount" min={0.001} type="number" step=".001" />
-                  <InputGroupAddon addonType="append">{currencyCode}</InputGroupAddon>
+                  <InputGroupAddon addonType="append">{selectedCurrencyCode}</InputGroupAddon>
                 </InputGroup>
                 <Button disabled={isSuperChatDisabled} onClick={onClickSuperChat} color="success" className='mb-4'>
                   BountyChat

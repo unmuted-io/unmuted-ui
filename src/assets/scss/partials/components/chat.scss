@@ -42,9 +42,13 @@
         position: relative;
       }
     }
+    .tab-content {
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
 
     .bountied-chat-input {
-      margin-bottom: 24px;
+      margin-bottom: 16px;
     }
 
     .qr-code-collapsible {

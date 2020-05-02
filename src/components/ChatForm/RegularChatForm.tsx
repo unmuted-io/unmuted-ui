@@ -58,7 +58,7 @@ class ChatFormComponent extends React.Component<ChatFormProps, ChatFormState> {
               onChange={onChangeInput}
             />
             <Button color="primary" className="mb-4">
-              Chat
+              Send
             </Button>
           </div>
         </Form>
