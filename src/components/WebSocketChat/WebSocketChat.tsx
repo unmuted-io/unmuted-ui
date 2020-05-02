@@ -4,6 +4,7 @@ import io from 'socket.io-client'
 import BountiedChatForm from '../ChatForm/BountiedChatForm'
 import ChatForm from '../ChatForm/RegularChatForm'
 import { Account, SuperChatData } from '../../types'
+import { debounce } from '../../utility/utility'
 
 interface WebSocketChatOwnProps {
   rand: string
@@ -50,6 +51,8 @@ export class WebSocketChatComponent extends Component<WebSocketChatProps, WebSoc
       currentWalletId: (activeWalletIds && activeWalletIds[0]) || ''
     }
 
+    this.updateUri = debounce(this.updateUri, 600, false)
+
     this.ws.on('connect', () => {
       console.log('websocket open')
       this.setState({
@@ -62,14 +65,6 @@ export class WebSocketChatComponent extends Component<WebSocketChatProps, WebSoc
       this.setState({
         isConnected: false,
       })
-    })
-
-    this.ws.on('error', (error) => {
-      console.log('room error', error)
-    })
-
-    this.ws.on('success', () => {
-      console.log('Room success')
     })
   }
 
@@ -112,11 +107,30 @@ export class WebSocketChatComponent extends Component<WebSocketChatProps, WebSoc
     })
   }
 
+  updateUri = async () => {
+    const { edgeAccount } = this.props
+    const { currentWalletId } = this.state
+    const wallet = edgeAccount.currencyWallets[currentWalletId]
+    const { currencyCode } = wallet.currencyInfo
+    let data = {
+      publicAddress: 'haytemrtg4ge',
+      currencyCode,
+      nativeAmount: '100'
+    }
+    // data.nativeAmount = '100'
+    const encodedUri = await wallet.encodeUri(data)
+    this.setState({
+      uri: encodedUri
+    })
+  }
+
   onChangeTab = (tab: string) => {
     const { currentWalletId } = this.state
     if (currentWalletId !== tab) {
       this.setState({
         currentWalletId: tab
+      }, () => {
+        this.updateUri()
       })
     }
   }
@@ -125,6 +139,8 @@ export class WebSocketChatComponent extends Component<WebSocketChatProps, WebSoc
     const { value } = e.target
     this.setState({
       superChatAmount: parseFloat(value),
+    }, () => {
+      this.updateUri()
     })
   }
 
@@ -136,7 +152,7 @@ export class WebSocketChatComponent extends Component<WebSocketChatProps, WebSoc
     const data: SuperChatData = {
       input,
       amount: superChatAmount.toFixed(4).toString(),
-      username: account.username || 'fakeUser',
+      username: account.username,
     }
     sendSuperChat(data)
     this.setState({
@@ -148,6 +164,8 @@ export class WebSocketChatComponent extends Component<WebSocketChatProps, WebSoc
     const { value } = e.target
     this.setState({
       input: value,
+    }, () => {
+      this.updateUri()
     })
   }
 
@@ -158,7 +176,8 @@ export class WebSocketChatComponent extends Component<WebSocketChatProps, WebSoc
       input,
       isQrCodeVisible,
       superChatAmount,
-      currentWalletId
+      currentWalletId,
+      uri
     } = this.state
     const isBountiedChatVisible = !!edgeAccount
     return (
@@ -170,10 +189,8 @@ export class WebSocketChatComponent extends Component<WebSocketChatProps, WebSoc
               let fontSize = 12
               const amountText = chat[timestamp].amount
               if (amountText) {
-                console.log('amountText: ', amountText)
                 const amount = parseFloat(amountText.replace(' EOS'))
                 const magnitude = Math.ceil(Math.log10(amount) * 2)
-                console.log('magnitude ceiling is: ', magnitude)
                 fontSize += magnitude
               }
               return (
@@ -196,7 +213,7 @@ export class WebSocketChatComponent extends Component<WebSocketChatProps, WebSoc
             onChangeSuperChatAmount={this.onChangeSuperChatAmount}
             isQrCodeVisible={isQrCodeVisible}
             superChatAmount={superChatAmount}
-            uri={`eos:haytemrtg4ge?amount=${superChatAmount}`}
+            uri={uri}
             onChangeTab={this.onChangeTab}
             currentWalletId={currentWalletId}
           />

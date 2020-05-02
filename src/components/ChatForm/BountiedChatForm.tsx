@@ -48,7 +48,6 @@ interface BountiedChatFormState {
 class BountiedChatFormComponent extends React.Component<BountiedChatFormProps, BountiedChatFormState> {
   constructor(props: BountiedChatFormProps) {
     super(props)
-
     this.state = {
       isConnected: false
     }
@@ -70,7 +69,7 @@ class BountiedChatFormComponent extends React.Component<BountiedChatFormProps, B
       onChangeTab
     } = this.props
     const { activeWalletIds, currencyWallets } = edgeAccount
-    const selectedWalletCurrencyInfo = currencyWallets[currentWalletId].currencyInfo
+    const { currencyInfo: selectedWalletCurrencyInfo } = currencyWallets[currentWalletId]
     const { currencyCode: selectedCurrencyCode } = selectedWalletCurrencyInfo
     const isSuperChatDisabled = !input || (superChatAmount <= 0)
     return (
