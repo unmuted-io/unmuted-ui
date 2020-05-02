@@ -46,7 +46,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        attemptAutoLoginFromCookies: (history) => dispatch(attemptAutoLoginFromCookies(history))
+        attemptAutoLoginFromCookies: (history) => dispatch(attemptAutoLoginFromCookies(history)),
+        dispatch
     }
 }
 
