@@ -59,6 +59,7 @@ module.exports = {
             "error",
             1
         ],
+        "max-len": 90,
         "new-parens": "error",
         "no-bitwise": "error",
         "no-caller": "error",
