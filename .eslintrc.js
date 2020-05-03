@@ -37,6 +37,7 @@ module.exports = {
         "camelcase": "off",
         "@typescript-eslint/camelcase": "off",
         "complexity": "off",
+        "comma-dangle": "off",
         "constructor-super": "error",
         "dot-notation": "error",
         "eqeqeq": [
@@ -61,7 +62,7 @@ module.exports = {
             "error",
             1
         ],
-        "max-len": ['error', 90],
+        "max-len": ['error', 120],
         "new-parens": "error",
         "no-bitwise": "error",
         "no-caller": "error",
@@ -90,7 +91,7 @@ module.exports = {
             "error",
             "never"
         ],
-        "prefer-arrow/prefer-arrow-functions": "error",
+        // "prefer-arrow/prefer-arrow-functions": "error",
         "radix": "error",
         "react/prop-types": "off",
         "spaced-comment": "error",
