@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import DropzoneComponent from 'react-dropzone-component'
 
 export class UploadVideo extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       videoFile: null,
@@ -46,7 +46,7 @@ export class UploadVideo extends Component {
     const data = await resp.json()
   }
 
-  render() {
+  render () {
     const eventHandlers = {
       init: (dz) => (this.dropzone = dz),
       drop: this.callbackArray,

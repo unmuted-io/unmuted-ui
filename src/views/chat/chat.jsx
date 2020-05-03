@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import { Row, Col, Card, CardBody } from "reactstrap";
-import PerfectScrollbar from "react-perfect-scrollbar";
-import ChatSearch from "../../containers/chat/chatSearch";
-import ChatList from "../../containers/chat/chatList";
-import ChatContent from "../../containers/chat/chatContent";
-import ChatMsgSend from "../../containers/chat/chatMsgSend";
+import React, { Component } from 'react'
+import { Row, Col, Card, CardBody } from 'reactstrap'
+import PerfectScrollbar from 'react-perfect-scrollbar'
+import ChatSearch from '../../containers/chat/chatSearch'
+import ChatList from '../../containers/chat/chatList'
+import ChatContent from '../../containers/chat/chatContent'
+import ChatMsgSend from '../../containers/chat/chatMsgSend'
 
 class Chat extends Component {
-  render() {
+  render () {
     return (
       <Row>
         <Col sm={12}>
@@ -44,8 +44,8 @@ class Chat extends Component {
           </Card>
         </Col>
       </Row>
-    );
+    )
   }
 }
 
-export default Chat;
+export default Chat

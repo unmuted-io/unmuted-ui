@@ -1,27 +1,29 @@
-import React, { Component } from "react";
-import { Row, Col, Card, CardHeader, CardBody, Button } from "reactstrap";
-import DropzoneComponent from "react-dropzone-component";
+import React, { Component } from 'react'
+import { Row, Col, Card, CardHeader, CardBody, Button } from 'reactstrap'
+import DropzoneComponent from 'react-dropzone-component'
 
 class FileUpload extends Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
     this.djsConfig = {
       addRemoveLinks: false,
-      acceptedFiles: "image/jpeg,image/png,image/gif",
+      acceptedFiles: 'image/jpeg,image/png,image/gif',
       autoProcessQueue: false,
       uploadprogress: 100
-    };
+    }
     this.componentConfig = {
-      iconFiletypes: [".jpg", ".png", ".gif"],
+      iconFiletypes: ['.jpg', '.png', '.gif'],
       showFiletypeIcon: true,
-      postUrl: "no-url"
-    };
-    this.handleFileAdded = this.handleFileAdded.bind(this);
+      postUrl: 'no-url'
+    }
+    this.handleFileAdded = this.handleFileAdded.bind(this)
   }
-  handleFileAdded(file) {
-    console.log(file);
+
+  handleFileAdded (file) {
+    console.log(file)
   }
-  render() {
+
+  render () {
     return (
       <Row>
         <Col>
@@ -42,8 +44,8 @@ class FileUpload extends Component {
           </Card>
         </Col>
       </Row>
-    );
+    )
   }
 }
 
-export default FileUpload;
+export default FileUpload

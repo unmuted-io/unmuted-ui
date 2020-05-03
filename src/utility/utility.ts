@@ -7,25 +7,25 @@ export const cutOffText = (str: string, lng: number) => {
 }
 
 export function debounce (func: Function, wait: number, immediate: boolean): any {
-    let timeout
+  let timeout
 
-    return function executedFunction() {
-      const context = this
-      const args = arguments
+  return function executedFunction () {
+    const context = this
+    const args = arguments
 
-      const later = function() {
-        timeout = null
-        if (!immediate) func.apply(context, args)
-      }
+    const later = function () {
+      timeout = null
+      if (!immediate) func.apply(context, args)
+    }
 
-      const callNow = immediate && !timeout
+    const callNow = immediate && !timeout
 
-      clearTimeout(timeout)
+    clearTimeout(timeout)
 
-      timeout = setTimeout(later, wait)
+    timeout = setTimeout(later, wait)
 
-      if (callNow) func.apply(context, args)
-    };
+    if (callNow) func.apply(context, args)
+  }
 }
 
 export const getTimeMeasurement = (inMinutes: number): string => {
@@ -47,7 +47,7 @@ export const getTimeMeasurement = (inMinutes: number): string => {
   }
 }
 
-export const getTimeWithMeasurement = (inMinutes: number): { measurement: string, value: number } => {
+export const getTimeWithMeasurement = (inMinutes: number): { measurement: string; value: number } => {
   const measurement = getTimeMeasurement(inMinutes)
 
   const measurements = {
@@ -76,7 +76,7 @@ export const getTimeWithMeasurement = (inMinutes: number): { measurement: string
     value: strategy(inMinutes)
   }
 }
-export const getTimeInMinutes = (params: { measurement: string, value: number }): number => {
+export const getTimeInMinutes = (params: { measurement: string; value: number }): number => {
   const { measurement, value } = params
   const measurementStrategies = {
     seconds (v) {
@@ -118,12 +118,12 @@ export const secondsToHms = (seconds: number): string => {
 export const secondsToHHMMSS = (inputVar: string | number): string => {
   const inputNumber = Number(inputVar)
   let hours: number | string = Math.floor(inputNumber / 3600)
-  let minutes:number | string = Math.floor((inputNumber - (hours * 3600)) / 60)
+  let minutes: number | string = Math.floor((inputNumber - (hours * 3600)) / 60)
   let seconds: number | string = inputNumber - (hours * 3600) - (minutes * 60)
   if (hours < 1) {
     hours = ''
   } else {
-    hours   = `0${hours}:`
+    hours = `0${hours}:`
   }
   if (minutes < 10) minutes = `0${minutes}`
   if (seconds < 10) seconds = `0${seconds}`

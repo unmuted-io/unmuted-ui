@@ -5,8 +5,8 @@ import { connect } from 'react-redux'
 import { ViewCountUpdate } from '../../types'
 
 interface VideoPlayerComponentProps {
-  updateViewCount: (data: ViewCountUpdate) => void,
-  rand: string
+  updateViewCount: (data: ViewCountUpdate) => void;
+  rand: string;
 }
 
 interface VideoPlayerComponentState {
@@ -23,10 +23,10 @@ class VideoPlayer extends React.Component<VideoPlayerComponentProps, VideoPlayer
     this.timeupdateCount = 0
   }
 
-  componentDidMount(): void {
+  componentDidMount (): void {
     const { updateViewCount, rand } = this.props
     // instantiate Video.js
-    this.player = videojs(this.videoNode, this.props, function onPlayerReady() {
+    this.player = videojs(this.videoNode, this.props, function onPlayerReady () {
       console.log('onPlayerReady', this)
     })
     this.player.on('timeupdate', () => {
@@ -45,7 +45,7 @@ class VideoPlayer extends React.Component<VideoPlayerComponentProps, VideoPlayer
   }
 
   // destroy player on unmount
-  componentWillUnmount(): void {
+  componentWillUnmount (): void {
     if (this.player) {
       this.player.dispose()
     }
@@ -54,7 +54,7 @@ class VideoPlayer extends React.Component<VideoPlayerComponentProps, VideoPlayer
   // wrap the player in a div with a `data-vjs-player` attribute
   // so videojs won't create additional wrapper in the DOM
   // see https://github.com/videojs/video.js/pull/3856
-  render(): object {
+  render (): object {
     return (
       <div>
         <div data-vjs-player>

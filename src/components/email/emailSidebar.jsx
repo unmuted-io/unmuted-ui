@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import { Nav, NavItem } from "reactstrap";
-import * as Icons from "react-feather";
-import FilterEmail from "../../containers/email/filterEmails";
-import { VisibilityFilters } from "../../redux/actions/emailActions";
+import React, { Component } from 'react'
+import { Nav, NavItem } from 'reactstrap'
+import * as Icons from 'react-feather'
+import FilterEmail from '../../containers/email/filterEmails'
+import { VisibilityFilters } from '../../redux/actions/emailActions'
 
 class EmailSidebar extends Component {
-  render() {
+  render () {
     return (
       <Nav pills vertical className="mb-2 nav-tab">
         <NavItem className="mail-section">
@@ -66,8 +66,8 @@ class EmailSidebar extends Component {
           </FilterEmail>
         </NavItem>
       </Nav>
-    );
+    )
   }
 }
 
-export default EmailSidebar;
+export default EmailSidebar

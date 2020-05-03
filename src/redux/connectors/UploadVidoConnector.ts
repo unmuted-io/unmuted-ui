@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 import UploadVideoWizard from '../../views/uploadVideoWizard/uploadVideoWizard'
 
 const mapStateToProps = (state: any, ownProps: any) => {

@@ -1,20 +1,22 @@
-import React, { Component } from "react";
-import { Form, Button } from "reactstrap";
-import Parallax from "parallax-js";
-import p404 from "../../assets/images/error/404-01.png";
-import shadows from "../../assets/images/error/shadows-01.png";
-import monster from "../../assets/images/error/monster-01.png";
-import text1 from "../../assets/images/error/text-01.png";
-import monstereyes from "../../assets/images/error/monster-eyes-01.png";
+import React, { Component } from 'react'
+import { Form, Button } from 'reactstrap'
+import Parallax from 'parallax-js'
+import p404 from '../../assets/images/error/404-01.png'
+import shadows from '../../assets/images/error/shadows-01.png'
+import monster from '../../assets/images/error/monster-01.png'
+import text1 from '../../assets/images/error/text-01.png'
+import monstereyes from '../../assets/images/error/monster-eyes-01.png'
 
 class ErrorPage extends Component {
-  componentDidMount() {
-    this.parallax = new Parallax(this.scene);
+  componentDidMount () {
+    this.parallax = new Parallax(this.scene)
   }
-  componentWillUnmount() {
-    this.parallax.disable();
+
+  componentWillUnmount () {
+    this.parallax.disable()
   }
-  render() {
+
+  render () {
     return (
       <div className="auth-wrapper error">
         <div className="container">
@@ -43,8 +45,8 @@ class ErrorPage extends Component {
           </Form>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default ErrorPage;
+export default ErrorPage

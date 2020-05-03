@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {
   Row,
@@ -9,10 +9,10 @@ import {
   ButtonGroup,
   Button,
   Progress
-} from "reactstrap"
-import Loki from "react-loki"
-import { Link } from "react-router-dom"
-import FormWizardForm from "../forms/wizard/wizard"
+} from 'reactstrap'
+import Loki from 'react-loki'
+import { Link } from 'react-router-dom'
+import FormWizardForm from '../forms/wizard/wizard'
 import { UploadVideo } from './uploadVideo'
 import { SubmitBasicVideoInfo } from './submitBasicVideoInfo'
 
@@ -37,7 +37,7 @@ class UploadVideoWizard extends Component {
       console.log('disconnected')
     }
 
-    ws.onmessage = (message) =>  {
+    ws.onmessage = (message) => {
       const { progress, rand } = this.state
       const { history } = this.props
       const newProgress = parseFloat(message.data)
@@ -63,14 +63,14 @@ class UploadVideoWizard extends Component {
 
   customSteps = [
     {
-      label: "Step 1",
-      caption: "Upload File",
+      label: 'Step 1',
+      caption: 'Upload File',
       icon: <i className="fa fa-upload" />,
       component: <UploadVideo setFile={(videoFile) => this.setState({ videoFile })} />
     },
     {
-      label: "Step 2",
-      caption: "Basic Info",
+      label: 'Step 2',
+      caption: 'Basic Info',
       icon: <i className="fa fa-lock" />,
       component: <SubmitBasicVideoInfo onChangeInput={this.onChangeInput} />
     }
@@ -87,16 +87,16 @@ class UploadVideoWizard extends Component {
     let i = 0
     const steps = this.customSteps.map((step, index) => {
       const isActive = currentStep === index + 1
-      let itemLinkClass = ["nav-item"]
+      let itemLinkClass = ['nav-item']
       if (isActive) {
-        itemLinkClass = [...itemLinkClass, "active"]
+        itemLinkClass = [...itemLinkClass, 'active']
         i = 1
       } else if (i === 0 || this.state.isFinished) {
-        itemLinkClass = [...itemLinkClass, "done"]
+        itemLinkClass = [...itemLinkClass, 'done']
       }
 
       return (
-        <li key={index} className={itemLinkClass.join(" ")}>
+        <li key={index} className={itemLinkClass.join(' ')}>
           <Link to="#" className="nav-link disabled">
             <h6>{step.label}</h6>
             <p className="m-0">{step.caption}</p>
@@ -127,7 +127,7 @@ class UploadVideoWizard extends Component {
             onClick={nextHandler}
             disabled={this.state.isFinished && isInFinalStep}
           >
-            {isInFinalStep ? "Finish" : "Next"}
+            {isInFinalStep ? 'Finish' : 'Next'}
           </Button>
         </ButtonGroup>
       </div>
@@ -166,18 +166,18 @@ class UploadVideoWizard extends Component {
       if (resp.ok) {
         const rand = await resp.text()
         this.setState({
-          rand: rand
+          rand
         })
       }
-    } catch(e) {
+    } catch (e) {
       console.log('error: ', e)
     }
   }
 
-  render() {
+  render () {
     const { progress } = this.state
     const color = progress < 100 ? '' : 'success'
-    const animated = progress < 100 ? true : false
+    const animated = progress < 100
     return (
       <Row>
         <Col sm={12}>

@@ -1,22 +1,23 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import LayoutCard from '../../components/mainCard/layoutCard';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import LayoutCard from '../../components/mainCard/layoutCard'
 import {
   collapseMenu,
-} from '../../redux/actions/templateConfig';
+} from '../../redux/actions/templateConfig'
 
 class CollapesMenu extends Component {
-  componentWillMount() {
+  componentWillMount () {
     if (!this.props.meunCol) {
       this.props.collapseMenu()
     }
   }
-  render() {
+
+  render () {
     return (
       <LayoutCard
         title="Collapse Menu"
         collapseMenu="true"
-      />);
+      />)
   }
 }
 const mapStateToProps = state => ({
@@ -27,4 +28,4 @@ const mapDispatchToProps = {
   collapseMenu,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CollapesMenu);
+export default connect(mapStateToProps, mapDispatchToProps)(CollapesMenu)

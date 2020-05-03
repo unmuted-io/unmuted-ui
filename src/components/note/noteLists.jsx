@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import classnames from "classnames";
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import classnames from 'classnames'
 import {
   Row,
   Col,
@@ -10,79 +10,82 @@ import {
   Form,
   FormGroup,
   Input
-} from "reactstrap";
+} from 'reactstrap'
 
 import {
   addNote,
   removeNote,
   selectNote,
   noteUpdate
-} from "../../redux/actions/noteActions";
+} from '../../redux/actions/noteActions'
 
 class NoteLists extends Component {
-  constructor(props) {
-    super(props);
-    this.getRealDateTime = this.getRealDateTime.bind(this);
-    this.changeHandeler = this.changeHandeler.bind(this);
-    this.createNote = this.createNote.bind(this);
-    this.selectHandel = this.selectHandel.bind(this);
+  constructor (props) {
+    super(props)
+    this.getRealDateTime = this.getRealDateTime.bind(this)
+    this.changeHandeler = this.changeHandeler.bind(this)
+    this.createNote = this.createNote.bind(this)
+    this.selectHandel = this.selectHandel.bind(this)
     this.state = {
-      noteText: ""
-    };
-  }
-
-  getRealDateTime() {
-    const mlist = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December"
-    ];
-    let d = new Date();
-    let month = mlist[d.getMonth()];
-    let date = d.getDate();
-    let year = d.getFullYear();
-    let hour = d.getHours();
-    let min = d.getMinutes();
-    let ampm = hour >= 12 ? "pm" : "am";
-    hour = hour % 12;
-    hour = hour ? hour : 12;
-    return (
-      date + " " + month + " " + year + ", " + hour + ":" + min + " " + ampm
-    );
-  }
-  selectHandel(e) {
-    this.props.selectNote(e);
-  }
-  changeHandeler(e) {
-    if (this.props.selected) {
-      this.props.noteUpdate(
-        this.props.selected ? this.props.selected.id : "",
-        e.target.value
-      );
-    } else {
-      this.setState({ noteText: e.target.value });
+      noteText: ''
     }
   }
-  createNote() {
+
+  getRealDateTime () {
+    const mlist = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
+    ]
+    const d = new Date()
+    const month = mlist[d.getMonth()]
+    const date = d.getDate()
+    const year = d.getFullYear()
+    let hour = d.getHours()
+    const min = d.getMinutes()
+    const ampm = hour >= 12 ? 'pm' : 'am'
+    hour = hour % 12
+    hour = hour || 12
+    return (
+      date + ' ' + month + ' ' + year + ', ' + hour + ':' + min + ' ' + ampm
+    )
+  }
+
+  selectHandel (e) {
+    this.props.selectNote(e)
+  }
+
+  changeHandeler (e) {
+    if (this.props.selected) {
+      this.props.noteUpdate(
+        this.props.selected ? this.props.selected.id : '',
+        e.target.value
+      )
+    } else {
+      this.setState({ noteText: e.target.value })
+    }
+  }
+
+  createNote () {
     this.props.addNote(
       this.props.id,
       this.state.noteText,
       this.getRealDateTime()
-    );
-    this.props.selectNote(this.props.id + 1);
-    this.setState({ noteText: "" });
+    )
+    this.props.selectNote(this.props.id + 1)
+    this.setState({ noteText: '' })
   }
 
-  render() {
+  render () {
     return (
       <Card className="note-card">
         <CardBody>
@@ -105,11 +108,11 @@ class NoteLists extends Component {
                   {this.props.notes.map(object => (
                     <li
                       key={object.id}
-                      className={classnames("list-group-item", {
+                      className={classnames('list-group-item', {
                         active:
                           (this.props.selected
                             ? this.props.selected.id
-                            : "") === object.id
+                            : '') === object.id
                       })}
                     >
                       <Button
@@ -124,7 +127,7 @@ class NoteLists extends Component {
                         onClick={() => this.selectHandel(object.id)}
                       >
                         <div className="Note__desc">
-                          {object.text !== "" ? object.text : "Write your note"}
+                          {object.text !== '' ? object.text : 'Write your note'}
                         </div>
                         <div className="Note__date">{object.dateTime}</div>
                       </div>
@@ -171,16 +174,16 @@ class NoteLists extends Component {
           </Row>
         </CardBody>
       </Card>
-    );
+    )
   }
 }
 const mapStateToProps = state => ({
   id: state.noteApp.notes.length,
   selected: state.noteApp.notes[state.noteApp.noteSelected],
   notes: state.noteApp.notes
-});
+})
 
 export default connect(
   mapStateToProps,
   { addNote, removeNote, selectNote, noteUpdate }
-)(NoteLists);
+)(NoteLists)

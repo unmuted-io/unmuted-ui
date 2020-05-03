@@ -15,21 +15,21 @@ const { REACT_APP_API_BASE_URL } = process.env
 
 // const eosClient = new EOSIOClient('haytemrtg4ge') // hardcode app name
 interface ViewVideoComponentProps {
-  match: any,
-  account: any
+  match: any;
+  account: any;
 }
 
 interface ViewVideoComponentState {
-  title: string,
-  description: string,
-  rand: string,
-  source: string,
-  created_at: string,
-  username: string,
-  count: number,
-  videoRating: number,
-  upvote: number,
-  downvote: number
+  title: string;
+  description: string;
+  rand: string;
+  source: string;
+  created_at: string;
+  username: string;
+  count: number;
+  videoRating: number;
+  upvote: number;
+  downvote: number;
 }
 
 class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentState> {
@@ -56,7 +56,7 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
     const videoData = videoResponse.data
     this.setState({
       ...videoData,
-      rand: rand,
+      rand,
     })
     const videoRatingsStatsResponse: AxiosResponse = await axios.get(`${REACT_APP_API_BASE_URL}/video-rating/${rand}`)
     const stats = videoRatingsStatsResponse.data
@@ -134,8 +134,7 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
     )
   }
 
-  render() {
-    const { REACT_APP_API_BASE_URL } = process.env
+  render () {
     const {
       rand,
       title,

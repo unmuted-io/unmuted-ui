@@ -1,15 +1,15 @@
 const init = {
-  openBody: "emaillist"
-};
+  openBody: 'emaillist'
+}
 
 const EmailBody = (state = init, action) => {
   switch (action.type) {
-    case "ACTION_BODY": {
-      return { openBody: action.ebody };
+    case 'ACTION_BODY': {
+      return { openBody: action.ebody }
     }
     default:
-      return state;
+      return state
   }
-};
+}
 
-export default EmailBody;
+export default EmailBody

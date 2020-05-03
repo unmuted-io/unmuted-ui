@@ -1,8 +1,8 @@
-import todoData from "./todoData";
+import todoData from './todoData'
 
 const TodoModal = (state = todoData.todoModaData, action) => {
   switch (action.type) {
-    case "Add_TODO_MODAL":
+    case 'Add_TODO_MODAL':
       return [
         ...state,
         {
@@ -10,16 +10,16 @@ const TodoModal = (state = todoData.todoModaData, action) => {
           text: action.text,
           completed: action.completed
         }
-      ];
-    case "COMPLETE_TOD_MODAL":
+      ]
+    case 'COMPLETE_TOD_MODAL':
       return state.map(todo =>
         todo.id === action.id ? { ...todo, completed: !todo.completed } : todo
-      );
-    case "DELETE_TODO_MODAL":
-      return state.filter(todo => todo.id !== action.id);
+      )
+    case 'DELETE_TODO_MODAL':
+      return state.filter(todo => todo.id !== action.id)
     default:
-      return state;
+      return state
   }
-};
+}
 
-export default TodoModal;
+export default TodoModal

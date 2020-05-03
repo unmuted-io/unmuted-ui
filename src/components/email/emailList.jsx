@@ -1,8 +1,8 @@
-import React from "react";
-import PerfectScrollbar from "react-perfect-scrollbar";
-import { Table } from "reactstrap";
-import PropTypes from "prop-types";
-import Email from "./emailListItem";
+import React from 'react'
+import PerfectScrollbar from 'react-perfect-scrollbar'
+import { Table } from 'reactstrap'
+import PropTypes from 'prop-types'
+import Email from './emailListItem'
 
 const EmailList = ({
   active,
@@ -26,9 +26,7 @@ const EmailList = ({
                 onStar={() => onStar(email.id)}
                 onImportant={() => onImportant(email.id)}
                 onChange={e => {
-                  if (e.target.checked === true)
-                    setSelectedEmail(email.id, "checked");
-                  else setSelectedEmail(email.id, "unchecked");
+                  if (e.target.checked === true) { setSelectedEmail(email.id, 'checked') } else setSelectedEmail(email.id, 'unchecked')
                 }}
               />
             ))}
@@ -37,7 +35,7 @@ const EmailList = ({
       </PerfectScrollbar>
     </div>
   </div>
-);
+)
 
 EmailList.propTypes = {
   emails: PropTypes.array.isRequired,
@@ -45,6 +43,6 @@ EmailList.propTypes = {
   onStar: PropTypes.func.isRequired,
   onImportant: PropTypes.func.isRequired,
   setSelectedEmail: PropTypes.func.isRequired
-};
+}
 
-export default EmailList;
+export default EmailList

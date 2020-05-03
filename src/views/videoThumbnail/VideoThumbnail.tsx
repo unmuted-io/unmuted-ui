@@ -5,32 +5,32 @@ import {
   cutOffText,
   secondsToHms
 } from '../../utility/utility'
-import PlaceholderImage from "../../assets/images/placeholder.png"
+import PlaceholderImage from '../../assets/images/placeholder.png'
 
 const { REACT_APP_API_BASE_URL } = process.env
 
 export interface VideoThumbnailProps {
-  title: string,
-  description: string,
-  source: string,
-  rand: string,
-  processed?: 0 | 1,
-  id?: number,
-  created_at: string,
-  updated_at: string,
-  username: string,
-  count: number
+  title: string;
+  description: string;
+  source: string;
+  rand: string;
+  processed?: 0 | 1;
+  id?: number;
+  created_at: string;
+  updated_at: string;
+  username: string;
+  count: number;
 }
 
 export interface VideoThumbnailState {
-  currentThumbnail: string,
-  timer: number
+  currentThumbnail: string;
+  timer: number;
 }
 
 class VideoThumbnail extends React.Component<VideoThumbnailProps, VideoThumbnailState> {
   hoverInterval: any
 
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       currentThumbnail: PlaceholderImage,
@@ -38,6 +38,7 @@ class VideoThumbnail extends React.Component<VideoThumbnailProps, VideoThumbnail
     }
     this.hoverInterval
   }
+
   onMouseIn = () => {
     this.hoverInterval = setInterval(() => {
       const { timer } = this.state
@@ -55,7 +56,7 @@ class VideoThumbnail extends React.Component<VideoThumbnailProps, VideoThumbnail
     clearInterval(this.hoverInterval)
   }
 
-  render() {
+  render () {
     const {
       title,
       description,
@@ -107,4 +108,4 @@ const mapDispatchToProps = () => {
   }
 }
 
-export default VideoThumbnail;
+export default VideoThumbnail

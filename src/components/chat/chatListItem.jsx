@@ -1,7 +1,7 @@
-import React from "react";
-import { Media } from "reactstrap";
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
+import React from 'react'
+import { Media } from 'reactstrap'
+import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 const ChatListItem = ({ onClick, contactName, chatExcerpt, unread, thumb }) => (
   <Media className="userlist-box" onClick={onClick}>
@@ -17,7 +17,7 @@ const ChatListItem = ({ onClick, contactName, chatExcerpt, unread, thumb }) => (
     <Media body>
       <h6 className="chat-header">
         {contactName}
-        {chatExcerpt === "online" ? (
+        {chatExcerpt === 'online' ? (
           <small className="d-block text-c-green">online</small>
         ) : (
           <small className="d-block text-muted">{chatExcerpt}</small>
@@ -25,12 +25,12 @@ const ChatListItem = ({ onClick, contactName, chatExcerpt, unread, thumb }) => (
       </h6>
     </Media>
   </Media>
-);
+)
 
 ChatListItem.propTypes = {
   onClick: PropTypes.func.isRequired,
   contactName: PropTypes.string.isRequired,
   chatExcerpt: PropTypes.string.isRequired
-};
+}
 
-export default ChatListItem;
+export default ChatListItem

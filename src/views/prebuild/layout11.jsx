@@ -1,34 +1,34 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import LayoutCard from '../../components/mainCard/layoutCard';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import LayoutCard from '../../components/mainCard/layoutCard'
 import {
   layoutPrebuild,
   configBlock,
   bgMenu,
   bgBrand
-} from '../../redux/actions/templateConfig';
+} from '../../redux/actions/templateConfig'
 
 class Layout2 extends Component {
-  componentWillMount() {
-    if (this.props.templayout !== "layout-3") {
-      this.props.layoutPrebuild("layout-3")
+  componentWillMount () {
+    if (this.props.templayout !== 'layout-3') {
+      this.props.layoutPrebuild('layout-3')
     }
     if (this.props.configBlockg) {
       this.props.configBlock()
     }
-    if (this.props.brandBg !== "blue") {
-      this.props.bgBrand("blue")
+    if (this.props.brandBg !== 'blue') {
+      this.props.bgBrand('blue')
     }
   }
-  render() {
+
+  render () {
     return <LayoutCard
       title="Layout 3"
       prebuildLayout="layout-3"
       configBloc="false"
-    />;
+    />
   }
 }
-
 
 const mapStateToProps = state => ({
   templayout: state.config.layout,
@@ -44,4 +44,4 @@ const mapDispatchToProps = {
   bgBrand
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Layout2);
+export default connect(mapStateToProps, mapDispatchToProps)(Layout2)

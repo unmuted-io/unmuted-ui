@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import classnames from "classnames";
-import { connect } from "react-redux";
-import { Plus, Trash2 } from "react-feather";
+import React, { Component } from 'react'
+import classnames from 'classnames'
+import { connect } from 'react-redux'
+import { Plus, Trash2 } from 'react-feather'
 import {
   Card,
   CardHeader,
@@ -11,34 +11,37 @@ import {
   Button,
   InputGroup,
   InputGroupAddon
-} from "reactstrap";
+} from 'reactstrap'
 
 import {
   addTodoList,
   completeTodoList,
   deleteTodoList
-} from "../../redux/actions/todoActions";
+} from '../../redux/actions/todoActions'
 
 class TodoLists extends Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
     this.state = {
-      text: ""
-    };
-    this.submitHandeler = this.submitHandeler.bind(this);
-    this.changeHandeler = this.changeHandeler.bind(this);
+      text: ''
+    }
+    this.submitHandeler = this.submitHandeler.bind(this)
+    this.changeHandeler = this.changeHandeler.bind(this)
   }
-  submitHandeler(e) {
-    e.preventDefault();
-    this.props.addTodoList(this.props.id, this.state.text);
-    this.setState({ text: "" });
+
+  submitHandeler (e) {
+    e.preventDefault()
+    this.props.addTodoList(this.props.id, this.state.text)
+    this.setState({ text: '' })
   }
-  changeHandeler(e) {
+
+  changeHandeler (e) {
     this.setState({
       [e.target.name]: e.target.value
-    });
+    })
   }
-  render() {
+
+  render () {
     return (
       <Card>
         <CardHeader>
@@ -67,9 +70,9 @@ class TodoLists extends Component {
                 <div className="d-inline-block">
                   <label
                     className={classnames(
-                      "check-task custom-control custom-checkbox d-flex justify-content-center",
+                      'check-task custom-control custom-checkbox d-flex justify-content-center',
                       {
-                        "done-task": object.completed
+                        'done-task': object.completed
                       }
                     )}
                   >
@@ -84,7 +87,7 @@ class TodoLists extends Component {
                 <div className="float-right">
                   <i
                     onClick={() => this.props.deleteTodoList(object.id)}
-                    style={{ cursor: "pointer" }}
+                    style={{ cursor: 'pointer' }}
                   >
                     <Trash2 size={20} />
                   </i>
@@ -94,15 +97,15 @@ class TodoLists extends Component {
           </div>
         </CardBody>
       </Card>
-    );
+    )
   }
 }
 const mapStateToProps = state => ({
   id: state.todoApp.TodoList.length,
   todos: state.todoApp.TodoList
-});
+})
 
 export default connect(
   mapStateToProps,
   { addTodoList, completeTodoList, deleteTodoList }
-)(TodoLists);
+)(TodoLists)

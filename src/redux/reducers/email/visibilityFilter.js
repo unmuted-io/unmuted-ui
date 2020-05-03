@@ -1,12 +1,12 @@
-import { VisibilityFilters } from "../../actions/emailActions";
+import { VisibilityFilters } from '../../actions/emailActions'
 
 const visibilityFilter = (state = VisibilityFilters.SHOW_INBOX, action) => {
   switch (action.type) {
-    case "SET_EMAIL_VISIBILITY_FILTER":
-      return action.filter;
+    case 'SET_EMAIL_VISIBILITY_FILTER':
+      return action.filter
     default:
-      return state;
+      return state
   }
-};
+}
 
-export default visibilityFilter;
+export default visibilityFilter

@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import { Row, Col, Card, CardHeader, CardBody } from "reactstrap";
-import Search from "../../containers/icons/flag/IconSearch";
-import IconList from "../../containers/icons/flag/IconList";
+import React, { Component } from 'react'
+import { Row, Col, Card, CardHeader, CardBody } from 'reactstrap'
+import Search from '../../containers/icons/flag/IconSearch'
+import IconList from '../../containers/icons/flag/IconList'
 
 class FlagIcons extends Component {
-  render() {
+  render () {
     return (
       <Row>
         <Col sm={12}>
@@ -23,8 +23,8 @@ class FlagIcons extends Component {
           </Card>
         </Col>
       </Row>
-    );
+    )
   }
 }
 
-export default FlagIcons;
+export default FlagIcons

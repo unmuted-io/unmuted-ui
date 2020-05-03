@@ -8,14 +8,14 @@ import {
 } from 'reactstrap'
 
 interface ChatFormOwnProps {
-  rand: string,
-  onSubmit: Function,
-  onChangeInput: (input: any) => void,
-  input: string
+  rand: string;
+  onSubmit: Function;
+  onChangeInput: (input: any) => void;
+  input: string;
 }
 
 interface ChatFormStateProps {
-  account: Account
+  account: Account;
 }
 
 interface ChatFormDispatchProps {
@@ -24,13 +24,13 @@ interface ChatFormDispatchProps {
 type ChatFormProps = ChatFormOwnProps & ChatFormStateProps & ChatFormDispatchProps
 
 interface ChatFormState {
-  chat: object
-  input: string
-  isConnected: boolean
+  chat: object;
+  input: string;
+  isConnected: boolean;
 }
 
 class ChatFormComponent extends React.Component<ChatFormProps, ChatFormState> {
-  constructor(props: ChatFormProps) {
+  constructor (props: ChatFormProps) {
     super(props)
     this.state = {
       chat: {},

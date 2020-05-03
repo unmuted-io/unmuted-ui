@@ -1,22 +1,23 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import LayoutCard from '../../components/mainCard/layoutCard';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import LayoutCard from '../../components/mainCard/layoutCard'
 import {
   layOutType,
-} from '../../redux/actions/templateConfig';
+} from '../../redux/actions/templateConfig'
 
 class LightLayout extends Component {
-  componentWillMount() {
-    if (this.props.layoutTypeC !== "light") {
-      this.props.layOutType("light")
+  componentWillMount () {
+    if (this.props.layoutTypeC !== 'light') {
+      this.props.layOutType('light')
     }
   }
-  render() {
+
+  render () {
     return (
       <LayoutCard
         title="Light Layout"
         layoutType="light"
-      />);
+      />)
   }
 }
 const mapStateToProps = state => ({
@@ -27,4 +28,4 @@ const mapDispatchToProps = {
   layOutType,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LightLayout);
+export default connect(mapStateToProps, mapDispatchToProps)(LightLayout)

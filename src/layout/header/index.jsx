@@ -20,10 +20,12 @@ class Header extends Component {
   state = {
     navOpen: true,
   }
+
   toggle = () => {
     this.setState({ navOpen: !this.state.navOpen })
   }
-  componentWillMount() {
+
+  componentWillMount () {
     if (this.props.windowWidth < 992) {
       this.setState({ navOpen: true })
     }
@@ -32,10 +34,10 @@ class Header extends Component {
   goToLogin= () => {
     const { history } = this.props
     // @ts-ignore
-    history.push('/login', { fromUrl: history.location && history.location.pathname})
+    history.push('/login', { fromUrl: history.location && history.location.pathname })
   }
 
-  render() {
+  render () {
     const { account } = this.props
     const { pathname } = window.location
     return (
@@ -73,7 +75,7 @@ class Header extends Component {
           {this.props.windowWidth < 992 ? (
             <React.Fragment>
               {this.props.layout !== 'horizontal' ? (
-                <ul className="navbar-nav mr-auto" style={{ display: `${!this.state.navOpen ? `none` : ``}` }}>
+                <ul className="navbar-nav mr-auto" style={{ display: `${!this.state.navOpen ? 'none' : ''}` }}>
                   <li>
                     <div className="page-header">
                       <div className="page-block">
@@ -85,7 +87,7 @@ class Header extends Component {
                   </li>
                 </ul>
               ) : null}
-              <ul className="navbar-nav ml-auto" style={{ display: `${this.state.navOpen ? `none` : `block`}` }}>
+              <ul className="navbar-nav ml-auto" style={{ display: `${this.state.navOpen ? 'none' : 'block'}` }}>
                 <li className="nav-item">
                   <MainSearch />
                 </li>

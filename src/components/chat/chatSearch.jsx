@@ -1,13 +1,13 @@
-import React from "react";
+import React from 'react'
 import {
   Form,
   InputGroup,
   Input,
   InputGroupAddon,
   InputGroupText
-} from "reactstrap";
-import { Search } from "react-feather";
-import PropTypes from "prop-types";
+} from 'reactstrap'
+import { Search } from 'react-feather'
+import PropTypes from 'prop-types'
 
 const ChatSearch = ({ onChange, searchTerm }) => (
   <div className="h-list-header">
@@ -27,11 +27,11 @@ const ChatSearch = ({ onChange, searchTerm }) => (
       </InputGroup>
     </Form>
   </div>
-);
+)
 
 ChatSearch.propTypes = {
   onChange: PropTypes.func.isRequired,
   searchTerm: PropTypes.string.isRequired
-};
+}
 
-export default ChatSearch;
+export default ChatSearch

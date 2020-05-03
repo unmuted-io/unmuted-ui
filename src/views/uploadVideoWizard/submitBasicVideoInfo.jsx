@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { FormGroup, Label, Input } from 'reactstrap'
 
 export class SubmitBasicVideoInfo extends Component {
-  render() {
+  render () {
     const { onChangeInput } = this.props
     return (
       <Fragment>

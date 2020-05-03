@@ -1,7 +1,6 @@
-import { connect } from 'react-redux';
-import Header from '../../layout/header/';
-import { collapseMenuRes } from '../../redux/actions/templateConfig/';
-
+import { connect } from 'react-redux'
+import Header from '../../layout/header/'
+import { collapseMenuRes } from '../../redux/actions/templateConfig/'
 
 const mapStateToProps = state => ({
   headerFixed: state.config.headerFixed,
@@ -13,6 +12,5 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   collapseMenuRes
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header)

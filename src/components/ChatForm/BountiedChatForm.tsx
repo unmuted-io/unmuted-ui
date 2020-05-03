@@ -18,22 +18,22 @@ import QRCode from 'qrcode.react'
 import classnames from 'classnames'
 
 interface BountiedChatFormOwnProps {
-  rand: string,
-  onSubmit: Function,
-  onChangeInput: (input: any) => void,
-  onClickSuperChat: Function,
-  onChangeSuperChatAmount: (input: string) => void,
-  isQrCodeVisible: boolean,
-  superChatAmount: number,
-  uri: string,
-  input: string,
-  currentWalletId: string,
-  onChangeTab: (id: string) => void
+  rand: string;
+  onSubmit: Function;
+  onChangeInput: (input: any) => void;
+  onClickSuperChat: Function;
+  onChangeSuperChatAmount: (input: string) => void;
+  isQrCodeVisible: boolean;
+  superChatAmount: number;
+  uri: string;
+  input: string;
+  currentWalletId: string;
+  onChangeTab: (id: string) => void;
 }
 
 interface BountiedChatFormStateProps {
-  account: Account
-  edgeAccount: any
+  account: Account;
+  edgeAccount: any;
 }
 
 interface BountiedChatFormDispatchProps {
@@ -42,11 +42,11 @@ interface BountiedChatFormDispatchProps {
 type BountiedChatFormProps = BountiedChatFormOwnProps & BountiedChatFormStateProps & BountiedChatFormDispatchProps
 
 interface BountiedChatFormState {
-  isConnected: boolean
+  isConnected: boolean;
 }
 
 class BountiedChatFormComponent extends React.Component<BountiedChatFormProps, BountiedChatFormState> {
-  constructor(props: BountiedChatFormProps) {
+  constructor (props: BountiedChatFormProps) {
     super(props)
     this.state = {
       isConnected: false

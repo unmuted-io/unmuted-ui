@@ -1,7 +1,7 @@
-import React from "react";
-import { Form, InputGroup, InputGroupAddon, Label, Input } from "reactstrap";
-import PropTypes from "prop-types";
-import { Search } from "react-feather";
+import React from 'react'
+import { Form, InputGroup, InputGroupAddon, Label, Input } from 'reactstrap'
+import PropTypes from 'prop-types'
+import { Search } from 'react-feather'
 
 const EmailSearch = ({ onChange, searchTerm }) => (
   <Form onSubmit={e => e.preventDefault()}>
@@ -20,11 +20,11 @@ const EmailSearch = ({ onChange, searchTerm }) => (
       />
     </InputGroup>
   </Form>
-);
+)
 
 EmailSearch.propTypes = {
   onChange: PropTypes.func.isRequired,
   searchTerm: PropTypes.string.isRequired
-};
+}
 
-export default EmailSearch;
+export default EmailSearch

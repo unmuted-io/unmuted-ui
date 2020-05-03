@@ -13,28 +13,27 @@ import {
   Label,
   Spinner
 } from 'reactstrap'
-import { RouteComponentProps } from 'react-router-dom'
+import { RouteComponentProps, Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Link } from 'react-router-dom'
+
 import logoDark from '../../assets/images/logo-dark.png'
 import authBg from '../../assets/images/auth-bg.jpg'
 import { makeEdgeUiContext } from 'edge-login-ui-web'
 import edgeLoginLogo from '../../assets/images/auth/edge-login-logo.svg'
 import { UserInfo } from '../../types'
-import { isLoggingIn } from '../../redux/reducers/authReducer';
+import { isLoggingIn } from '../../redux/reducers/authReducer'
 
 let edgeUiContext
 const assetsPath = 'http://localhost:11234'
 
 export interface AuthSinginComponentStateProps {
-  isLoggingIn: boolean
+  isLoggingIn: boolean;
 }
 
 export interface AuthSinginComponentDispatchProps {
-  dispatch: any,
-  login: (userInfo: UserInfo, history: any, isAnimated?: boolean) => void
+  dispatch: any;
+  login: (userInfo: UserInfo, history: any, isAnimated?: boolean) => void;
 }
-
 
 export type AuthSinginComponentProps = AuthSinginComponentStateProps & AuthSinginComponentDispatchProps & RouteComponentProps
 
@@ -68,12 +67,12 @@ export class AuthSinginComponent extends Component<AuthSinginComponentProps, Aut
         console.log('Edge login successful')
         dispatch({
           type: 'AUTHENTICATE_EDGE_LOGIN',
-          data: { account: edgeAccount, history, fromUrl  }
+          data: { account: edgeAccount, history, fromUrl }
         })
         const walletInfo = edgeAccount.getFirstWalletInfo('wallet:ethereum')
         const currencyWallet =
           walletInfo == null
-            ? await edgeAccount.createCurrencyWallet('wallet:ethereum', { name: 'dStream ETH Wallet'})
+            ? await edgeAccount.createCurrencyWallet('wallet:ethereum', { name: 'dStream ETH Wallet' })
             : await edgeAccount.waitForCurrencyWallet(walletInfo.id)
 
         // Get an address from the wallet:
@@ -112,7 +111,7 @@ export class AuthSinginComponent extends Component<AuthSinginComponentProps, Aut
     login({ email, password }, history)
   }
 
-  render() {
+  render () {
     const { disabled } = this.state
     const { isLoggingIn } = this.props
     return (

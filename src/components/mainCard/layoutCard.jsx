@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { Row, Col, Table } from 'reactstrap';
-import MainCard from './mainCard';
+import React, { Component } from 'react'
+import { Row, Col, Table } from 'reactstrap'
+import MainCard from './mainCard'
 
 class LayoutCard extends Component {
-  render() {
+  render () {
     const props = this.props
     return (
       <Row>
@@ -241,9 +241,8 @@ class LayoutCard extends Component {
           </MainCard>
         </Col>
       </Row>
-    );
+    )
   }
 }
 
-
-export default LayoutCard;
+export default LayoutCard

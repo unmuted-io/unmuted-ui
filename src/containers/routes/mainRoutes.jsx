@@ -1,8 +1,8 @@
-import React, { Suspense } from 'react';
+import React, { Suspense } from 'react'
 import { connect } from 'react-redux'
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom'
 import routes from '../../routse'
-import Spinner from '../../components/spinner/Spinner';
+import Spinner from '../../components/spinner/Spinner'
 
 const Routes = props => (
   <Suspense fallback={<Spinner />}>
@@ -25,8 +25,8 @@ const Routes = props => (
               )
             )}
           />) : (null)
-          })
-        }
+        })
+      }
       <Redirect from="/" to={props.defaultPath} />
     </Switch>
   </Suspense>

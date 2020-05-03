@@ -1,14 +1,15 @@
-import React, { Component } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Link } from 'react-router-dom'
 
 class Footer extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     const date = new Date()
     this.year = date.getFullYear()
   }
-  render() {
+
+  render () {
     return (
       <div className="footer-fab">
         <div className="b-bg">
@@ -34,8 +35,8 @@ class Footer extends Component {
           </ul>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default Footer;
+export default Footer

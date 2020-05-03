@@ -1,6 +1,6 @@
-import React from "react";
-import { Row, Col } from "reactstrap";
-import MainCard from "../../components/mainCard/mainCard";
+import React from 'react'
+import { Row, Col } from 'reactstrap'
+import MainCard from '../../components/mainCard/mainCard'
 
 const SamplePage = () => (
   <Row>
@@ -18,6 +18,6 @@ const SamplePage = () => (
       </MainCard>
     </Col>
   </Row>
-);
+)
 
-export default SamplePage;
+export default SamplePage

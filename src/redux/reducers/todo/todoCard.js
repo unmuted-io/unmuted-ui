@@ -1,8 +1,8 @@
-import todoData from "./todoData";
+import todoData from './todoData'
 
 const TodoCard = (state = todoData.todoCardData, action) => {
   switch (action.type) {
-    case "Add_TODO":
+    case 'Add_TODO':
       return [
         ...state,
         {
@@ -10,16 +10,16 @@ const TodoCard = (state = todoData.todoCardData, action) => {
           text: action.text,
           completed: action.completed
         }
-      ];
-    case "COMPLETE_TOD":
+      ]
+    case 'COMPLETE_TOD':
       return state.map(todo =>
         todo.id === action.id ? { ...todo, completed: !todo.completed } : todo
-      );
-    case "DELETE_TODO":
-      return (state = []);
+      )
+    case 'DELETE_TODO':
+      return (state = [])
     default:
-      return state;
+      return state
   }
-};
+}
 
-export default TodoCard;
+export default TodoCard

@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React, { PureComponent } from 'react'
 import {
   Card,
   CardHeader,
@@ -8,18 +8,18 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem
-} from "reactstrap";
-import { Link } from "react-router-dom";
-import windowSize from "react-window-size";
-import PerfectScrollbar from "react-perfect-scrollbar";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+} from 'reactstrap'
+import { Link } from 'react-router-dom'
+import windowSize from 'react-window-size'
+import PerfectScrollbar from 'react-perfect-scrollbar'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class MainCard extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.cardReloadHandler = this.cardReloadHandler.bind(this);
-    this.cardRemoveHandler = this.cardRemoveHandler.bind(this);
-    this.toggle = this.toggle.bind(this);
+  constructor (props) {
+    super(props)
+    this.cardReloadHandler = this.cardReloadHandler.bind(this)
+    this.cardRemoveHandler = this.cardRemoveHandler.bind(this)
+    this.toggle = this.toggle.bind(this)
     this.state = {
       isOption: this.props.isOption,
       isScroll: this.props.isScroll,
@@ -28,26 +28,30 @@ class MainCard extends PureComponent {
       loadCard: false,
       cardRemove: false,
       dropdownOpen: false
-    };
+    }
   }
-  toggle() {
+
+  toggle () {
     this.setState(prevState => ({
       dropdownOpen: !prevState.dropdownOpen
-    }));
+    }))
   }
-  cardReloadHandler() {
-    this.setState({ loadCard: true });
+
+  cardReloadHandler () {
+    this.setState({ loadCard: true })
     setInterval(() => {
-      this.setState({ loadCard: false });
-    }, 3000);
+      this.setState({ loadCard: false })
+    }, 3000)
   }
-  cardRemoveHandler() {
-    this.setState({ cardRemove: true });
+
+  cardRemoveHandler () {
+    this.setState({ cardRemove: true })
   }
-  render() {
-    let fullScreenStyle, loader, cardHeaderRight, cardHeader;
-    let card = "";
-    let cardClass = [];
+
+  render () {
+    let fullScreenStyle; let loader; let cardHeaderRight; let cardHeader
+    let card = ''
+    let cardClass = []
 
     if (this.state.isOption) {
       cardHeaderRight = (
@@ -65,8 +69,8 @@ class MainCard extends PureComponent {
                 tag="li"
                 onClick={() => {
                   this.setState(prevState => {
-                    return { fullCard: !prevState.fullCard };
-                  });
+                    return { fullCard: !prevState.fullCard }
+                  })
                 }}
               >
                 <Link to="#">
@@ -74,11 +78,11 @@ class MainCard extends PureComponent {
                     <i
                       className={
                         this.state.fullCard
-                          ? "feather icon-minimize"
-                          : "feather icon-maximize"
+                          ? 'feather icon-minimize'
+                          : 'feather icon-maximize'
                       }
                     />
-                    {this.state.fullCard ? "Restore" : "Maximize"}
+                    {this.state.fullCard ? 'Restore' : 'Maximize'}
                   </span>
                 </Link>
               </DropdownItem>
@@ -86,8 +90,8 @@ class MainCard extends PureComponent {
                 tag="li"
                 onClick={() => {
                   this.setState(prevState => {
-                    return { collapseCard: !prevState.collapseCard };
-                  });
+                    return { collapseCard: !prevState.collapseCard }
+                  })
                 }}
               >
                 <Link to="#">
@@ -95,11 +99,11 @@ class MainCard extends PureComponent {
                     <i
                       className={
                         this.state.collapseCard
-                          ? "feather icon-plus"
-                          : "feather icon-minus"
+                          ? 'feather icon-plus'
+                          : 'feather icon-minus'
                       }
                     />
-                    {this.state.collapseCard ? "Expand" : "Collapse"}
+                    {this.state.collapseCard ? 'Expand' : 'Collapse'}
                   </span>
                 </Link>
               </DropdownItem>
@@ -122,7 +126,7 @@ class MainCard extends PureComponent {
             </DropdownMenu>
           </Dropdown>
         </div>
-      );
+      )
     }
 
     cardHeader = (
@@ -132,41 +136,41 @@ class MainCard extends PureComponent {
         <h5>{this.props.title}</h5>
         {cardHeaderRight}
       </CardHeader>
-    );
+    )
 
     if (this.state.fullCard) {
-      cardClass = [...cardClass, "full-card"];
+      cardClass = [...cardClass, 'full-card']
       fullScreenStyle = {
-        position: "fixed",
-        top: "0",
-        left: "0",
-        right: "0",
-        width: this.props.windowWidth + "px",
-        height: this.props.windowHeight + "px"
-      };
+        position: 'fixed',
+        top: '0',
+        left: '0',
+        right: '0',
+        width: this.props.windowWidth + 'px',
+        height: this.props.windowHeight + 'px'
+      }
     }
 
     if (this.state.loadCard) {
-      cardClass = [...cardClass, "card-load"];
+      cardClass = [...cardClass, 'card-load']
       loader = (
         <div className="card-loader">
           <i>
             <FontAwesomeIcon icon="sync-alt" className="fa-spin" />
           </i>
         </div>
-      );
+      )
     }
 
     if (this.state.cardRemove) {
-      cardClass = [...cardClass, "d-none"];
+      cardClass = [...cardClass, 'd-none']
     }
 
     if (this.props.cardClass) {
-      cardClass = [...cardClass, this.props.cardClass];
+      cardClass = [...cardClass, this.props.cardClass]
     }
 
     card = (
-      <Card className={cardClass.join(" ")} style={fullScreenStyle}>
+      <Card className={cardClass.join(' ')} style={fullScreenStyle}>
         {cardHeader}
         <Collapse isOpen={!this.state.collapseCard}>
           <CardBody
@@ -177,10 +181,10 @@ class MainCard extends PureComponent {
         </Collapse>
         {loader}
       </Card>
-    );
+    )
     if (this.state.isScroll) {
       card = (
-        <Card className={cardClass.join(" ")} style={fullScreenStyle}>
+        <Card className={cardClass.join(' ')} style={fullScreenStyle}>
           {cardHeader}
           <Collapse isOpen={!this.state.collapseCard}>
             <PerfectScrollbar>
@@ -198,11 +202,11 @@ class MainCard extends PureComponent {
           </Collapse>
           {loader}
         </Card>
-      );
+      )
     }
 
-    return card;
+    return card
   }
 }
 
-export default windowSize(MainCard);
+export default windowSize(MainCard)

@@ -4,12 +4,11 @@ import { AxiosResponse, SuperChatData } from '../../types'
 
 const { REACT_APP_API_BASE_URL } = process.env
 
-function* sendTransaction(input: { type: string; data: { data: SuperChatData } }) {
+function * sendTransaction (input: { type: string; data: { data: SuperChatData } }) {
   const state = yield select()
-
 }
 
-function* transactionSaga() {
+function * transactionSaga () {
   yield takeEvery('SEND_TRANSACTION', sendTransaction)
 }
 

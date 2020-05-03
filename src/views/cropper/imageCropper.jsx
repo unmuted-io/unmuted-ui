@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
 import {
   Row,
   Col,
@@ -8,28 +8,29 @@ import {
   InputGroup,
   InputGroupAddon,
   Input
-} from "reactstrap";
-import Cropper from "react-cropper";
-import previewImage from "../../assets/images/light-box/l1.jpg";
-import "cropperjs/dist/cropper.css";
+} from 'reactstrap'
+import Cropper from 'react-cropper'
+import previewImage from '../../assets/images/light-box/l1.jpg'
+import 'cropperjs/dist/cropper.css'
 
 class ImageCropper extends Component {
-  constructor(props) {
-    super(props);
-    this.crop = this.crop.bind(this);
+  constructor (props) {
+    super(props)
+    this.crop = this.crop.bind(this)
     this.state = {
       image: previewImage,
-      dataX: "",
-      dataY: "",
-      dataHeight: "",
-      dataWidth: "",
-      dataRotate: "",
-      dataScaleX: "",
-      dataScaleY: ""
-    };
+      dataX: '',
+      dataY: '',
+      dataHeight: '',
+      dataWidth: '',
+      dataRotate: '',
+      dataScaleX: '',
+      dataScaleY: ''
+    }
   }
-  crop(event) {
-    let dataUrl = this.refs.myRef.getCroppedCanvas().toDataURL();
+
+  crop (event) {
+    const dataUrl = this.refs.myRef.getCroppedCanvas().toDataURL()
     this.setState({
       image: dataUrl,
       dataX: Math.round(event.detail.x),
@@ -39,9 +40,10 @@ class ImageCropper extends Component {
       dataRotate: Math.round(event.detail.rotate),
       dataScaleX: Math.round(event.detail.scaleX),
       dataScaleY: Math.round(event.detail.scaleY)
-    });
+    })
   }
-  render() {
+
+  render () {
     return (
       <Row>
         <Col sm={12}>
@@ -56,7 +58,7 @@ class ImageCropper extends Component {
                     <Cropper
                       ref="myRef"
                       src={previewImage}
-                      style={{ height: 420, width: "100%" }}
+                      style={{ height: 420, width: '100%' }}
                       // Cropper.js options
                       aspectRatio={16 / 9}
                       guides={true}
@@ -142,8 +144,8 @@ class ImageCropper extends Component {
           </Card>
         </Col>
       </Row>
-    );
+    )
   }
 }
 
-export default ImageCropper;
+export default ImageCropper

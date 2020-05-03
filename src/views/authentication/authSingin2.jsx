@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react"
+import React, { Component, Fragment } from 'react'
 import {
   Card,
   CardBody,
@@ -11,13 +11,13 @@ import {
   Input,
   FormGroup,
   Label,
-} from "reactstrap"
-import { Link } from "react-router-dom"
-import logo from "../../assets/images/logo.png"
-import authBg from "../../assets/images/auth/img-auth-2.jpg"
+} from 'reactstrap'
+import { Link } from 'react-router-dom'
+import logo from '../../assets/images/logo.png'
+import authBg from '../../assets/images/auth/img-auth-2.jpg'
 
 class AuthSingin extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.toggle = this.toggle.bind(this)
     this.state = {
@@ -25,11 +25,11 @@ class AuthSingin extends Component {
     }
   }
 
-  toggle() {
+  toggle () {
     this.setState({ default: !this.state.default })
   }
 
-  render() {
+  render () {
     return (
       <Fragment>
         <div className="blur-bg-images" />
@@ -49,8 +49,8 @@ class AuthSingin extends Component {
                         typesetting industry Lorem Ipsum has been the industrys.
                       </p>
                       <ol className="position-relative carousel-indicators justify-content-start">
-                        <li className={this.state.default ? "active" : null} />
-                        <li className={!this.state.default ? "active" : null} />
+                        <li className={this.state.default ? 'active' : null} />
+                        <li className={!this.state.default ? 'active' : null} />
                       </ol>
                       {this.state.default ? (
                         <Fragment>
@@ -82,7 +82,7 @@ class AuthSingin extends Component {
                             <div className="checkbox checkbox-primary d-inline">
                               <input type="checkbox" id="checkbox-1" />
                               <Label for="checkbox-1" className="cr">
-                                Send me the <Link to="#"> Newsletter</Link>{" "}
+                                Send me the <Link to="#"> Newsletter</Link>{' '}
                                 weekly.
                               </Label>
                             </div>

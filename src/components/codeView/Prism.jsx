@@ -1,8 +1,8 @@
-import React from "react"
-import Highlight, { defaultProps } from "prism-react-renderer"
+import React from 'react'
+import Highlight, { defaultProps } from 'prism-react-renderer'
 
 const Prism = props => {
-  const template = require("prism-react-renderer/themes/dracula") // dracula, duotoneDark, duotoneLight, nightOwl, oceanicNext, shadesOfPurple, vsDark, vsDarkPlus
+  const template = require('prism-react-renderer/themes/dracula') // dracula, duotoneDark, duotoneLight, nightOwl, oceanicNext, shadesOfPurple, vsDark, vsDarkPlus
   return (
     <Highlight
       {...defaultProps}
