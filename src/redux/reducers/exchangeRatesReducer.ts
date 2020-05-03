@@ -1,9 +1,5 @@
 import { createReducer } from 'reduxsauce'
-import { ExchangeRate } from '../../types'
-
-type ExchangeRatesReducer = {
-  [currencyCode: string]: ExchangeRate;
-}
+import { ExchangeRatesReducer } from '../../types'
 
 const INITIAL_STATE = {}
 

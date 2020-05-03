@@ -34,6 +34,11 @@ class Layout extends Component {
       }
       prices[rateData.currency] = newData
     })
+    prices.TLOS = {
+      currencyCode: 'TLOS',
+      name: 'Telos',
+      price: '0.03'
+    }
     dispatch({ type: 'UPDATE_EXCHANGE_RATES', data: prices })
   }
 

@@ -108,8 +108,9 @@ class BountiedChatFormComponent extends React.Component<BountiedChatFormProps, B
               </div>
               <div className="chat-area bountied-chat-input">
                 <InputGroup>
-                  <Input onChange={onChangeSuperChatAmount} placeholder="Amount" min={0.001} type="number" step=".001" />
-                  <InputGroupAddon addonType="append">{selectedCurrencyCode}</InputGroupAddon>
+                  <InputGroupAddon addonType="prepend">$</InputGroupAddon>
+                  <Input onChange={onChangeSuperChatAmount} placeholder="Amount" min={1} type="number" step="1" />
+                  <InputGroupAddon addonType="append">USD</InputGroupAddon>
                 </InputGroup>
                 <Button disabled={isSuperChatDisabled} onClick={onClickSuperChat} color="success" className='mb-4'>
                   BountyChat
