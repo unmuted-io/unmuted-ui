@@ -1,23 +1,25 @@
-import React, { Component } from "react";
-import { Row, Col } from "reactstrap";
-import { Animated } from "react-animated-css";
-import MainCard from "../../components/mainCard/mainCard";
-import prod1 from "../../assets/images/product/prod-1.jpg";
-import prod2 from "../../assets/images/product/prod-2.jpg";
-import prod3 from "../../assets/images/product/prod-3.jpg";
-import prod4 from "../../assets/images/product/prod-4.jpg";
-import prod5 from "../../assets/images/product/prod-5.jpg";
+import React, { Component } from 'react'
+import { Row, Col } from 'reactstrap'
+import { Animated } from 'react-animated-css'
+import MainCard from '../../components/mainCard/mainCard'
+import prod1 from '../../assets/images/product/prod-1.jpg'
+import prod2 from '../../assets/images/product/prod-2.jpg'
+import prod3 from '../../assets/images/product/prod-3.jpg'
+import prod4 from '../../assets/images/product/prod-4.jpg'
+import prod5 from '../../assets/images/product/prod-5.jpg'
 
 class AnimateInCom extends Component {
   state = {
     item: true
   };
+
   onMouseEnter = () => {
-    this.setState(prevState => ({ item: false }));
-    setTimeout(() => this.setState(prevState => ({ item: true })), 0);
+    this.setState(prevState => ({ item: false }))
+    setTimeout(() => this.setState(prevState => ({ item: true })), 0)
   };
-  render() {
-    const props = this.props;
+
+  render () {
+    const props = this.props
     return (
       <Col lg={3} md={6} sm={6} onMouseEnter={this.onMouseEnter}>
         <h6>{props.title}</h6>
@@ -31,7 +33,7 @@ class AnimateInCom extends Component {
           <img src={props.src} className="img-fluid" alt="animated" />
         </Animated>
       </Col>
-    );
+    )
   }
 }
 
@@ -39,12 +41,14 @@ class AnimateOutCom extends Component {
   state = {
     item: true
   };
+
   onMouseEnter = () => {
-    this.setState(prevState => ({ item: false }));
-    setTimeout(() => this.setState(prevState => ({ item: true })), 2000);
+    this.setState(prevState => ({ item: false }))
+    setTimeout(() => this.setState(prevState => ({ item: true })), 2000)
   };
-  render() {
-    const props = this.props;
+
+  render () {
+    const props = this.props
     return (
       <Col lg={3} md={6} sm={6} onMouseEnter={this.onMouseEnter}>
         <h6>{props.title}</h6>
@@ -58,7 +62,7 @@ class AnimateOutCom extends Component {
           <img src={props.src} className="img-fluid" alt="animated" />
         </Animated>
       </Col>
-    );
+    )
   }
 }
 
@@ -70,7 +74,7 @@ const AnimateIn = props =>
       animation={object.animation}
       src={object.src}
     />
-  ));
+  ))
 
 const AnimateOut = props =>
   props.items.map((object, i) => (
@@ -80,372 +84,372 @@ const AnimateOut = props =>
       animation={object.animation}
       src={object.src}
     />
-  ));
+  ))
 
 class Animations extends Component {
-  render() {
+  render () {
     const attention = [
       {
-        title: "Bounce",
-        animation: "bounce",
+        title: 'Bounce',
+        animation: 'bounce',
         src: prod1
       },
       {
-        title: "Flash",
-        animation: "flash",
+        title: 'Flash',
+        animation: 'flash',
         src: prod2
       },
       {
-        title: "Pulse",
-        animation: "pulse",
+        title: 'Pulse',
+        animation: 'pulse',
         src: prod3
       },
       {
-        title: "RubberBand",
-        animation: "rubberBand",
+        title: 'RubberBand',
+        animation: 'rubberBand',
         src: prod4
       },
       {
-        title: "Shake",
-        animation: "shake",
+        title: 'Shake',
+        animation: 'shake',
         src: prod5
       },
       {
-        title: "Swing",
-        animation: "swing",
+        title: 'Swing',
+        animation: 'swing',
         src: prod1
       },
       {
-        title: "Tada",
-        animation: "tada",
+        title: 'Tada',
+        animation: 'tada',
         src: prod2
       },
       {
-        title: "Wobble",
-        animation: "wobble",
+        title: 'Wobble',
+        animation: 'wobble',
         src: prod3
       },
       {
-        title: "Jello",
-        animation: "jello",
+        title: 'Jello',
+        animation: 'jello',
         src: prod4
       }
-    ];
+    ]
     const bouncing = [
       {
-        title: "BounceIn",
-        animation: "bounceIn",
+        title: 'BounceIn',
+        animation: 'bounceIn',
         src: prod5
       },
       {
-        title: "BounceInDown",
-        animation: "bounceInDown",
+        title: 'BounceInDown',
+        animation: 'bounceInDown',
         src: prod4
       },
       {
-        title: "BounceInLeft",
-        animation: "bounceInLeft",
+        title: 'BounceInLeft',
+        animation: 'bounceInLeft',
         src: prod3
       },
       {
-        title: "BounceInRight",
-        animation: "bounceInRight",
+        title: 'BounceInRight',
+        animation: 'bounceInRight',
         src: prod2
       },
       {
-        title: "BounceInUp",
-        animation: "bounceInUp",
+        title: 'BounceInUp',
+        animation: 'bounceInUp',
         src: prod1
       }
-    ];
+    ]
     const fading = [
       {
-        title: "FadeIn",
-        animation: "fadeIn",
+        title: 'FadeIn',
+        animation: 'fadeIn',
         src: prod1
       },
       {
-        title: "FadeInDown",
-        animation: "fadeInDown",
+        title: 'FadeInDown',
+        animation: 'fadeInDown',
         src: prod2
       },
       {
-        title: "FadeInDownBig",
-        animation: "fadeInDownBig",
+        title: 'FadeInDownBig',
+        animation: 'fadeInDownBig',
         src: prod3
       },
       {
-        title: "FadeInLeft",
-        animation: "fadeInLeft",
+        title: 'FadeInLeft',
+        animation: 'fadeInLeft',
         src: prod4
       },
       {
-        title: "FadeInLeftBig",
-        animation: "fadeInLeftBig",
+        title: 'FadeInLeftBig',
+        animation: 'fadeInLeftBig',
         src: prod5
       },
       {
-        title: "FadeInRight",
-        animation: "fadeInRight",
+        title: 'FadeInRight',
+        animation: 'fadeInRight',
         src: prod1
       },
       {
-        title: "FadeInRightBig",
-        animation: "fadeInRightBig",
+        title: 'FadeInRightBig',
+        animation: 'fadeInRightBig',
         src: prod2
       },
       {
-        title: "FadeInUp",
-        animation: "fadeInUp",
+        title: 'FadeInUp',
+        animation: 'fadeInUp',
         src: prod3
       },
       {
-        title: "FadeInUpBig",
-        animation: "fadeInUpBig",
+        title: 'FadeInUpBig',
+        animation: 'fadeInUpBig',
         src: prod4
       }
-    ];
+    ]
     const fadingOut = [
       {
-        title: "fadeOut",
-        animation: "fadeOut",
+        title: 'fadeOut',
+        animation: 'fadeOut',
         src: prod1
       },
       {
-        title: "FadeOutDown",
-        animation: "fadeOutDown",
+        title: 'FadeOutDown',
+        animation: 'fadeOutDown',
         src: prod2
       },
       {
-        title: "FadeOutDownBig",
-        animation: "fadeOutDownBig",
+        title: 'FadeOutDownBig',
+        animation: 'fadeOutDownBig',
         src: prod3
       },
       {
-        title: "FadeOutLeft",
-        animation: "fadeOutLeft",
+        title: 'FadeOutLeft',
+        animation: 'fadeOutLeft',
         src: prod4
       },
       {
-        title: "FadeOutLeftBig",
-        animation: "fadeOutLeftBig",
+        title: 'FadeOutLeftBig',
+        animation: 'fadeOutLeftBig',
         src: prod5
       },
       {
-        title: "FadeOutRight",
-        animation: "fadeOutRight",
+        title: 'FadeOutRight',
+        animation: 'fadeOutRight',
         src: prod1
       },
       {
-        title: "FadeOutRightBig",
-        animation: "fadeOutRightBig",
+        title: 'FadeOutRightBig',
+        animation: 'fadeOutRightBig',
         src: prod2
       },
       {
-        title: "FadeOutUp",
-        animation: "fadeOutUp",
+        title: 'FadeOutUp',
+        animation: 'fadeOutUp',
         src: prod3
       },
       {
-        title: "FadeOutUpBig",
-        animation: "fadeOutUpBig",
+        title: 'FadeOutUpBig',
+        animation: 'fadeOutUpBig',
         src: prod4
       }
-    ];
+    ]
     const fippersIn = [
       {
-        title: "Flip",
-        animation: "flip",
+        title: 'Flip',
+        animation: 'flip',
         src: prod1
       },
       {
-        title: "FlipInX",
-        animation: "flipInX",
+        title: 'FlipInX',
+        animation: 'flipInX',
         src: prod2
       },
       {
-        title: "FlipInY",
-        animation: "flipInY",
+        title: 'FlipInY',
+        animation: 'flipInY',
         src: prod3
       }
-    ];
+    ]
     const fippersOut = [
       {
-        title: "FlipOutX",
-        animation: "flipOutX",
+        title: 'FlipOutX',
+        animation: 'flipOutX',
         src: prod4
       },
       {
-        title: "FlipOutY",
-        animation: "flipOutY",
+        title: 'FlipOutY',
+        animation: 'flipOutY',
         src: prod5
       }
-    ];
+    ]
     const lightspeedIn = [
       {
-        title: "lightSpeedIn",
-        animation: "lightSpeedIn",
+        title: 'lightSpeedIn',
+        animation: 'lightSpeedIn',
         src: prod1
       }
-    ];
+    ]
     const lightspeedOut = [
       {
-        title: "LightSpeedOut",
-        animation: "lightSpeedOut",
+        title: 'LightSpeedOut',
+        animation: 'lightSpeedOut',
         src: prod2
       }
-    ];
+    ]
     const rotatingIn = [
       {
-        title: "RotateIn",
-        animation: "rotateIn",
+        title: 'RotateIn',
+        animation: 'rotateIn',
         src: prod1
       },
       {
-        title: "rotateInDownLeft",
-        animation: "rotateInDownLeft",
+        title: 'rotateInDownLeft',
+        animation: 'rotateInDownLeft',
         src: prod2
       },
       {
-        title: "RotateInDownRight",
-        animation: "rotateInDownRight",
+        title: 'RotateInDownRight',
+        animation: 'rotateInDownRight',
         src: prod3
       },
       {
-        title: "RotateInUpLeft",
-        animation: "rotateInUpLeft",
+        title: 'RotateInUpLeft',
+        animation: 'rotateInUpLeft',
         src: prod4
       },
       {
-        title: "RotateInUpRight",
-        animation: "rotateInUpRight",
+        title: 'RotateInUpRight',
+        animation: 'rotateInUpRight',
         src: prod5
       }
-    ];
+    ]
     const slidingIn = [
       {
-        title: "SlideInUp",
-        animation: "slideInUp",
+        title: 'SlideInUp',
+        animation: 'slideInUp',
         src: prod1
       },
       {
-        title: "SlideInDown",
-        animation: "slideInDown",
+        title: 'SlideInDown',
+        animation: 'slideInDown',
         src: prod2
       },
       {
-        title: "SlideInLeft",
-        animation: "slideInLeft",
+        title: 'SlideInLeft',
+        animation: 'slideInLeft',
         src: prod3
       },
       {
-        title: "SlideInRight",
-        animation: "slideInRight",
+        title: 'SlideInRight',
+        animation: 'slideInRight',
         src: prod4
       }
-    ];
+    ]
     const slidingOut = [
       {
-        title: "SlideOutUp",
-        animation: "slideOutUp",
+        title: 'SlideOutUp',
+        animation: 'slideOutUp',
         src: prod1
       },
       {
-        title: "SlideOutDown",
-        animation: "slideOutDown",
+        title: 'SlideOutDown',
+        animation: 'slideOutDown',
         src: prod2
       },
       {
-        title: "SlideOutLeft",
-        animation: "slideOutLeft",
+        title: 'SlideOutLeft',
+        animation: 'slideOutLeft',
         src: prod3
       },
       {
-        title: "SlideOutRight",
-        animation: "slideOutRight",
+        title: 'SlideOutRight',
+        animation: 'slideOutRight',
         src: prod4
       }
-    ];
+    ]
     const zoomeIn = [
       {
-        title: "ZoomIn",
-        animation: "zoomIn",
+        title: 'ZoomIn',
+        animation: 'zoomIn',
         src: prod1
       },
       {
-        title: "ZoomInDown",
-        animation: "zoomInDown",
+        title: 'ZoomInDown',
+        animation: 'zoomInDown',
         src: prod2
       },
       {
-        title: "ZoomInLeft",
-        animation: "zoomInLeft",
+        title: 'ZoomInLeft',
+        animation: 'zoomInLeft',
         src: prod3
       },
       {
-        title: "ZoomInRight",
-        animation: "zoomInRight",
+        title: 'ZoomInRight',
+        animation: 'zoomInRight',
         src: prod4
       },
       {
-        title: "ZoomInUp",
-        animation: "zoomInUp",
+        title: 'ZoomInUp',
+        animation: 'zoomInUp',
         src: prod5
       }
-    ];
+    ]
     const zoomeOut = [
       {
-        title: "ZoomOut",
-        animation: "zoomOut",
+        title: 'ZoomOut',
+        animation: 'zoomOut',
         src: prod1
       },
       {
-        title: "ZoomOutDown",
-        animation: "zoomOutDown",
+        title: 'ZoomOutDown',
+        animation: 'zoomOutDown',
         src: prod2
       },
       {
-        title: "ZoomOutLeft",
-        animation: "zoomOutLeft",
+        title: 'ZoomOutLeft',
+        animation: 'zoomOutLeft',
         src: prod3
       },
       {
-        title: "ZoomOutRight",
-        animation: "zoomOutRight",
+        title: 'ZoomOutRight',
+        animation: 'zoomOutRight',
         src: prod4
       },
       {
-        title: "ZoomOutUp",
-        animation: "zoomOutUp",
+        title: 'ZoomOutUp',
+        animation: 'zoomOutUp',
         src: prod5
       }
-    ];
+    ]
     const specials = [
       {
-        title: "JackInTheBox",
-        animation: "jackInTheBox",
+        title: 'JackInTheBox',
+        animation: 'jackInTheBox',
         src: prod2
       },
       {
-        title: "RollIn",
-        animation: "rollIn",
+        title: 'RollIn',
+        animation: 'rollIn',
         src: prod3
       }
-    ];
+    ]
     const specialsout1 = [
       {
-        title: "Hinge",
-        animation: "hinge",
+        title: 'Hinge',
+        animation: 'hinge',
         src: prod1
       }
-    ];
+    ]
     const specialsout2 = [
       {
-        title: "RollOut",
-        animation: "rollOut",
+        title: 'RollOut',
+        animation: 'rollOut',
         src: prod4
       }
-    ];
+    ]
     return (
       <Row>
         <Col sm={12}>
@@ -537,8 +541,8 @@ class Animations extends Component {
           </MainCard>
         </Col>
       </Row>
-    );
+    )
   }
 }
 
-export default Animations;
+export default Animations

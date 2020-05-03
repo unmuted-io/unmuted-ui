@@ -1,10 +1,10 @@
-const emailContent = (state = "", action) => {
+const emailContent = (state = '', action) => {
   switch (action.type) {
-    case "OPEN_EMAIL":
-      return action.id;
+    case 'OPEN_EMAIL':
+      return action.id
     default:
-      return state;
+      return state
   }
-};
+}
 
-export default emailContent;
+export default emailContent

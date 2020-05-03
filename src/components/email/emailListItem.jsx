@@ -1,7 +1,7 @@
-import React from "react";
-import { Star } from "react-feather";
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
+import React from 'react'
+import { Star } from 'react-feather'
+import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 const Email = ({
   id,
@@ -14,7 +14,7 @@ const Email = ({
   starred,
   unread
 }) => (
-  <tr className={unread ? "unread" : null}>
+  <tr className={unread ? 'unread' : null}>
     <td>
       <div className="check-star">
         <div className="form-group d-inline">
@@ -26,7 +26,7 @@ const Email = ({
         <Link to="#">
           <Star
             size={14}
-            className={`ml-2  ${starred && "text-c-yellow"}`}
+            className={`ml-2  ${starred && 'text-c-yellow'}`}
             onClick={onStar}
           />
         </Link>
@@ -44,7 +44,7 @@ const Email = ({
     </td>
     <td className="email-time">{time}</td>
   </tr>
-);
+)
 
 Email.propTypes = {
   onClick: PropTypes.func.isRequired,
@@ -54,6 +54,6 @@ Email.propTypes = {
   emailExcerpt: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
   starred: PropTypes.bool.isRequired
-};
+}
 
-export default Email;
+export default Email

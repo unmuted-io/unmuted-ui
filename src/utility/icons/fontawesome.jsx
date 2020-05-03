@@ -12,7 +12,7 @@ import {
   faSoundcloud,
   faCloudversify,
   faFacebookF,
-} from "@fortawesome/free-brands-svg-icons"
+} from '@fortawesome/free-brands-svg-icons'
 import {
   faCog,
   faCircle,
@@ -77,7 +77,7 @@ import {
   faFileWord,
   faFilePowerpoint,
   faQuestion,
-} from "@fortawesome/free-solid-svg-icons"
+} from '@fortawesome/free-solid-svg-icons'
 import {
   faBell,
   faFilePdf,
@@ -91,7 +91,7 @@ import {
   faEdit,
   faCreditCard,
   faFileExcel,
-} from "@fortawesome/free-regular-svg-icons"
+} from '@fortawesome/free-regular-svg-icons'
 
 const fontAwesomeIcon = [
   faBell,

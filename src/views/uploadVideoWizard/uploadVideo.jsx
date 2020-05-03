@@ -1,26 +1,22 @@
-import React, { Component, Fragment } from "react"
-import { Row, Col, Card, CardHeader, CardBody, Button, FormGroup, Label, Input } from "reactstrap"
-import DropzoneComponent from "react-dropzone-component"
-import InputMask from "react-input-mask"
-import ReactNumeric, { predefinedOptions } from "react-numeric"
-import { useHistory } from 'react-router-dom'
+import React, { Component, Fragment } from 'react'
+import DropzoneComponent from 'react-dropzone-component'
 
 export class UploadVideo extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
-      videoFile: null
+      videoFile: null,
     }
     this.djsConfig = {
       addRemoveLinks: false,
-      acceptedFiles: "video/mp4",
+      acceptedFiles: 'video/mp4',
       autoProcessQueue: false,
-      uploadprogress: 100
+      uploadprogress: 100,
     }
     this.componentConfig = {
-      iconFiletypes: [".mp4"],
+      iconFiletypes: ['.mp4'],
       showFiletypeIcon: true,
-      postUrl: "no-url"
+      postUrl: 'no-url',
     }
 
     // If you want to attach multiple callbacks, simply
@@ -29,8 +25,8 @@ export class UploadVideo extends Component {
 
     // Simple callbacks work too, of course
     this.callback = () => console.log('Hello!')
-    this.success = file => console.log('kylan uploaded', file)
-    this.removedfile = file => console.log('removing...', file)
+    this.success = (file) => console.log('kylan uploaded', file)
+    this.removedfile = (file) => console.log('removing...', file)
     this.addedfile = (file) => console.log('addedFile: ', file)
     this.dropzone = null
   }
@@ -44,15 +40,15 @@ export class UploadVideo extends Component {
     formData.append('file', videoFile)
     const resp = await fetch('http://localhost:3333/videos', {
       method: 'POST',
-      body: formData
+      body: formData,
     })
     if (!resp.ok) return
     const data = await resp.json()
   }
 
-  render() {
+  render () {
     const eventHandlers = {
-      init: dz => this.dropzone = dz,
+      init: (dz) => (this.dropzone = dz),
       drop: this.callbackArray,
       addedfile: this.callback,
       success: this.success,
@@ -61,16 +57,12 @@ export class UploadVideo extends Component {
       addedfile: (file) => {
         console.log('addedFile2: ', file)
         this.props.setFile(file)
-      }
+      },
     }
 
     return (
       <Fragment>
-        <DropzoneComponent
-          config={this.componentConfig}
-          djsConfig={this.djsConfig}
-          eventHandlers={eventHandlers}
-        />
+        <DropzoneComponent config={this.componentConfig} djsConfig={this.djsConfig} eventHandlers={eventHandlers} />
       </Fragment>
     )
   }

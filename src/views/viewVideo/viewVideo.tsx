@@ -7,9 +7,7 @@ import ReactNumeric, { predefinedOptions } from 'react-numeric'
 import MainCard from '../../components/mainCard/mainCard'
 import WebSocketChat from '../../components/WebSocketChat/WebSocketChat'
 import { useParams } from 'react-router-dom'
-import EOSIOClient from '../../eosioClient'
 import VideoPlayer from '../../components/videoPlayer/VideoPlayer'
-import { string } from '@amcharts/amcharts4/core'
 import axios from 'axios'
 import { AxiosResponse } from '../../types'
 
@@ -17,25 +15,25 @@ const { REACT_APP_API_BASE_URL } = process.env
 
 // const eosClient = new EOSIOClient('haytemrtg4ge') // hardcode app name
 interface ViewVideoComponentProps {
-  match: any
-  account: any
+  match: any;
+  account: any;
 }
 
 interface ViewVideoComponentState {
-  title: string
-  description: string
-  rand: string
-  source: string
-  created_at: string
-  username: string
-  count: number
-  videoRating: number,
-  upvote: number,
-  downvote: number
+  title: string;
+  description: string;
+  rand: string;
+  source: string;
+  created_at: string;
+  username: string;
+  count: number;
+  videoRating: number;
+  upvote: number;
+  downvote: number;
 }
 
 class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentState> {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       title: '',
@@ -58,7 +56,7 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
     const videoData = videoResponse.data
     this.setState({
       ...videoData,
-      rand: rand,
+      rand,
     })
     const videoRatingsStatsResponse: AxiosResponse = await axios.get(`${REACT_APP_API_BASE_URL}/video-rating/${rand}`)
     const stats = videoRatingsStatsResponse.data
@@ -75,11 +73,6 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
         videoRating: videoRating.direction,
       })
     }
-  }
-
-  sendSuperChat = (data) => {
-    // change to Edge, or show QR code
-    // eosClient.transaction(data)
   }
 
   onThumbClick = async (input: number) => {
@@ -141,8 +134,7 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
     )
   }
 
-  render() {
-    const { REACT_APP_API_BASE_URL } = process.env
+  render () {
     const {
       rand,
       title,
@@ -223,9 +215,9 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
           </Card>
         </Col>
         <Col sm={12} lg={4}>
-          <Card>
-            <CardBody style={{ height: 480, display: 'flex', flexDirection: 'row' }}>
-              <WebSocketChat rand={rand} sendSuperChat={this.sendSuperChat} />
+          <Card style={{ height: '100%' }}>
+            <CardBody style={{ height: '100%', display: 'flex', flexDirection: 'row' }}>
+              <WebSocketChat rand={rand} />
             </CardBody>
           </Card>
         </Col>

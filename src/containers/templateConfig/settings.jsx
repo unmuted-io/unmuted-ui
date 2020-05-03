@@ -1,5 +1,5 @@
-import { connect } from 'react-redux';
-import Sttings from '../../layout/themeSettings/';
+import { connect } from 'react-redux'
+import Sttings from '../../layout/themeSettings/'
 import {
   layOutType,
   colorIcon,
@@ -20,40 +20,37 @@ import {
   bgPattern,
   bgImage,
   resetTemplate
-} from '../../redux/actions/templateConfig/';
+} from '../../redux/actions/templateConfig/'
 
 const body = (layout) => {
-  if (layout === "dark") {
-    document.body.classList.add("dark-demo")
+  if (layout === 'dark') {
+    document.body.classList.add('dark-demo')
   } else {
-    document.body.classList.remove("dark-demo")
+    document.body.classList.remove('dark-demo')
   }
   return layout
 }
 
 const boXLayOutMake = (layout) => {
   if (layout) {
-    document.body.classList.add("container")
+    document.body.classList.add('container')
   } else {
-    document.body.classList.remove("container")
+    document.body.classList.remove('container')
   }
   if (layout) {
-    document.body.classList.add("box-layout")
+    document.body.classList.add('box-layout')
   } else {
-    document.body.classList.remove("box-layout")
+    document.body.classList.remove('box-layout')
   }
 }
 
 const rtlLayOutMake = (layout) => {
   if (layout) {
-    document.body.classList.add("rtl-layout")
+    document.body.classList.add('rtl-layout')
   } else {
-    document.body.classList.remove("rtl-layout")
+    document.body.classList.remove('rtl-layout')
   }
 }
-
-
-
 
 const mapStateToProps = state => ({
   layoutType: body(state.config.layoutType),
@@ -97,6 +94,5 @@ const mapDispatchToProps = {
   bgImage,
   resetTemplate
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sttings)

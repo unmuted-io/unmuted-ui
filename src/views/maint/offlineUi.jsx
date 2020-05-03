@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import { Form, Button } from "reactstrap";
+import React, { Component } from 'react'
+import { Form, Button } from 'reactstrap'
 
 class OfflineUi extends Component {
-  render() {
+  render () {
     return (
-      <div className="auth-wrapper offline" style={{ background: "#ffffff" }}>
+      <div className="auth-wrapper offline" style={{ background: '#ffffff' }}>
         <div className="text-center">
           <h1 className="mb-4">OFFLINE</h1>
           <h5 className="text-muted mb-4">
@@ -18,8 +18,8 @@ class OfflineUi extends Component {
           </Form>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default OfflineUi;
+export default OfflineUi

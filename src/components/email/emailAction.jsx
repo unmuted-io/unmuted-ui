@@ -1,15 +1,15 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
 import {
   Button,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem
-} from "reactstrap";
-import * as Icons from "react-feather";
+} from 'reactstrap'
+import * as Icons from 'react-feather'
 
 class EmailAction extends Component {
-  render() {
+  render () {
     return (
       <div className="email-btn">
         <Button outline className="btn-icon btn-rounded">
@@ -51,8 +51,8 @@ class EmailAction extends Component {
           </DropdownMenu>
         </UncontrolledDropdown>
       </div>
-    );
+    )
   }
 }
 
-export default EmailAction;
+export default EmailAction

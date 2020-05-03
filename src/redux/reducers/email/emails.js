@@ -1,24 +1,24 @@
-import emailData from "./emailData";
+import emailData from './emailData'
 
 const emails = (state = emailData, action) => {
   switch (action.type) {
-    case "STAR_EMAIL":
+    case 'STAR_EMAIL':
       return state.map(email =>
         email.id === action.id ? { ...email, starred: !email.starred } : email
-      );
-    case "TRASH_EMAIL":
-      const emails = [];
+      )
+    case 'TRASH_EMAIL':
+      const emails = []
       for (let i = 0; i < state.length; i++) {
-        emails.push(state[i]);
+        emails.push(state[i])
         for (let j = 0; j < action.id.length; j++) {
           if (state[i].id === action.id[j]) {
-            emails[i].trash = true;
+            emails[i].trash = true
           }
         }
       }
-      return emails;
+      return emails
     default:
-      return state;
+      return state
   }
-};
-export default emails;
+}
+export default emails

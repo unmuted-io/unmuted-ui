@@ -4,7 +4,7 @@ import { AxiosResponse } from '../../types'
 
 const { REACT_APP_API_BASE_URL } = process.env
 
-function* updateUsername(input: { type: string; data: { username: string; history: any } }) {
+function * updateUsername (input: { type: string; data: { username: string; history: any } }) {
   const state = yield select()
   // email will be present on regular account, edge_account on Edge Account
   const email = state.auth.account && state.auth.account.email
@@ -24,8 +24,8 @@ function* updateUsername(input: { type: string; data: { username: string; histor
 }
 
 // login and possible register upon EdgeLogin
-function* authenticateEdgeLogin(data: any): any {
-  const { account, history } = data.data
+function * authenticateEdgeLogin (data: any): any {
+  const { account, history, fromUrl } = data.data
   const state = yield select()
   yield put({ type: 'UPDATE_EDGE_ACCOUNT', data: account })
   // check if user exists
@@ -57,12 +57,12 @@ function* authenticateEdgeLogin(data: any): any {
       ...checkUserResponse.data.access_token,
     }
     yield put({ type: 'ACCOUNT', data: { account } })
-    history.push('/')
+    history.push(fromUrl || '/')
   }
   console.log('after conditionals')
 }
 
-function* authSaga() {
+function * authSaga () {
   yield takeEvery('UPDATE_USERNAME', updateUsername)
   yield takeEvery('AUTHENTICATE_EDGE_LOGIN', authenticateEdgeLogin)
 }

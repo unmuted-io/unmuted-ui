@@ -1,19 +1,19 @@
-import { combineReducers } from "redux";
-import icons from "./icons";
+import { combineReducers } from 'redux'
+import icons from './icons'
 
-const icon = (state = icons, action) => state;
-const iconSearch = (state = "", action) => {
+const icon = (state = icons, action) => state
+const iconSearch = (state = '', action) => {
   switch (action.type) {
-    case "FILTER_ICON":
-      return action.searchTerm;
+    case 'FILTER_ICON':
+      return action.searchTerm
     default:
-      return state;
+      return state
   }
-};
+}
 
 const iconReducer = combineReducers({
   icon,
   iconSearch
-});
+})
 
-export default iconReducer;
+export default iconReducer

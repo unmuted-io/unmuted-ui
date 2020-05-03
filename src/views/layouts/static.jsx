@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import LayoutCard from '../../components/mainCard/layoutCard';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import LayoutCard from '../../components/mainCard/layoutCard'
 import {
   fixedMEnu,
   fixedHeader,
-} from '../../redux/actions/templateConfig/';
+} from '../../redux/actions/templateConfig/'
 
 class StaticLayout extends Component {
-  componentWillMount() {
+  componentWillMount () {
     if (this.props.menuFixed) {
       this.props.fixedMEnu()
     }
@@ -15,14 +15,15 @@ class StaticLayout extends Component {
       this.props.fixedHeader()
     }
   }
-  render() {
+
+  render () {
     return (
       <LayoutCard
         title="Static Layout"
         layout="vertical"
         fixedHeader="false"
         menuFixed="false"
-      />);
+      />)
   }
 }
 const mapStateToProps = state => ({
@@ -35,4 +36,4 @@ const mapDispatchToProps = {
   fixedHeader,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(StaticLayout);
+export default connect(mapStateToProps, mapDispatchToProps)(StaticLayout)

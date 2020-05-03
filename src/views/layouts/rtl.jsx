@@ -1,22 +1,23 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import LayoutCard from '../../components/mainCard/layoutCard';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import LayoutCard from '../../components/mainCard/layoutCard'
 import {
   layoutRtl,
-} from '../../redux/actions/templateConfig';
+} from '../../redux/actions/templateConfig'
 
 class RtlLayout extends Component {
-  componentWillMount() {
+  componentWillMount () {
     if (!this.props.rtl) {
       this.props.layoutRtl()
     }
   }
-  render() {
+
+  render () {
     return (
       <LayoutCard
         title="RTL Layout"
         rtl="true"
-      />);
+      />)
   }
 }
 const mapStateToProps = state => ({
@@ -27,4 +28,4 @@ const mapDispatchToProps = {
   layoutRtl,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RtlLayout);
+export default connect(mapStateToProps, mapDispatchToProps)(RtlLayout)

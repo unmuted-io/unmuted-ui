@@ -1,22 +1,23 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import LayoutCard from '../../components/mainCard/layoutCard';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import LayoutCard from '../../components/mainCard/layoutCard'
 import {
   colorIcon,
-} from '../../redux/actions/templateConfig';
+} from '../../redux/actions/templateConfig'
 
 class ColorIcon extends Component {
-  componentWillMount() {
+  componentWillMount () {
     if (!this.props.iconColor) {
       this.props.colorIcon()
     }
   }
-  render() {
+
+  render () {
     return (
       <LayoutCard
         title="Color Icon"
         iconColor="true"
-      />);
+      />)
   }
 }
 const mapStateToProps = state => ({
@@ -27,4 +28,4 @@ const mapDispatchToProps = {
   colorIcon,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ColorIcon);
+export default connect(mapStateToProps, mapDispatchToProps)(ColorIcon)

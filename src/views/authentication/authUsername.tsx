@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {
   Card,
@@ -13,22 +13,21 @@ import {
   FormGroup,
   FormFeedback,
   Label,
-} from "reactstrap"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { Link } from "react-router-dom"
-import logoDark from "../../assets/images/logo-dark.png"
-import authBg from "../../assets/images/auth-bg.jpg"
+} from 'reactstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Link, withRouter } from 'react-router-dom'
+import logoDark from '../../assets/images/logo-dark.png'
+import authBg from '../../assets/images/auth-bg.jpg'
 import { debounce } from '../../utility/utility'
 import axios from 'axios'
-import { withRouter } from 'react-router-dom'
 
 interface AuthUsernameProps {
-  email?: string,
-  password?: string,
-  edgeUsername?: string,
-  location: any,
-  history: any,
-  dispatch: any
+  email?: string;
+  password?: string;
+  edgeUsername?: string;
+  location: any;
+  history: any;
+  dispatch: any;
 }
 
 interface AuthUsernameState {
@@ -79,7 +78,7 @@ class AuthUsername extends Component<AuthUsernameProps, AuthUsernameState> {
     dispatch({ type: 'UPDATE_USERNAME', data: { username, history } })
   }
 
-  render() {
+  render () {
     const { validity, username } = this.state
     let validProp = {}
     let feedback = ''
@@ -94,7 +93,7 @@ class AuthUsername extends Component<AuthUsernameProps, AuthUsernameState> {
       feedback = ''
     }
     return (
-      <div className="auth-wrapper" style={{ background: "#eff3f6" }}>
+      <div className="auth-wrapper" style={{ background: '#eff3f6' }}>
         <div className="auth-content container">
           <Card>
             <Form onSubmit={e => e.preventDefault()}>
@@ -115,7 +114,7 @@ class AuthUsername extends Component<AuthUsernameProps, AuthUsernameState> {
                       </InputGroup>
                     </FormGroup>
                     <br />
-                    <div style={{ width: '100%', textAlign: 'center'}}>
+                    <div style={{ width: '100%', textAlign: 'center' }}>
                       <Button onClick={this.onClickSubmit}
                         color="primary"
                         className="mb-4"

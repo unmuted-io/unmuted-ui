@@ -1,7 +1,7 @@
-import React from "react";
-import { Card, CardHeader, CardBody, Form, FormGroup, Input } from "reactstrap";
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
+import React from 'react'
+import { Card, CardHeader, CardBody, Form, FormGroup, Input } from 'reactstrap'
+import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 const EmailContent = ({ emailDetails }) => (
   <Card>
@@ -17,7 +17,7 @@ const EmailContent = ({ emailDetails }) => (
               className="media-object img-radius"
               src={emailDetails.thumbnail}
               alt="E-mail user"
-              style={{ width: "50px" }}
+              style={{ width: '50px' }}
             />
           </Link>
         </div>
@@ -50,10 +50,10 @@ const EmailContent = ({ emailDetails }) => (
       </div>
     </CardBody>
   </Card>
-);
+)
 
 EmailContent.propTypes = {
   emailDetails: PropTypes.object
-};
+}
 
-export default EmailContent;
+export default EmailContent

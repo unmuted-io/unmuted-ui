@@ -1,24 +1,24 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
 import {
   Row,
   Col
-} from "reactstrap";
-import MainCard from "../../components/mainCard/mainCard"
+} from 'reactstrap'
+import MainCard from '../../components/mainCard/mainCard'
 import { ClipLoader } from 'react-spinners'
 import { connect, Connect } from 'react-redux'
 import RecentlyViewedThumbnail from '../recentlyViewed/recentlyViewedThumbnail'
 import axios from 'axios'
 
 export interface RecentlyViewedProps {
-  account: any
+  account: any;
 }
 
 export interface RecentlyViewedState {
-  recentlyViewed: any[]
+  recentlyViewed: any[];
 }
 
 class RecentlyViewed extends React.Component<RecentlyViewedProps, RecentlyViewedState> {
-  constructor(props: RecentlyViewedProps) {
+  constructor (props: RecentlyViewedProps) {
     super(props)
     this.state = {
       recentlyViewed: []
@@ -39,7 +39,7 @@ class RecentlyViewed extends React.Component<RecentlyViewedProps, RecentlyViewed
     })
   }
 
-  render() {
+  render () {
     const { recentlyViewed } = this.state
     return (
       <Row>
@@ -56,7 +56,7 @@ class RecentlyViewed extends React.Component<RecentlyViewedProps, RecentlyViewed
           </MainCard>
         </Col>
       </Row>
-    );
+    )
   }
 }
 

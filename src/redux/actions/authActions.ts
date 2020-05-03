@@ -19,7 +19,7 @@ export const attemptAutoLoginFromCookies = (history: any) => (dispatch: any, get
   dispatch(login(userInfo, history))
 }
 
-export const createUser = (newUserInfo: UserInfo , history: object ) => async (dispatch: any, getState: any) => {
+export const createUser = (newUserInfo: UserInfo, history: object) => async (dispatch: any, getState: any) => {
   dispatch({ type: 'UPDATE_IS_REGISTERING', data: { isRegistering: true } })
   // slow down process to make user know they are being registered / processed
   setTimeout(async () => {
@@ -44,7 +44,7 @@ export const createUser = (newUserInfo: UserInfo , history: object ) => async (d
 export const login = (userInfo: UserInfo, history: any, isAnimated?: boolean) => async (dispatch: any, getState: any) => {
   dispatch({ type: 'IS_LOGGING_IN', data: { isLoggingIn: true } })
   // slow down login process so that user knows they are being logged in
-  setTimeout(async() => {
+  setTimeout(async () => {
     try {
       const { username, password, email } = userInfo
       const { REACT_APP_API_BASE_URL } = process.env
@@ -60,7 +60,7 @@ export const login = (userInfo: UserInfo, history: any, isAnimated?: boolean) =>
       })
       if (!loginResponse.ok) {
         console.log(loginResponse.statusText)
-        throw new Error (loginResponse.statusText)
+        throw new Error(loginResponse.statusText)
       }
       const loginData: LoginSuccessResponse = await loginResponse.json()
       const { user, access_token } = loginData
@@ -90,7 +90,7 @@ export const login = (userInfo: UserInfo, history: any, isAnimated?: boolean) =>
       dispatch({ type: 'AUTH_ERROR', data: { authError: 'There was a problem logging in with those credentials. Please check your credentials and try again.' } })
     }
     // should isLoggingIn reducer just look at ACCOUNT action?
-    dispatch({ type: 'IS_LOGGING_IN', data: { isLoggingIn: false}})
+    dispatch({ type: 'IS_LOGGING_IN', data: { isLoggingIn: false } })
   }, 2000)
 }
 

@@ -1,14 +1,13 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import LayoutCard from '../../components/mainCard/layoutCard';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import LayoutCard from '../../components/mainCard/layoutCard'
 import {
   layOut,
   fixedHeader
-} from '../../redux/actions/templateConfig';
-
+} from '../../redux/actions/templateConfig'
 
 class TemplateLayout extends Component {
-  componentWillMount() {
+  componentWillMount () {
     if (this.props.templayout !== 'horizontal') {
       this.props.layOut('horizontal')
     }
@@ -16,15 +15,15 @@ class TemplateLayout extends Component {
       this.props.fixedHeader()
     }
   }
-  render() {
+
+  render () {
     return <LayoutCard
       title="Horizontal Layout"
       layout='horizontal'
       fixedHeader="false"
-    />;
+    />
   }
 }
-
 
 const mapStateToProps = state => ({
   templayout: state.config.layout,
@@ -36,4 +35,4 @@ const mapDispatchToProps = {
   fixedHeader
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TemplateLayout);
+export default connect(mapStateToProps, mapDispatchToProps)(TemplateLayout)

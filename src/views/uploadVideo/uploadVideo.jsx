@@ -1,8 +1,8 @@
-import React, { Component, Fragment } from "react"
-import { Row, Col, Card, CardHeader, CardBody, Button, FormGroup, Label, Input } from "reactstrap"
-import DropzoneComponent from "react-dropzone-component"
-import InputMask from "react-input-mask"
-import ReactNumeric, { predefinedOptions } from "react-numeric"
+import React, { Component, Fragment } from 'react'
+import { Row, Col, Card, CardHeader, CardBody, Button, FormGroup, Label, Input } from 'reactstrap'
+import DropzoneComponent from 'react-dropzone-component'
+import InputMask from 'react-input-mask'
+import ReactNumeric, { predefinedOptions } from 'react-numeric'
 import { useHistory } from 'react-router-dom'
 
 const FullCard = props => (
@@ -17,7 +17,7 @@ const FullCard = props => (
 )
 
 class UploadVideo extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       videoTitle: '',
@@ -26,14 +26,14 @@ class UploadVideo extends Component {
     }
     this.djsConfig = {
       addRemoveLinks: false,
-      acceptedFiles: "video/mp4",
+      acceptedFiles: 'video/mp4',
       autoProcessQueue: false,
       uploadprogress: 100
     }
     this.componentConfig = {
-      iconFiletypes: [".mp4"],
+      iconFiletypes: ['.mp4'],
       showFiletypeIcon: true,
-      postUrl: "no-url"
+      postUrl: 'no-url'
     }
 
     // If you want to attach multiple callbacks, simply
@@ -70,7 +70,7 @@ class UploadVideo extends Component {
     })
   }
 
-  render() {
+  render () {
     const eventHandlers = {
       init: dz => this.dropzone = dz,
       drop: this.callbackArray,

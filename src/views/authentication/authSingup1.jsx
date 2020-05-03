@@ -1,12 +1,12 @@
-import React, { Component } from "react"
-import { Row, Col, Label, Alert, Form } from "reactstrap"
-import { Link } from "react-router-dom"
-import logoDark from "../../assets/images/logo-dark.png"
-import authBg from "../../assets/images/auth-bg.jpg"
-import "../../assets/css/base.css"
+import React, { Component } from 'react'
+import { Row, Col, Label, Alert, Form } from 'reactstrap'
+import { Link } from 'react-router-dom'
+import logoDark from '../../assets/images/logo-dark.png'
+import authBg from '../../assets/images/auth-bg.jpg'
+import '../../assets/css/base.css'
 
 class AuthSingup1 extends Component {
-  render() {
+  render () {
     return (
       <div className="auth-wrapper aut-bg-img-side cotainer-fiuid align-items-stretch">
         <Row className="align-items-center w-100 align-items-stretch bg-white">
@@ -16,7 +16,7 @@ class AuthSingup1 extends Component {
           >
             <div
               className="poster"
-              style={{ backgroundImage: "url(" + { authBg } + ")" }}
+              style={{ backgroundImage: 'url(' + { authBg } + ')' }}
             />
             <div className="canvas-wrap">
               <canvas />

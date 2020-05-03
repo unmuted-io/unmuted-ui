@@ -1,22 +1,31 @@
 module.exports = {
-    "env": {
-        "browser": true,
-        "node": true
+  env: {
+    browser: true,
+    es6: true
+  },
+  extends: [
+    'plugin:react/recommended',
+    'standard',
+    'eslint:recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
+  ],
+  globals: {
+    Atomics: 'readonly',
+    SharedArrayBuffer: 'readonly'
+  },
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true
     },
-    "extends": [
-        "plugin:@typescript-eslint/recommended",
-        "plugin:@typescript-eslint/recommended-requiring-type-checking",
-        "tslint-react"
-    ],
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "project": "tsconfig.json",
-        "sourceType": "module"
-    },
-    "plugins": [
-        "@typescript-eslint",
-        "@typescript-eslint/tslint"
-    ],
+    ecmaVersion: 2018,
+    sourceType: 'module'
+  },
+  plugins: [
+    'react',
+    '@typescript-eslint'
+  ],
     "rules": {
         "@typescript-eslint/array-type": "error",
         "@typescript-eslint/no-explicit-any": "off",
@@ -28,6 +37,7 @@ module.exports = {
         "camelcase": "off",
         "@typescript-eslint/camelcase": "off",
         "complexity": "off",
+        "comma-dangle": "off",
         "constructor-super": "error",
         "dot-notation": "error",
         "eqeqeq": [
@@ -52,6 +62,7 @@ module.exports = {
             "error",
             1
         ],
+        "max-len": ['error', 120],
         "new-parens": "error",
         "no-bitwise": "error",
         "no-caller": "error",
@@ -80,8 +91,9 @@ module.exports = {
             "error",
             "never"
         ],
-        "prefer-arrow/prefer-arrow-functions": "error",
+        // "prefer-arrow/prefer-arrow-functions": "error",
         "radix": "error",
+        "react/prop-types": "off",
         "spaced-comment": "error",
         "use-isnan": "error",
         "valid-typeof": "off",
@@ -94,5 +106,5 @@ module.exports = {
                 }
             }
         ]
-    }
+  }
 }

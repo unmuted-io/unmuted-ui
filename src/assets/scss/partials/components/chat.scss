@@ -15,6 +15,7 @@
       flex: 3;
       font-size: 14px;
       padding: 4px;
+      padding-left: 8px;
     }
 
     button {
@@ -22,6 +23,43 @@
       flex: 1;
       margin-right: 0px;
       margin-left: 12px;
+    }
+  }
+
+  .bountied-chat-area {
+    margin-top: 12px;
+
+    .nav-link {
+      padding-left: 20px;
+      padding-right: 20px;
+      cursor: pointer;
+      &:hover {
+        color: #383c31
+      }
+
+      img.symbol-image {
+        height: 1em;
+        width: 1em;
+        bottom: 2px;
+        position: relative;
+      }
+    }
+    .tab-content {
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+
+    .bountied-chat-input {
+      margin-bottom: 16px;
+    }
+
+    .qr-code-collapsible {
+
+      .qr-code-wrapper {
+        justify-content: center;
+        flex: 1;
+        display: flex;
+      }
     }
   }
 }

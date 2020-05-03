@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Trash2 } from "react-feather";
-import classnames from "classnames";
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Trash2 } from 'react-feather'
+import classnames from 'classnames'
 import {
   Card,
   CardHeader,
@@ -14,49 +14,52 @@ import {
   Form,
   Input,
   FormGroup
-} from "reactstrap";
+} from 'reactstrap'
 import {
   addTodoModal,
   completeTodoModal,
   deleteTodoModal
-} from "../../redux/actions/todoActions";
+} from '../../redux/actions/todoActions'
 
 class TodoModals extends Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
     this.state = {
       modal: false,
-      text: ""
-    };
-    this.toggleModal = this.toggleModal.bind(this);
-    this.changeHandeler = this.changeHandeler.bind(this);
-    this.todoAddHandelen = this.todoAddHandelen.bind(this);
-    this.submitHandeler = this.submitHandeler.bind(this);
+      text: ''
+    }
+    this.toggleModal = this.toggleModal.bind(this)
+    this.changeHandeler = this.changeHandeler.bind(this)
+    this.todoAddHandelen = this.todoAddHandelen.bind(this)
+    this.submitHandeler = this.submitHandeler.bind(this)
   }
 
-  toggleModal() {
+  toggleModal () {
     this.setState(prevState => ({
       modal: !prevState.modal
-    }));
-  }
-  changeHandeler(e) {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  }
-  todoAddHandelen() {
-    this.props.addTodoModal(this.props.id, this.state.text);
-    this.setState(prevState => ({
-      modal: !prevState.modal,
-      text: ""
-    }));
-  }
-  submitHandeler(e) {
-    e.preventDefault();
-    this.todoAddHandelen();
+    }))
   }
 
-  render() {
+  changeHandeler (e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+  }
+
+  todoAddHandelen () {
+    this.props.addTodoModal(this.props.id, this.state.text)
+    this.setState(prevState => ({
+      modal: !prevState.modal,
+      text: ''
+    }))
+  }
+
+  submitHandeler (e) {
+    e.preventDefault()
+    this.todoAddHandelen()
+  }
+
+  render () {
     return (
       <Card>
         <CardHeader>
@@ -69,9 +72,9 @@ class TodoModals extends Component {
                 <div className="d-inline-block">
                   <label
                     className={classnames(
-                      "check-task custom-control custom-checkbox d-flex justify-content-center",
+                      'check-task custom-control custom-checkbox d-flex justify-content-center',
                       {
-                        "done-task": object.completed
+                        'done-task': object.completed
                       }
                     )}
                   >
@@ -86,7 +89,7 @@ class TodoModals extends Component {
                 <div className="float-right">
                   <i
                     onClick={() => this.props.deleteTodoModal(object.id)}
-                    style={{ cursor: "pointer" }}
+                    style={{ cursor: 'pointer' }}
                   >
                     <Trash2 size={20} />
                   </i>
@@ -127,15 +130,15 @@ class TodoModals extends Component {
           </Modal>
         </CardBody>
       </Card>
-    );
+    )
   }
 }
 const mapStatetoProps = state => ({
   id: state.todoApp.TodoModal.length,
   todos: state.todoApp.TodoModal
-});
+})
 
 export default connect(
   mapStatetoProps,
   { addTodoModal, completeTodoModal, deleteTodoModal }
-)(TodoModals);
+)(TodoModals)

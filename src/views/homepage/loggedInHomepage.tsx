@@ -1,25 +1,24 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
 import {
   Row,
   Col
-} from "reactstrap";
-import MainCard from "../../components/mainCard/mainCard"
+} from 'reactstrap'
+import MainCard from '../../components/mainCard/mainCard'
 import { ClipLoader } from 'react-spinners'
 import { connect, Connect } from 'react-redux'
 import VideoThumbnail from '../videoThumbnail/VideoThumbnail'
 import axios from 'axios'
 
 export interface LoggedInHomepageProps {
-  account: any
+  account: any;
 }
 
 export interface LoggedInHomepageState {
-  recommended: any[]
+  recommended: any[];
 }
 
 class LoggedInHomepage extends React.Component<LoggedInHomepageProps, LoggedInHomepageState> {
-
-  constructor(props: LoggedInHomepageProps) {
+  constructor (props: LoggedInHomepageProps) {
     super(props)
     this.state = {
       recommended: []
@@ -40,7 +39,7 @@ class LoggedInHomepage extends React.Component<LoggedInHomepageProps, LoggedInHo
     })
   }
 
-  render() {
+  render () {
     const { recommended } = this.state
     return (
       <MainCard title="Recommended" isOption className='recommended-videos-grid'>
@@ -53,7 +52,7 @@ class LoggedInHomepage extends React.Component<LoggedInHomepageProps, LoggedInHo
           )
         })}
       </MainCard>
-    );
+    )
   }
 }
 

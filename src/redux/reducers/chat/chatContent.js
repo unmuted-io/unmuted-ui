@@ -1,10 +1,10 @@
 const chatContent = (state = 1, action) => {
   switch (action.type) {
-    case "OPEN_CHAT":
-      return action.id;
+    case 'OPEN_CHAT':
+      return action.id
     default:
-      return state;
+      return state
   }
-};
+}
 
-export default chatContent;
+export default chatContent

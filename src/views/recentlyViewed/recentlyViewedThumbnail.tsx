@@ -6,20 +6,20 @@ import {
   secondsToHms,
   secondsToHHMMSS
 } from '../../utility/utility'
-import PlaceholderImage from "../../assets/images/placeholder.png"
+import PlaceholderImage from '../../assets/images/placeholder.png'
 
 export interface VideoThumbnailProps {
-  title: string,
-  description: string,
-  source: string,
-  rand: string,
-  processed?: 0 | 1,
-  id?: number,
-  created_at: string,
-  updated_at: string,
-  username: string,
-  count: number,
-  duration: number
+  title: string;
+  description: string;
+  source: string;
+  rand: string;
+  processed?: 0 | 1;
+  id?: number;
+  created_at: string;
+  updated_at: string;
+  username: string;
+  count: number;
+  duration: number;
 }
 
 export interface VideoThumbnailState {
@@ -27,7 +27,7 @@ export interface VideoThumbnailState {
 }
 
 class VideoThumbnail extends React.Component<VideoThumbnailProps, VideoThumbnailState> {
-  render() {
+  render () {
     const {
       title,
       description,
@@ -87,4 +87,4 @@ const mapDispatchToProps = () => {
   }
 }
 
-export default VideoThumbnail;
+export default VideoThumbnail

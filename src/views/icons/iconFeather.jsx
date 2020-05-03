@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import { Row, Col, Card, CardHeader, CardBody } from "reactstrap";
-import Search from "../../containers/icons/feather/IconSearch";
-import IconList from "../../containers/icons/feather/IconList";
+import React, { Component } from 'react'
+import { Row, Col, Card, CardHeader, CardBody } from 'reactstrap'
+import Search from '../../containers/icons/feather/IconSearch'
+import IconList from '../../containers/icons/feather/IconList'
 
 class FeatherIcons extends Component {
-  render() {
+  render () {
     return (
       <Row>
         <Col sm={12}>
@@ -23,8 +23,8 @@ class FeatherIcons extends Component {
           </Card>
         </Col>
       </Row>
-    );
+    )
   }
 }
 
-export default FeatherIcons;
+export default FeatherIcons

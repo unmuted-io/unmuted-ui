@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component } from 'react'
 import {
   Card,
   CardBody,
@@ -7,14 +7,14 @@ import {
   FormGroup,
   Label,
   Button,
-} from "reactstrap"
-import { Link } from "react-router-dom"
-import avatar from "../../assets/images/user/avatar-3.jpg"
+} from 'reactstrap'
+import { Link } from 'react-router-dom'
+import avatar from '../../assets/images/user/avatar-3.jpg'
 
 class ProfileSetting extends Component {
-  render() {
+  render () {
     return (
-      <div className="auth-wrapper" style={{ background: "#eff3f6" }}>
+      <div className="auth-wrapper" style={{ background: '#eff3f6' }}>
         <div className="auth-content">
           <span className="r" />
           <span className="r s" />

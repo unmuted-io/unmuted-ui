@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react'
 // import PropTypes from 'prop-types'
-import Chat from "./chatListItem";
+import Chat from './chatListItem'
 
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types'
 
 const ChatList = ({ chats, openChat }) => (
   <div className="main-friend-list">
@@ -17,10 +17,10 @@ const ChatList = ({ chats, openChat }) => (
       />
     ))}
   </div>
-);
+)
 
 ChatList.propTypes = {
   chats: PropTypes.array.isRequired,
   openChat: PropTypes.func.isRequired
-};
-export default ChatList;
+}
+export default ChatList

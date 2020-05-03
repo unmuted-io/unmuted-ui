@@ -22,7 +22,7 @@ export const account = (state = null, action) => {
         username: data.username
       }
     case 'LOGOUT':
-        return null
+      return null
     default:
       return state
   }
@@ -33,15 +33,15 @@ export const edgeAccount = (state = null, action) => {
     case 'UPDATE_EDGE_ACCOUNT':
       return action.data
     case 'LOGOUT':
-        return null
+      return null
     default:
       return state
   }
 }
 
-type IsLoggingInAction = { type: 'IS_LOGGING_IN', data: { isLoggingIn: boolean } }
+type IsLoggingInAction = { type: 'IS_LOGGING_IN'; data: { isLoggingIn: boolean } }
 
-export const isLoggingIn = (state: boolean = false, action: IsLoggingInAction): boolean => {
+export const isLoggingIn = (state = false, action: IsLoggingInAction): boolean => {
   const { data, type } = action
   switch (type) {
     case 'IS_LOGGING_IN':
@@ -51,9 +51,9 @@ export const isLoggingIn = (state: boolean = false, action: IsLoggingInAction): 
   }
 }
 
-type IsRegisteringAction = { type: 'UPDATE_IS_REGISTERING', data: { isRegistering: boolean } }
+type IsRegisteringAction = { type: 'UPDATE_IS_REGISTERING'; data: { isRegistering: boolean } }
 
-export const isRegistering = (state: boolean = false, action: IsRegisteringAction): boolean => {
+export const isRegistering = (state = false, action: IsRegisteringAction): boolean => {
   const { data, type } = action
   switch (type) {
     case 'UPDATE_IS_REGISTERING':

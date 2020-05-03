@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
 import {
   Card,
   CardBody,
@@ -8,14 +8,14 @@ import {
   Button,
   Form,
   Input
-} from "reactstrap";
-import logoDark from "../../assets/images/logo-dark.png";
-import authBg from "../../assets/images/auth-bg.jpg";
+} from 'reactstrap'
+import logoDark from '../../assets/images/logo-dark.png'
+import authBg from '../../assets/images/auth-bg.jpg'
 
 class ChangePassword extends Component {
-  render() {
+  render () {
     return (
-      <div className="auth-wrapper" style={{ background: "#eff3f6" }}>
+      <div className="auth-wrapper" style={{ background: '#eff3f6' }}>
         <div className="auth-content container">
           <Card>
             <Form onSubmit={e => e.preventDefault()}>
@@ -49,8 +49,8 @@ class ChangePassword extends Component {
           </Card>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default ChangePassword;
+export default ChangePassword

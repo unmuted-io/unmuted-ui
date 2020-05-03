@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import LayoutCard from '../../components/mainCard/layoutCard';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import LayoutCard from '../../components/mainCard/layoutCard'
 import {
   layoutPrebuild,
   configBlock,
   layOut,
   fixedHeader,
-} from '../../redux/actions/templateConfig';
+} from '../../redux/actions/templateConfig'
 
 class Layout6 extends Component {
-  componentWillMount() {
-    if (this.props.templayout !== "layout-6") {
-      this.props.layoutPrebuild("layout-6")
+  componentWillMount () {
+    if (this.props.templayout !== 'layout-6') {
+      this.props.layoutPrebuild('layout-6')
     }
     if (this.props.configBlockg) {
       this.props.configBlock()
@@ -19,19 +19,19 @@ class Layout6 extends Component {
     if (this.props.headerFixed) {
       this.props.fixedHeader()
     }
-    if (this.props.layouta !== "horizontal") {
-      this.props.layOut("horizontal")
+    if (this.props.layouta !== 'horizontal') {
+      this.props.layOut('horizontal')
     }
   }
-  render() {
+
+  render () {
     return <LayoutCard
       title="Layout 6"
       prebuildLayout="layout-6"
       configBloc="false"
-    />;
+    />
   }
 }
-
 
 const mapStateToProps = state => ({
   templayout: state.config.prebuildLayout,
@@ -47,4 +47,4 @@ const mapDispatchToProps = {
   fixedHeader,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Layout6);
+export default connect(mapStateToProps, mapDispatchToProps)(Layout6)

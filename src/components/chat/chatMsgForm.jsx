@@ -1,28 +1,29 @@
-import React, { Component } from "react";
-import { Form, Input, InputGroup, InputGroupAddon, Button } from "reactstrap";
-import { Play, Paperclip } from "react-feather";
+import React, { Component } from 'react'
+import { Form, Input, InputGroup, InputGroupAddon, Button } from 'reactstrap'
+import { Play, Paperclip } from 'react-feather'
 
 // import PropTypes from 'prop-types'
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types'
 
 class ChatMsgForm extends Component {
   state = {
-    msg: ""
+    msg: ''
   };
+
   handleChatMsgChange = e => {
     this.setState({
       msg: e.target.value
-    });
+    })
   };
 
   onChatMsgSubmit = e => {
-    e.preventDefault();
-    e.stopPropagation();
-    this.props.onClick(this.props.id, this.state.msg);
-    this.setState({ msg: "" });
+    e.preventDefault()
+    e.stopPropagation()
+    this.props.onClick(this.props.id, this.state.msg)
+    this.setState({ msg: '' })
   };
 
-  render() {
+  render () {
     return (
       <div className="msg-form">
         <Form onSubmit={this.onChatMsgSubmit}>
@@ -35,21 +36,21 @@ class ChatMsgForm extends Component {
               value={this.state.msg}
             />
             <InputGroupAddon addonType="append">
-              <Input type="file" style={{ display: "none" }} />
+              <Input type="file" style={{ display: 'none' }} />
               <Button className="btn-icon" type="button">
                 <Paperclip size={14} />
               </Button>
             </InputGroupAddon>
             <InputGroupAddon addonType="append">
-              <Input type="file" style={{ display: "none" }} />
+              <Input type="file" style={{ display: 'none' }} />
               <Button
                 color="theme"
                 type="button"
                 className="btn-icon btn-msg-send"
                 onClick={() => {
                   if (this.state.msg.length > 0) {
-                    this.props.onClick(this.props.id, this.state.msg);
-                    this.setState({ msg: "" });
+                    this.props.onClick(this.props.id, this.state.msg)
+                    this.setState({ msg: '' })
                   }
                 }}
               >
@@ -59,12 +60,12 @@ class ChatMsgForm extends Component {
           </InputGroup>
         </Form>
       </div>
-    );
+    )
   }
 }
 
 ChatMsgForm.propTypes = {
   onClick: PropTypes.func.isRequired
-};
+}
 
-export default ChatMsgForm;
+export default ChatMsgForm

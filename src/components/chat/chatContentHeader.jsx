@@ -1,16 +1,16 @@
-import React, { Component } from "react";
-import { Media } from "reactstrap";
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
-import PerfectScrollbar from "react-perfect-scrollbar";
-import UserImg from "../../assets/images/user/avatar-1.jpg";
-import ChatMsgSend from '../../containers/chat/chatMsgSendHeader';
+import React, { Component } from 'react'
+import { Media } from 'reactstrap'
+import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import PerfectScrollbar from 'react-perfect-scrollbar'
+import UserImg from '../../assets/images/user/avatar-1.jpg'
+import ChatMsgSend from '../../containers/chat/chatMsgSendHeader'
 
 class ChatContent extends Component {
-  render() {
-    let chatDetails = this.props.chatDetails;
+  render () {
+    const chatDetails = this.props.chatDetails
     return (
-      <div className={`header-chat ${this.props.chating && "open"}`}>
+      <div className={`header-chat ${this.props.chating && 'open'}`}>
         <div className="h-list-header">
           <h6>{chatDetails.name}</h6>
           <Link to="#" onClick={this.props.chatBox} className="h-back-user-list">
@@ -23,7 +23,7 @@ class ChatContent extends Component {
               {Object.keys(chatDetails.chatHistory).map(chat =>
                 Object.keys(chatDetails.chatHistory[chat]).map(key =>
                   Object.keys(chatDetails.chatHistory[chat][key]).map(k =>
-                    k === "from" ? (
+                    k === 'from' ? (
                       <Media className="chat-messages" key={k}>
                         <Link to="#" className="media-left photo-table">
                           <Media
@@ -72,13 +72,13 @@ class ChatContent extends Component {
             </div>
           </PerfectScrollbar>
         </div>
-      <ChatMsgSend />
+        <ChatMsgSend />
       </div>
-    );
+    )
   }
 }
 ChatContent.propTypes = {
   chatDetails: PropTypes.object.isRequired
-};
+}
 
-export default ChatContent;
+export default ChatContent

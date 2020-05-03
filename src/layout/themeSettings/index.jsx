@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Row, Col, Button, Nav, NavItem, NavLink, TabContent, TabPane, FormGroup, Label } from 'reactstrap';
-import classnames from 'classnames';
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import { Row, Col, Button, Nav, NavItem, NavLink, TabContent, TabPane, FormGroup, Label } from 'reactstrap'
+import classnames from 'classnames'
 import PerfectScrollbar from 'react-perfect-scrollbar'
 
-//import layout1 from '../../assets/images/layout/layout-1.jpg';
-import layout2 from '../../assets/images/layout/layout-2.jpg';
-import layout3 from '../../assets/images/layout/layout-3.jpg';
-import layout4 from '../../assets/images/layout/layout-4.jpg';
-import layout5 from '../../assets/images/layout/layout-5.jpg';
-import layout6 from '../../assets/images/layout/layout-6.jpg';
-//import layout7 from '../../assets/images/layout/layout-7.jpg';
-import layout8 from '../../assets/images/layout/layout-8.jpg';
+// import layout1 from '../../assets/images/layout/layout-1.jpg';
+import layout2 from '../../assets/images/layout/layout-2.jpg'
+import layout3 from '../../assets/images/layout/layout-3.jpg'
+import layout4 from '../../assets/images/layout/layout-4.jpg'
+import layout5 from '../../assets/images/layout/layout-5.jpg'
+import layout6 from '../../assets/images/layout/layout-6.jpg'
+// import layout7 from '../../assets/images/layout/layout-7.jpg';
+import layout8 from '../../assets/images/layout/layout-8.jpg'
 /* import layout9 from '../../assets/images/layout/layout-9.jpg';
 import layout10 from '../../assets/images/layout/layout-10.jpg';
 import layout11 from '../../assets/images/layout/layout-11.jpg';
@@ -19,60 +19,61 @@ import layout12 from '../../assets/images/layout/layout-12.jpg';
 import layout13 from '../../assets/images/layout/layout-13.jpg';
 import layout14 from '../../assets/images/layout/layout-14.jpg'; */
 
-
 class Setting extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       setting: false,
-      activeTab: "1",
+      activeTab: '1',
       prebuild: false,
       styler: true
     }
-    this.toggleTab = this.toggleTab.bind(this);
+    this.toggleTab = this.toggleTab.bind(this)
     this.togglePrebuild = this.togglePrebuild.bind(this)
     this.toggleStyler = this.toggleStyler.bind(this)
     this.toggleSettings = this.toggleSettings.bind(this)
   }
 
-  toggleTab(tab) {
+  toggleTab (tab) {
     if (this.state.activeTab !== tab) {
       this.setState({
         activeTab: tab
-      });
+      })
     }
   }
-  togglePrebuild() {
+
+  togglePrebuild () {
     this.setState(prevState => ({ setting: true, prebuild: !prevState.prebuild, styler: !prevState.styler }))
   }
-  toggleStyler() {
+
+  toggleStyler () {
     this.setState(prevState => ({ setting: true, prebuild: false, styler: true }))
   }
-  toggleSettings() {
+
+  toggleSettings () {
     this.setState(prevState => ({ setting: !prevState.setting, prebuild: false, styler: true }))
   }
 
-  render() {
-
+  render () {
     return (
-      <div className={classnames("menu-styler", {
+      <div className={classnames('menu-styler', {
         open: this.state.setting && this.state.styler,
-        "open prebuild-open": this.state.setting && this.state.prebuild,
+        'open prebuild-open': this.state.setting && this.state.prebuild,
       })}>
         <div className="style-toggler">
           <Link to="#" onClick={this.toggleSettings}></Link>
         </div>
         <div className="prebuild-toggler">
           <div className="prebuild-group">
-            <Link to="#" className={classnames("prebuild-link-styler", {
+            <Link to="#" className={classnames('prebuild-link-styler', {
               active: this.state.styler
             })}
-              onClick={this.toggleStyler}
+            onClick={this.toggleStyler}
             >STYLER</Link>
-            <Link to="#" className={classnames("prebuild-link-layout", {
+            <Link to="#" className={classnames('prebuild-link-layout', {
               active: this.state.prebuild
             })}
-              onClick={this.togglePrebuild}
+            onClick={this.togglePrebuild}
             >PREBUILD LAYOUTS</Link>
           </div>
         </div>
@@ -84,21 +85,21 @@ class Setting extends Component {
           <h6>Layouts</h6>
           <div className="theme-color layout-type">
             <Link to="#"
-              onClick={() => this.props.layOutType("default")}
+              onClick={() => this.props.layOutType('default')}
               className={classnames({
-                active: this.props.layoutType === "default"
+                active: this.props.layoutType === 'default'
               })}
               data-value="menu-dark" title="Default Layout"><span></span><span></span></Link>
             <Link to="#"
-              onClick={() => this.props.layOutType("light")}
+              onClick={() => this.props.layOutType('light')}
               className={classnames({
-                active: this.props.layoutType === "light"
+                active: this.props.layoutType === 'light'
               })}
               data-value="menu-light" title="Light"><span></span><span></span></Link>
             <Link to="#"
-              onClick={() => this.props.layOutType("dark")}
+              onClick={() => this.props.layOutType('dark')}
               className={classnames({
-                active: this.props.layoutType === "dark"
+                active: this.props.layoutType === 'dark'
               })}
               data-value="dark" title="Dark"><span></span><span></span></Link>
             <Link onClick={() => this.props.resetTemplate()} to="#" data-value="reset" title="Reset">Reset to Default</Link>
@@ -122,272 +123,272 @@ class Setting extends Component {
           <Nav pills className="mb-2">
             <NavItem>
               <NavLink
-                style={{ cursor: "pointer" }}
-                className={classnames("nav-link", {
-                  active: this.state.activeTab === "1"
+                style={{ cursor: 'pointer' }}
+                className={classnames('nav-link', {
+                  active: this.state.activeTab === '1'
                 })}
                 onClick={() => {
-                  this.toggleTab("1");
+                  this.toggleTab('1')
                 }}
               >
                 Home
-            </NavLink>
+              </NavLink>
             </NavItem>
             <NavItem>
               <NavLink
-                style={{ cursor: "pointer" }}
-                className={classnames("nav-link", {
-                  active: this.state.activeTab === "2"
+                style={{ cursor: 'pointer' }}
+                className={classnames('nav-link', {
+                  active: this.state.activeTab === '2'
                 })}
                 onClick={() => {
-                  this.toggleTab("2");
+                  this.toggleTab('2')
                 }}
               >
                 Layout
-            </NavLink>
+              </NavLink>
             </NavItem>
             <NavItem>
               <NavLink
-                style={{ cursor: "pointer" }}
-                className={classnames("nav-link", {
-                  active: this.state.activeTab === "3"
+                style={{ cursor: 'pointer' }}
+                className={classnames('nav-link', {
+                  active: this.state.activeTab === '3'
                 })}
                 onClick={() => {
-                  this.toggleTab("3");
+                  this.toggleTab('3')
                 }}
               >
                 Extra
-            </NavLink>
+              </NavLink>
             </NavItem>
           </Nav>
-          <PerfectScrollbar style={{ height: "calc(100vh - 340px)", position: "relative" }}>
+          <PerfectScrollbar style={{ height: 'calc(100vh - 340px)', position: 'relative' }}>
             <TabContent activeTab={this.state.activeTab}>
               <TabPane tabId="1">
                 <h6>header background</h6>
                 <div className="theme-color header-color">
                   <Link
-                    onClick={() => this.props.headerBg("light")}
+                    onClick={() => this.props.headerBg('light')}
                     className={classnames({
-                      active: this.props.bgHeader === "light"
+                      active: this.props.bgHeader === 'light'
                     })}
                     to="#" data-value="header-default"><span></span><span></span></Link>
                   <Link
-                    onClick={() => this.props.headerBg("blue")}
+                    onClick={() => this.props.headerBg('blue')}
                     className={classnames({
-                      active: this.props.bgHeader === "blue"
+                      active: this.props.bgHeader === 'blue'
                     })}
                     to="#" data-value="header-blue"><span></span><span></span></Link>
                   <Link
-                    onClick={() => this.props.headerBg("red")}
+                    onClick={() => this.props.headerBg('red')}
                     className={classnames({
-                      active: this.props.bgHeader === "red"
+                      active: this.props.bgHeader === 'red'
                     })}
                     to="#" data-value="header-red"><span></span><span></span></Link>
                   <Link
-                    onClick={() => this.props.headerBg("purple")}
+                    onClick={() => this.props.headerBg('purple')}
                     className={classnames({
-                      active: this.props.bgHeader === "purple"
+                      active: this.props.bgHeader === 'purple'
                     })}
                     to="#" data-value="header-purple"><span></span><span></span></Link>
                   <Link
-                    onClick={() => this.props.headerBg("info")}
+                    onClick={() => this.props.headerBg('info')}
                     className={classnames({
-                      active: this.props.bgHeader === "info"
+                      active: this.props.bgHeader === 'info'
                     })}
                     to="#" data-value="header-info"><span></span><span></span></Link>
                   <Link
-                    onClick={() => this.props.headerBg("dark")}
+                    onClick={() => this.props.headerBg('dark')}
                     className={classnames({
-                      active: this.props.bgHeader === "dark"
+                      active: this.props.bgHeader === 'dark'
                     })}
                     to="#" data-value="header-dark"><span></span><span></span></Link>
                 </div>
                 <h6>Menu Brand Color</h6>
                 <div className="theme-color brand-color">
                   <Link
-                    onClick={() => this.props.bgBrand("light")}
+                    onClick={() => this.props.bgBrand('light')}
                     className={classnames({
-                      active: this.props.brandBg === "light"
+                      active: this.props.brandBg === 'light'
                     })}
                     to="#" data-value="brand-default"><span></span><span></span></Link>
                   <Link
-                    onClick={() => this.props.bgBrand("blue")}
+                    onClick={() => this.props.bgBrand('blue')}
                     className={classnames({
-                      active: this.props.brandBg === "blue"
+                      active: this.props.brandBg === 'blue'
                     })}
                     to="#" data-value="brand-blue"><span></span><span></span></Link>
                   <Link
-                    onClick={() => this.props.bgBrand("red")}
+                    onClick={() => this.props.bgBrand('red')}
                     className={classnames({
-                      active: this.props.brandBg === "red"
+                      active: this.props.brandBg === 'red'
                     })}
                     to="#" data-value="brand-red"><span></span><span></span></Link>
                   <Link
-                    onClick={() => this.props.bgBrand("purple")}
+                    onClick={() => this.props.bgBrand('purple')}
                     className={classnames({
-                      active: this.props.brandBg === "purple"
+                      active: this.props.brandBg === 'purple'
                     })}
                     to="#" data-value="brand-purple"><span></span><span></span></Link>
                   <Link
-                    onClick={() => this.props.bgBrand("info")}
+                    onClick={() => this.props.bgBrand('info')}
                     className={classnames({
-                      active: this.props.brandBg === "info"
+                      active: this.props.brandBg === 'info'
                     })}
                     to="#" data-value="brand-info"><span></span><span></span></Link>
                   <Link
-                    onClick={() => this.props.bgBrand("dark")}
+                    onClick={() => this.props.bgBrand('dark')}
                     className={classnames({
-                      active: this.props.brandBg === "dark"
+                      active: this.props.brandBg === 'dark'
                     })}
                     to="#" data-value="brand-dark"><span></span><span></span></Link>
                 </div>
                 <h6>Menu background</h6>
                 <div className="theme-color navbar-color">
                   <Link
-                    onClick={() => this.props.bgMenu("default")}
+                    onClick={() => this.props.bgMenu('default')}
                     className={classnames({
-                      active: this.props.menuBg === "default"
+                      active: this.props.menuBg === 'default'
                     })}
                     to="#" data-value="navbar-default"><span></span><span></span></Link>
                   <Link
-                    onClick={() => this.props.bgMenu("blue")}
+                    onClick={() => this.props.bgMenu('blue')}
                     className={classnames({
-                      active: this.props.menuBg === "blue"
+                      active: this.props.menuBg === 'blue'
                     })}
                     to="#" data-value="navbar-blue"><span></span><span></span></Link>
                   <Link
-                    onClick={() => this.props.bgMenu("red")}
+                    onClick={() => this.props.bgMenu('red')}
                     className={classnames({
-                      active: this.props.menuBg === "red"
+                      active: this.props.menuBg === 'red'
                     })}
                     to="#" data-value="navbar-red"><span></span><span></span></Link>
                   <Link
-                    onClick={() => this.props.bgMenu("purple")}
+                    onClick={() => this.props.bgMenu('purple')}
                     className={classnames({
-                      active: this.props.menuBg === "purple"
+                      active: this.props.menuBg === 'purple'
                     })}
                     to="#" data-value="navbar-purple"><span></span><span></span></Link>
                   <Link
-                    onClick={() => this.props.bgMenu("info")}
+                    onClick={() => this.props.bgMenu('info')}
                     className={classnames({
-                      active: this.props.menuBg === "info"
+                      active: this.props.menuBg === 'info'
                     })}
                     to="#" data-value="navbar-info"><span></span><span></span></Link>
                   <Link
-                    onClick={() => this.props.bgMenu("dark")}
+                    onClick={() => this.props.bgMenu('dark')}
                     className={classnames({
-                      active: this.props.menuBg === "dark"
+                      active: this.props.menuBg === 'dark'
                     })}
                     to="#" data-value="navbar-dark"><span></span><span></span></Link>
                 </div>
                 <h6>Menu background [ Gradient ]</h6>
                 <div className="theme-color navbar-gradient-color">
                   <Link
-                    onClick={() => this.props.bgGradient("default")}
+                    onClick={() => this.props.bgGradient('default')}
                     className={classnames({
-                      active: this.props.menuBgGradient === "default"
+                      active: this.props.menuBgGradient === 'default'
                     })}
                     to="#" data-value="navbar-default"><span></span><span></span></Link>
                   <Link
-                    onClick={() => this.props.bgGradient("blue")}
+                    onClick={() => this.props.bgGradient('blue')}
                     className={classnames({
-                      active: this.props.menuBgGradient === "blue"
+                      active: this.props.menuBgGradient === 'blue'
                     })}
                     to="#" data-value="navbar-gradient-blue"><span></span><span></span></Link>
                   <Link
-                    onClick={() => this.props.bgGradient("red")}
+                    onClick={() => this.props.bgGradient('red')}
                     className={classnames({
-                      active: this.props.menuBgGradient === "red"
+                      active: this.props.menuBgGradient === 'red'
                     })}
                     to="#" data-value="navbar-gradient-red"><span></span><span></span></Link>
                   <Link
-                    onClick={() => this.props.bgGradient("purple")}
+                    onClick={() => this.props.bgGradient('purple')}
                     className={classnames({
-                      active: this.props.menuBgGradient === "purple"
+                      active: this.props.menuBgGradient === 'purple'
                     })}
                     to="#" data-value="navbar-gradient-purple"><span></span><span></span></Link>
                   <Link
-                    onClick={() => this.props.bgGradient("info")}
+                    onClick={() => this.props.bgGradient('info')}
                     className={classnames({
-                      active: this.props.menuBgGradient === "info"
+                      active: this.props.menuBgGradient === 'info'
                     })}
                     to="#" data-value="navbar-gradient-info"><span></span><span></span></Link>
                   <Link
-                    onClick={() => this.props.bgGradient("dark")}
+                    onClick={() => this.props.bgGradient('dark')}
                     className={classnames({
-                      active: this.props.menuBgGradient === "dark"
+                      active: this.props.menuBgGradient === 'dark'
                     })}
                     to="#" data-value="navbar-gradient-dark"><span></span><span></span></Link>
                 </div>
                 <h6>Menu background [ Pattern ]</h6>
                 <div className="theme-color navbar-pattern">
                   <Link
-                    onClick={() => this.props.bgPattern("pt1")}
+                    onClick={() => this.props.bgPattern('pt1')}
                     className={classnames({
-                      active: this.props.menuBgPattern === "pt1"
+                      active: this.props.menuBgPattern === 'pt1'
                     })}
                     to="#" data-value="navbar-pattern-1"></Link>
                   <Link
-                    onClick={() => this.props.bgPattern("pt2")}
+                    onClick={() => this.props.bgPattern('pt2')}
                     className={classnames({
-                      active: this.props.menuBgPattern === "pt2"
+                      active: this.props.menuBgPattern === 'pt2'
                     })}
                     to="#" data-value="navbar-pattern-2"></Link>
                   <Link
-                    onClick={() => this.props.bgPattern("pt3")}
+                    onClick={() => this.props.bgPattern('pt3')}
                     className={classnames({
-                      active: this.props.menuBgPattern === "pt3"
+                      active: this.props.menuBgPattern === 'pt3'
                     })}
                     to="#" data-value="navbar-pattern-3"></Link>
                   <Link
-                    onClick={() => this.props.bgPattern("pt4")}
+                    onClick={() => this.props.bgPattern('pt4')}
                     className={classnames({
-                      active: this.props.menuBgPattern === "pt4"
+                      active: this.props.menuBgPattern === 'pt4'
                     })}
                     to="#" data-value="navbar-pattern-4"></Link>
                   <Link
-                    onClick={() => this.props.bgPattern("pt5")}
+                    onClick={() => this.props.bgPattern('pt5')}
                     className={classnames({
-                      active: this.props.menuBgPattern === "pt5"
+                      active: this.props.menuBgPattern === 'pt5'
                     })}
                     to="#" data-value="navbar-pattern-5"></Link>
                   <Link
-                    onClick={() => this.props.bgPattern("pt6")}
+                    onClick={() => this.props.bgPattern('pt6')}
                     className={classnames({
-                      active: this.props.menuBgPattern === "pt6"
+                      active: this.props.menuBgPattern === 'pt6'
                     })}
                     to="#" data-value="navbar-pattern-6"></Link>
                 </div>
                 <h6>Navbar Image</h6>
                 <div className="theme-color navbar-images">
                   <Link
-                    onClick={() => this.props.bgImage("img1")}
+                    onClick={() => this.props.bgImage('img1')}
                     className={classnames({
-                      active: this.props.menuBgImage === "img1"
+                      active: this.props.menuBgImage === 'img1'
                     })}
                     to="#" data-value="navbar-image-1"><span></span><span></span></Link>
                   <Link
-                    onClick={() => this.props.bgImage("img2")}
+                    onClick={() => this.props.bgImage('img2')}
                     className={classnames({
-                      active: this.props.menuBgImage === "img2"
+                      active: this.props.menuBgImage === 'img2'
                     })}
                     to="#" data-value="navbar-image-2"><span></span><span></span></Link>
                   <Link
-                    onClick={() => this.props.bgImage("img3")}
+                    onClick={() => this.props.bgImage('img3')}
                     className={classnames({
-                      active: this.props.menuBgImage === "img3"
+                      active: this.props.menuBgImage === 'img3'
                     })}
                     to="#" data-value="navbar-image-3"><span></span><span></span></Link>
                   <Link
-                    onClick={() => this.props.bgImage("img4")}
+                    onClick={() => this.props.bgImage('img4')}
                     className={classnames({
-                      active: this.props.menuBgImage === "img4"
+                      active: this.props.menuBgImage === 'img4'
                     })}
                     to="#" data-value="navbar-image-4"><span></span><span></span></Link>
                   <Link
-                    onClick={() => this.props.bgImage("img5")}
+                    onClick={() => this.props.bgImage('img5')}
                     className={classnames({
-                      active: this.props.menuBgImage === "img5"
+                      active: this.props.menuBgImage === 'img5'
                     })}
                     to="#" data-value="navbar-image-5"><span></span><span></span></Link>
                 </div>
@@ -444,8 +445,8 @@ class Setting extends Component {
                         type="radio"
                         name="radio-in-1"
                         id="drpicon-1"
-                        onClick={() => this.props.menuDropDownIcon("default")}
-                        defaultChecked={this.props.dropdownIconMenu === "default"}
+                        onClick={() => this.props.menuDropDownIcon('default')}
+                        defaultChecked={this.props.dropdownIconMenu === 'default'}
                       />
                       <Label for="drpicon-1" className="cr">
                         <i className="feather icon-chevron-right"></i>
@@ -458,8 +459,8 @@ class Setting extends Component {
                         type="radio"
                         name="radio-in-1"
                         id="drpicon-2"
-                        onClick={() => this.props.menuDropDownIcon("style2")}
-                        defaultChecked={this.props.dropdownIconMenu === "style2"}
+                        onClick={() => this.props.menuDropDownIcon('style2')}
+                        defaultChecked={this.props.dropdownIconMenu === 'style2'}
                       />
                       <Label for="drpicon-2" className="cr">
                         <i className="feather icon-chevrons-right"></i>
@@ -472,8 +473,8 @@ class Setting extends Component {
                         type="radio"
                         name="radio-in-1"
                         id="drpicon-3"
-                        onClick={() => this.props.menuDropDownIcon("style3")}
-                        defaultChecked={this.props.dropdownIconMenu === "style3"}
+                        onClick={() => this.props.menuDropDownIcon('style3')}
+                        defaultChecked={this.props.dropdownIconMenu === 'style3'}
                       />
                       <Label for="drpicon-3" className="cr">
                         <i className="feather icon-plus"></i>
@@ -489,8 +490,8 @@ class Setting extends Component {
                         type="radio"
                         name="radio-in"
                         id="subitem-1"
-                        onClick={() => this.props.menuListStyle("default")}
-                        defaultChecked={this.props.menuListIcon === "default"}
+                        onClick={() => this.props.menuListStyle('default')}
+                        defaultChecked={this.props.menuListIcon === 'default'}
                       />
                       <Label for="subitem-1" className="cr">
                         <i className=""></i>
@@ -503,8 +504,8 @@ class Setting extends Component {
                         type="radio"
                         name="radio-in"
                         id="subitem-2"
-                        onClick={() => this.props.menuListStyle("style2")}
-                        defaultChecked={this.props.menuListIcon === "style2"}
+                        onClick={() => this.props.menuListStyle('style2')}
+                        defaultChecked={this.props.menuListIcon === 'style2'}
                       />
                       <Label for="subitem-2" className="cr">
                         <i className="feather icon-minus"></i>
@@ -517,8 +518,8 @@ class Setting extends Component {
                         type="radio"
                         name="radio-in"
                         id="subitem-3"
-                        onClick={() => this.props.menuListStyle("style3")}
-                        defaultChecked={this.props.menuListIcon === "style3"}
+                        onClick={() => this.props.menuListStyle('style3')}
+                        defaultChecked={this.props.menuListIcon === 'style3'}
                       />
                       <Label for="subitem-3" className="cr">
                         <i className="feather icon-check"></i>
@@ -531,8 +532,8 @@ class Setting extends Component {
                         type="radio"
                         name="radio-in"
                         id="subitem-4"
-                        onClick={() => this.props.menuListStyle("style4")}
-                        defaultChecked={this.props.menuListIcon === "style4"}
+                        onClick={() => this.props.menuListStyle('style4')}
+                        defaultChecked={this.props.menuListIcon === 'style4'}
                       />
                       <Label for="subitem-4" className="cr">
                         <i className="icon feather icon-corner-down-right"></i>
@@ -545,8 +546,8 @@ class Setting extends Component {
                         type="radio"
                         name="radio-in"
                         id="subitem-5"
-                        onClick={() => this.props.menuListStyle("style5")}
-                        defaultChecked={this.props.menuListIcon === "style5"}
+                        onClick={() => this.props.menuListStyle('style5')}
+                        defaultChecked={this.props.menuListIcon === 'style5'}
                       />
                       <Label for="subitem-5" className="cr">
                         <i className="icon feather icon-chevrons-right"></i>
@@ -559,8 +560,8 @@ class Setting extends Component {
                         type="radio"
                         name="radio-in"
                         id="subitem-6"
-                        onClick={() => this.props.menuListStyle("style6")}
-                        defaultChecked={this.props.menuListIcon === "style6"}
+                        onClick={() => this.props.menuListStyle('style6')}
+                        defaultChecked={this.props.menuListIcon === 'style6'}
                       />
                       <Label for="subitem-6" className="cr">
                         <i className="icon feather icon-chevron-right"></i>
@@ -573,68 +574,68 @@ class Setting extends Component {
                   <Link
                     to="#"
                     data-value="active-blue"
-                    onClick={() => this.props.menuActiveColor("blue")}
+                    onClick={() => this.props.menuActiveColor('blue')}
                     className={classnames({
-                      active: this.props.activeColor === "blue"
+                      active: this.props.activeColor === 'blue'
                     })}
                   />
                   <Link to="#" data-value="active-red"
-                    onClick={() => this.props.menuActiveColor("red")}
+                    onClick={() => this.props.menuActiveColor('red')}
                     className={classnames({
-                      active: this.props.activeColor === "red"
+                      active: this.props.activeColor === 'red'
                     })} />
                   <Link to="#" data-value="active-purple"
-                    onClick={() => this.props.menuActiveColor("purple")}
+                    onClick={() => this.props.menuActiveColor('purple')}
                     className={classnames({
-                      active: this.props.activeColor === "purple"
+                      active: this.props.activeColor === 'purple'
                     })} />
                   <Link to="#" data-value="active-info"
-                    onClick={() => this.props.menuActiveColor("info")}
+                    onClick={() => this.props.menuActiveColor('info')}
                     className={classnames({
-                      active: this.props.activeColor === "info"
+                      active: this.props.activeColor === 'info'
                     })} />
                   <Link to="#" data-value="active-dark"
-                    onClick={() => this.props.menuActiveColor("dark")}
+                    onClick={() => this.props.menuActiveColor('dark')}
                     className={classnames({
-                      active: this.props.activeColor === "dark"
+                      active: this.props.activeColor === 'dark'
                     })} />
                 </div>
                 <h6>Menu Title Color</h6>
                 <div className="theme-color title-color small">
                   <Link to="#" data-value="title-default"
-                    onClick={() => this.props.menuTitleColor("default")}
+                    onClick={() => this.props.menuTitleColor('default')}
                     className={classnames({
-                      active: this.props.titleColor === "default"
+                      active: this.props.titleColor === 'default'
                     })}
                   />
                   <Link to="#" data-value="title-blue"
-                    onClick={() => this.props.menuTitleColor("blue")}
+                    onClick={() => this.props.menuTitleColor('blue')}
                     className={classnames({
-                      active: this.props.titleColor === "blue"
+                      active: this.props.titleColor === 'blue'
                     })}
                   />
                   <Link to="#" data-value="title-red"
-                    onClick={() => this.props.menuTitleColor("red")}
+                    onClick={() => this.props.menuTitleColor('red')}
                     className={classnames({
-                      active: this.props.titleColor === "red"
+                      active: this.props.titleColor === 'red'
                     })}
                   />
                   <Link to="#" data-value="title-purple"
-                    onClick={() => this.props.menuTitleColor("purple")}
+                    onClick={() => this.props.menuTitleColor('purple')}
                     className={classnames({
-                      active: this.props.titleColor === "purple"
+                      active: this.props.titleColor === 'purple'
                     })}
                   />
                   <Link to="#" data-value="title-info"
-                    onClick={() => this.props.menuTitleColor("info")}
+                    onClick={() => this.props.menuTitleColor('info')}
                     className={classnames({
-                      active: this.props.titleColor === "info"
+                      active: this.props.titleColor === 'info'
                     })}
                   />
                   <Link to="#" data-value="title-dark"
-                    onClick={() => this.props.menuTitleColor("dark")}
+                    onClick={() => this.props.menuTitleColor('dark')}
                     className={classnames({
-                      active: this.props.titleColor === "dark"
+                      active: this.props.titleColor === 'dark'
                     })}
                   />
                 </div>
@@ -675,7 +676,7 @@ class Setting extends Component {
             <span className="text-c-red">* </span>
             in Prebuild Layout you redirect to new page
           </p>
-          <PerfectScrollbar className="theme-color prelayout-color" style={{ height: " calc(100vh - 120px)" }}>
+          <PerfectScrollbar className="theme-color prelayout-color" style={{ height: ' calc(100vh - 120px)' }}>
             <Row className="justify-content-center">
               <Col xs={12}>
                 {/* <Link to="#" target="_blank">
@@ -821,8 +822,8 @@ class Setting extends Component {
           </PerfectScrollbar>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default Setting;
+export default Setting

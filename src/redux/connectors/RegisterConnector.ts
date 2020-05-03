@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 import Register from '../../views/authentication/Register'
 import { createUser } from '../actions/authActions'
 import { UserInfo } from '../../types'

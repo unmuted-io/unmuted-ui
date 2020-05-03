@@ -10,7 +10,7 @@ import { AxiosResponse } from '../../types'
 const { REACT_APP_API_BASE_URL } = process.env
 
 // move to component?
-function* updateViewCount(data: any) {
+function * updateViewCount (data: any) {
   const { rand, lastPosition } = data.data
   const state = yield select()
   const { auth } = state
@@ -22,7 +22,7 @@ function* updateViewCount(data: any) {
   }))
 }
 
-function* videosSaga() {
+function * videosSaga () {
   yield takeEvery('UPDATE_VIEW_COUNT', updateViewCount)
 }
 

@@ -1,7 +1,7 @@
-import { connect } from 'react-redux';
-import Sidebar from '../../layout/sidebar/';
-import { collapseMenu } from '../../redux/actions/templateConfig/';
-import { navContentLeave } from '../../redux/actions/navigation/';
+import { connect } from 'react-redux'
+import Sidebar from '../../layout/sidebar/'
+import { collapseMenu } from '../../redux/actions/templateConfig/'
+import { navContentLeave } from '../../redux/actions/navigation/'
 
 const mapStateToProps = state => ({
   layout: state.config.layout,
@@ -28,6 +28,5 @@ const mapDispatchToProps = {
   collapseMenu,
   navContentLeave
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sidebar)

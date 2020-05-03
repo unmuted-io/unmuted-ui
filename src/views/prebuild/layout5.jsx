@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import LayoutCard from '../../components/mainCard/layoutCard';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import LayoutCard from '../../components/mainCard/layoutCard'
 import {
   layoutPrebuild,
   configBlock,
   fixedMEnu,
   fixedHeader,
-} from '../../redux/actions/templateConfig';
+} from '../../redux/actions/templateConfig'
 
 class Layout5 extends Component {
-  componentWillMount() {
-    if (this.props.templayout !== "layout-5") {
-      this.props.layoutPrebuild("layout-5")
+  componentWillMount () {
+    if (this.props.templayout !== 'layout-5') {
+      this.props.layoutPrebuild('layout-5')
     }
     if (this.props.configBlockg) {
       this.props.configBlock()
@@ -23,15 +23,15 @@ class Layout5 extends Component {
       this.props.fixedHeader()
     }
   }
-  render() {
+
+  render () {
     return <LayoutCard
       title="Layout 5"
       prebuildLayout="layout-5"
       configBloc="false"
-    />;
+    />
   }
 }
-
 
 const mapStateToProps = state => ({
   templayout: state.config.prebuildLayout,
@@ -47,4 +47,4 @@ const mapDispatchToProps = {
   fixedHeader,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Layout5);
+export default connect(mapStateToProps, mapDispatchToProps)(Layout5)

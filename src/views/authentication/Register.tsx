@@ -20,13 +20,13 @@ import authBg from '../../assets/images/auth-bg.jpg'
 import { UserInfo } from '../../types'
 
 export interface RegisterComponentStateProps {
-  isRegistering: boolean
-  history: any
+  isRegistering: boolean;
+  history: any;
 }
 
 export interface RegisterComponentDispatchProps {
-  dispatch: any
-  createUser: (userInfo: UserInfo, history: any) => void
+  dispatch: any;
+  createUser: (userInfo: UserInfo, history: any) => void;
 }
 
 export type RegisterComponentProps = RegisterComponentStateProps &
@@ -68,7 +68,7 @@ export class RegisterComponent extends Component<RegisterComponentProps, Registe
     )
   }
 
-  render() {
+  render () {
     const { isRegistering } = this.props
     return (
       <div className="auth-wrapper" style={{ backgroundColor: '#eff3f6' }}>
