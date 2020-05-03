@@ -113,7 +113,7 @@ class BountiedChatFormComponent extends React.Component<BountiedChatFormProps, B
                   <InputGroupAddon addonType="append">USD</InputGroupAddon>
                 </InputGroup>
                 <Button disabled={isSuperChatDisabled} onClick={onClickSuperChat} color="success" className='mb-4'>
-                  BountyChat
+                  Bounty
                 </Button>
               </div>
               <Collapse className='qr-code-collapsible' isOpen={isQrCodeVisible}>

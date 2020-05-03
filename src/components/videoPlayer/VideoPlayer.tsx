@@ -2,7 +2,6 @@ import React from 'react'
 import videojs from 'video.js'
 import 'video.js/dist/video-js.css'
 import { connect } from 'react-redux'
-import { MapSeriesDataItem } from '@amcharts/amcharts4/maps'
 import { ViewCountUpdate } from '../../types'
 
 interface VideoPlayerComponentProps {

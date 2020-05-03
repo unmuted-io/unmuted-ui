@@ -8,7 +8,6 @@ import MainCard from '../../components/mainCard/mainCard'
 import WebSocketChat from '../../components/WebSocketChat/WebSocketChat'
 import { useParams } from 'react-router-dom'
 import VideoPlayer from '../../components/videoPlayer/VideoPlayer'
-import { string } from '@amcharts/amcharts4/core'
 import axios from 'axios'
 import { AxiosResponse } from '../../types'
 

@@ -633,82 +633,6 @@ export default {
       url: '/table/data/foo',
     },
     {
-      id: 'chart-maps',
-      title: 'Chart & Maps',
-      type: 'group',
-      icon: 'icon-charts',
-      children: [
-        {
-          id: 'charts',
-          title: 'Charts',
-          type: 'collapse',
-          icon: 'feather icon-pie-chart',
-          children: [
-            {
-              id: 'amchart',
-              title: 'AmChart4',
-              type: 'item',
-              url: '/chart/amchartjs'
-            },
-            {
-              id: 'chart-js',
-              title: 'Chart JS',
-              type: 'item',
-              url: '/chart/chartjs'
-            },
-            {
-              id: 'e-chart',
-              title: 'E-Chart',
-              type: 'item',
-              url: '/chart/echart'
-            },
-            {
-              id: 'google',
-              title: 'Google',
-              type: 'item',
-              url: '/chart/googlechart'
-            },
-            {
-              id: 'peity',
-              title: 'Peity',
-              type: 'item',
-              url: '/chart/peitychart'
-            }
-          ]
-        },
-        {
-          id: 'maps',
-          title: 'Maps',
-          type: 'collapse',
-          icon: 'feather icon-map',
-          children: [
-            {
-              id: 'google',
-              title: 'Google',
-              type: 'item',
-              url: '/map/google'
-            },
-            {
-              id: 'vector',
-              title: 'Vector',
-              type: 'item',
-              url: '/map/vector'
-            }
-          ]
-        },
-        /* {
-          id: 'landing-page',
-          title: 'Landing Page',
-          type: 'item',
-          icon: 'feather icon-navigation-2',
-          url: '/landing',
-          classes: 'nav-item',
-          target: true,
-          breadcrumbs: false
-        } */
-      ]
-    },
-    {
       id: 'pages',
       title: 'Pages',
       type: 'group',
@@ -900,36 +824,6 @@ export default {
             }
           ]
         },
-        {
-          id: 'search',
-          title: 'Search',
-          type: 'collapse',
-          icon: 'feather icon-search',
-          badge: {
-            title: 'New',
-            type: 'label-info'
-          },
-          children: [
-            {
-              id: 'search1',
-              title: 'search1',
-              type: 'item',
-              url: '/search/one'
-            },
-            {
-              id: 'search2',
-              title: 'search2',
-              type: 'item',
-              url: '/search/two'
-            },
-            {
-              id: 'search3',
-              title: 'search3',
-              type: 'item',
-              url: '/search/three'
-            },
-          ]
-        }
       ]
     },
     {
@@ -938,85 +832,6 @@ export default {
       type: 'group',
       icon: 'icon-extension',
       children: [
-        {
-          id: 'editor',
-          title: 'Editor',
-          type: 'collapse',
-          icon: 'feather icon-file-plus',
-          children: [
-            {
-              id: 'ck-editor',
-              title: 'CK-Editor',
-              type: 'collapse',
-              children: [
-                {
-                  id: 'ck-classic',
-                  title: 'Classic Editor',
-                  type: 'item',
-                  url: '/editor/ck/classic'
-                },
-                {
-                  id: 'ck-balloon',
-                  title: 'Balloon Editor',
-                  type: 'item',
-                  url: 'editor/ck/balloon'
-                },
-                {
-                  id: 'ck-inline',
-                  title: 'Inline Editor',
-                  type: 'item',
-                  url: '/editor/ck/inline'
-                },
-                {
-                  id: 'ck-document',
-                  title: 'Document Editor',
-                  type: 'item',
-                  url: '/editor/ck/document'
-                }
-              ]
-            },
-            {
-              id: 'tinymce-editor',
-              title: 'Tinymce Editor',
-              type: 'item',
-              url: '/editor/tinymce'
-            }
-          ]
-        },
-        {
-          id: 'invoice',
-          title: 'Invoice',
-          type: 'collapse',
-          icon: 'feather icon-file-minus',
-          children: [
-            {
-              id: 'invoice-basic',
-              title: 'Invoice',
-              type: 'item',
-              url: '/invoice'
-            },
-            {
-              id: 'invoice-summary',
-              title: 'Invoice Summary',
-              type: 'item',
-              url: '/invoice/summary'
-            },
-            {
-              id: 'invoice-list',
-              title: 'Invoice List',
-              type: 'item',
-              url: '/invoice/list'
-            }
-          ]
-        },
-        {
-          id: 'full-calendar',
-          title: 'Full Calendar',
-          type: 'item',
-          url: '/extension/calendar',
-          classes: 'nav-item',
-          icon: 'feather icon-calendar'
-        },
         {
           id: 'file-upload',
           title: 'File Upload',
