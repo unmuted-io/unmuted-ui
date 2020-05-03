@@ -91,6 +91,7 @@
     "redux": "^4.0.1",
     "redux-saga": "^1.1.3",
     "redux-thunk": "^2.3.0",
+    "reduxsauce": "^1.1.2",
     "rumble-charts": "^2.0.0",
     "scatterjs-core": "^2.7.18",
     "scatterjs-plugin-eosjs2": "^1.5.0",
