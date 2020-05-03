@@ -3,7 +3,7 @@ import {
   ExchangeRatesReducer
 } from './index'
 
-export type RootState = {
+export type State = {
   exchangeRates: ExchangeRatesReducer;
   auth: AuthReducer;
 }

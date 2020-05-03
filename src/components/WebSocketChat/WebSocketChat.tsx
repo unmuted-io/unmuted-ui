@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import io from 'socket.io-client'
 import BountiedChatForm from '../ChatForm/BountiedChatForm'
 import ChatForm from '../ChatForm/RegularChatForm'
-import { Account, SuperChatData, RootState, ExchangeRatesReducer } from '../../types'
+import { Account, SuperChatData, State, ExchangeRatesReducer } from '../../types'
 import { debounce } from '../../utility/utility'
 
 interface WebSocketChatOwnProps {
@@ -244,7 +244,7 @@ export class WebSocketChatComponent extends Component<WebSocketChatProps, WebSoc
   }
 }
 
-const mapStateToProps = (state: RootState): WebSocketChatStateProps => {
+const mapStateToProps = (state: State): WebSocketChatStateProps => {
   return {
     account: state.auth.account,
     edgeAccount: state.auth.edgeAccount,
