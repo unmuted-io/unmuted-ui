@@ -7,7 +7,6 @@ import ReactNumeric, { predefinedOptions } from 'react-numeric'
 import MainCard from '../../components/mainCard/mainCard'
 import WebSocketChat from '../../components/WebSocketChat/WebSocketChat'
 import { useParams } from 'react-router-dom'
-import EOSIOClient from '../../eosioClient'
 import VideoPlayer from '../../components/videoPlayer/VideoPlayer'
 import { string } from '@amcharts/amcharts4/core'
 import axios from 'axios'
@@ -17,25 +16,25 @@ const { REACT_APP_API_BASE_URL } = process.env
 
 // const eosClient = new EOSIOClient('haytemrtg4ge') // hardcode app name
 interface ViewVideoComponentProps {
-  match: any
+  match: any,
   account: any
 }
 
 interface ViewVideoComponentState {
-  title: string
-  description: string
-  rand: string
-  source: string
-  created_at: string
-  username: string
-  count: number
+  title: string,
+  description: string,
+  rand: string,
+  source: string,
+  created_at: string,
+  username: string,
+  count: number,
   videoRating: number,
   upvote: number,
   downvote: number
 }
 
 class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentState> {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       title: '',
