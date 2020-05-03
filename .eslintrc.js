@@ -1,29 +1,31 @@
 module.exports = {
-    "env": {
-        "browser": true,
-        "es6": true
+  env: {
+    browser: true,
+    es6: true
+  },
+  extends: [
+    'plugin:react/recommended',
+    'standard',
+    'eslint:recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
+  ],
+  globals: {
+    Atomics: 'readonly',
+    SharedArrayBuffer: 'readonly'
+  },
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true
     },
-    "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended",
-        "plugin:@typescript-eslint/eslint-recommended"
-    ],
-    "globals": {
-        "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly"
-    },
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": 2018,
-        "sourceType": "module"
-    },
-    "plugins": [
-        "react",
-        "@typescript-eslint"
-    ],
+    ecmaVersion: 2018,
+    sourceType: 'module'
+  },
+  plugins: [
+    'react',
+    '@typescript-eslint'
+  ],
     "rules": {
         "@typescript-eslint/array-type": "error",
         "@typescript-eslint/no-explicit-any": "off",
@@ -59,7 +61,7 @@ module.exports = {
             "error",
             1
         ],
-        "max-len": 90,
+        "max-len": ['error', 90],
         "new-parens": "error",
         "no-bitwise": "error",
         "no-caller": "error",
@@ -90,6 +92,7 @@ module.exports = {
         ],
         "prefer-arrow/prefer-arrow-functions": "error",
         "radix": "error",
+        "react/prop-types": "off",
         "spaced-comment": "error",
         "use-isnan": "error",
         "valid-typeof": "off",
@@ -102,5 +105,5 @@ module.exports = {
                 }
             }
         ]
-    }
-};
+  }
+}
