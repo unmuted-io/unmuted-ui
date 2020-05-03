@@ -1,11 +1,12 @@
-import React, { Fragment, Component } from "react";
-import { UncontrolledDropdown, DropdownToggle, DropdownMenu } from "reactstrap";
-import { Link } from "react-router-dom";
-import avatar from "../../../assets/images/user/avatar-1.jpg";
+import React, { Fragment, Component } from 'react'
+import { UncontrolledDropdown, DropdownToggle, DropdownMenu } from 'reactstrap'
+import { Link } from 'react-router-dom'
+import avatar from '../../../assets/images/user/avatar-1.jpg'
 
 export class UserProfile extends Component {
-  render () {
-    const { logout } = this.props
+  render() {
+    const { logout, account } = this.props
+    const { username } = account
     return (
       <Fragment>
         <UncontrolledDropdown className="drp-user">
@@ -15,7 +16,7 @@ export class UserProfile extends Component {
           <DropdownMenu right className="profile-notification">
             <div className="pro-head">
               <img src={avatar} className="img-radius" alt="User-Profile" />
-              <span>John Doe</span>
+              <span>{username}</span>
               <Link onClick={logout} to="#" className="dud-logout" title="Logout">
                 <i className="feather icon-log-out" />
               </Link>
@@ -49,4 +50,4 @@ export class UserProfile extends Component {
   }
 }
 
-export default UserProfile;
+export default UserProfile
