@@ -1,4 +1,3 @@
-
 import FormData from 'form-data'
 import { UserInfo, LoginSuccessResponse, RegisterSuccessResponse, RegisterFailResponse } from '../../types'
 import { AxiosResponse } from '../../types/fetchTypes'
@@ -83,7 +82,7 @@ export const login = (userInfo: UserInfo, history: any, isAnimated?: boolean) =>
           }
         })
       } else {
-        history.push('/')
+        history.push((history.location && history.location.pathname) || '/')
       }
     } catch (e) {
       console.log('Error: ', e)

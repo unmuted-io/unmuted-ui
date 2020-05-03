@@ -4,12 +4,20 @@ import { Switch, Route, withRouter } from 'react-router-dom'
 import MainLayout from '../containers/templateConfig/mainLayout'
 import routes from '../extranalRoute'
 import Spinner from '../components/spinner/Spinner'
-import { attemptAutoLoginFromCookies } from '../redux/actions/authActions'
-
+import { attemptAutoLoginFromCookies, login } from '../redux/actions/authActions'
 import axios from 'axios'
 
 class Layout extends Component {
   fetchExchangeRateInterval
+
+  componentDidMount = () => {
+    // on dev will automatically log in
+    if (process.env.REACT_APP_ENVIRONMENT === 'dev') {
+      const { dispatch, history, state, location } = this.props
+      const fromUrl = location && location.pathname
+      dispatch(login({ email: 'kylan.hurt@gmail.com', password: 'Test123456' }, history, fromUrl))
+    }
+  }
 
   componentWillMount = () => {
     const { history, dispatch } = this.props
