@@ -11,7 +11,7 @@ export default {
           title: 'Home',
           type: 'item',
           icon: 'feather icon-home',
-          url: '/'
+          url: '/',
         },
         {
           id: 'recently-viewed',
@@ -19,7 +19,7 @@ export default {
           type: 'item',
           icon: 'feather icon-eye',
           url: '/recently-viewed',
-          protected: true
+          protected: true,
         },
         {
           id: 'dashboard',
@@ -31,25 +31,25 @@ export default {
               id: 'default',
               title: 'Default',
               type: 'item',
-              url: '/dashboard/default'
+              url: '/dashboard/default',
             },
             {
               id: 'sales',
               title: 'Sales',
               type: 'item',
-              url: '/dashboard/sales'
+              url: '/dashboard/sales',
             },
             {
               id: 'crypto',
               title: 'Crypto',
               type: 'item',
-              url: '/dashboard/crypto'
+              url: '/dashboard/crypto',
             },
             {
               id: 'project',
               title: 'Project',
               type: 'item',
-              url: '/dashboard/project'
+              url: '/dashboard/project',
             },
             {
               id: 'helpDesk',
@@ -58,10 +58,10 @@ export default {
               url: '/dashboard/helpDesk',
               badge: {
                 title: 'NEW',
-                type: 'label-danger'
-              }
-            }
-          ]
+                type: 'label-danger',
+              },
+            },
+          ],
         },
         {
           id: 'uploadVideo',
@@ -69,7 +69,7 @@ export default {
           type: 'item',
           icon: 'feather icon-upload',
           url: '/upload',
-          protected: true
+          protected: true,
         },
         {
           id: 'layout',
@@ -109,8 +109,8 @@ export default {
                   type: 'item',
                   url: '/layout/collapse-menu',
                   target: true,
-                }
-              ]
+                },
+              ],
             },
             {
               id: 'prebuild',
@@ -166,7 +166,7 @@ export default {
                   url: '/layout/layout8',
                   target: true,
                 },
-               /*  {
+                /*  {
                   id: 'layout9',
                   title: 'Layout9',
                   type: 'item',
@@ -194,35 +194,35 @@ export default {
                   url: '/layout/layout12',
                   target: true,
                 }, */
-              ]
+              ],
             },
             {
               id: 'horizontal',
               title: 'Horizontal',
               type: 'item',
               url: '/layout/horizontal',
-              target: true
+              target: true,
             },
             {
               id: 'box-layout',
               title: 'Box Layout',
               type: 'item',
               url: '/layout/box',
-              target: true
+              target: true,
             },
             {
               id: 'rtl',
               title: 'RTL',
               type: 'item',
               url: '/layout/rtl',
-              target: true
+              target: true,
             },
             {
               id: 'light-layout',
               title: 'Light Layout',
               type: 'item',
               url: '/layout/light',
-              target: true
+              target: true,
             },
             {
               id: 'dark-layout',
@@ -232,17 +232,17 @@ export default {
               target: true,
               badge: {
                 title: 'Hot',
-                type: 'label-danger'
-              }
+                type: 'label-danger',
+              },
             },
             {
               id: 'color-icon',
               title: 'Color Icon',
               type: 'item',
               url: '/layout/color-icon',
-              target: true
-            }
-          ]
+              target: true,
+            },
+          ],
         },
         {
           id: 'widget',
@@ -251,30 +251,30 @@ export default {
           icon: 'feather icon-layers',
           badge: {
             title: '100+',
-            type: 'label-success'
+            type: 'label-success',
           },
           children: [
             {
               id: 'statistic',
               title: 'Statistic',
               type: 'item',
-              url: '/widget/statistc'
+              url: '/widget/statistc',
             },
             {
               id: 'data',
               title: 'Data',
               type: 'item',
-              url: '/widget/data'
+              url: '/widget/data',
             },
             {
               id: 'chart',
               title: 'Chart',
               type: 'item',
-              url: '/widget/chart'
-            }
-          ]
-        }
-      ]
+              url: '/widget/chart',
+            },
+          ],
+        },
+      ],
     },
     {
       id: 'ui-element',
@@ -292,55 +292,55 @@ export default {
               id: 'alert',
               title: 'Alert',
               type: 'item',
-              url: '/ui/basic/alarts'
+              url: '/ui/basic/alarts',
             },
             {
               id: 'button',
               title: 'Button',
               type: 'item',
-              url: '/ui/basic/buttons'
+              url: '/ui/basic/buttons',
             },
             {
               id: 'badges',
               title: 'Badges',
               type: 'item',
-              url: '/ui/basic/badges'
+              url: '/ui/basic/badges',
             },
             {
               id: 'breadcrumb-pagination',
               title: 'Breadcrumb & Pagination',
               type: 'item',
-              url: '/ui/basic/breadcrumb-pagination'
+              url: '/ui/basic/breadcrumb-pagination',
             },
             {
               id: 'cards',
               title: 'Cards',
               type: 'item',
-              url: '/ui/basic/cards'
+              url: '/ui/basic/cards',
             },
             {
               id: 'carousel',
               title: 'Carousel',
               type: 'item',
-              url: '/ui/basic/carousel'
+              url: '/ui/basic/carousel',
             },
             {
               id: 'grid-system',
               title: 'Grid System',
               type: 'item',
-              url: '/ui/basic/grid'
+              url: '/ui/basic/grid',
             },
             {
               id: 'progress',
               title: 'Progress',
               type: 'item',
-              url: '/ui/basic/progresses'
+              url: '/ui/basic/progresses',
             },
             {
               id: 'modal',
               title: 'Modal',
               type: 'item',
-              url: '/ui/basic/modals'
+              url: '/ui/basic/modals',
             },
             {
               id: 'spinner',
@@ -349,20 +349,20 @@ export default {
               url: '/ui/basic/spinners',
               badge: {
                 title: 'New',
-                type: 'label-danger'
+                type: 'label-danger',
               },
             },
             {
               id: 'tabs-pills',
               title: 'Tabs & Pills',
               type: 'item',
-              url: '/ui/basic/navs-tabs'
+              url: '/ui/basic/navs-tabs',
             },
             {
               id: 'tooltip-popovers',
               title: 'Tooltip & Popovers',
               type: 'item',
-              url: '/ui/basic/tooltipPopover'
+              url: '/ui/basic/tooltipPopover',
             },
             {
               id: 'toasts',
@@ -371,22 +371,22 @@ export default {
               url: '/ui/basic/toasts',
               badge: {
                 title: 'New',
-                type: 'label-danger'
+                type: 'label-danger',
               },
             },
             {
               id: 'typography',
               title: 'Typography',
               type: 'item',
-              url: '/ui/basic/typography'
+              url: '/ui/basic/typography',
             },
             {
               id: 'other',
               title: 'Extra',
               type: 'item',
-              url: '/ui/basic/extraUi'
-            }
-          ]
+              url: '/ui/basic/extraUi',
+            },
+          ],
         },
         {
           id: 'advance',
@@ -398,13 +398,13 @@ export default {
               id: 'sweet-alert',
               title: 'Sweet Alert',
               type: 'item',
-              url: '/ui/advance/sweetalert'
+              url: '/ui/advance/sweetalert',
             },
             {
               id: 'datepicker',
               title: 'Datepicker',
               type: 'item',
-              url: '/ui/advance/datepicker'
+              url: '/ui/advance/datepicker',
             },
             /* {
               id: 'task-board',
@@ -416,31 +416,31 @@ export default {
               id: 'adv-modal',
               title: 'Modal',
               type: 'item',
-              url: '/ui/advance/modalAdbance'
+              url: '/ui/advance/modalAdbance',
             },
             {
               id: 'notification',
               title: 'Notification',
               type: 'item',
-              url: '/ui/advance/notification'
+              url: '/ui/advance/notification',
             },
             {
               id: 'nestable',
               title: 'Nestable',
               type: 'item',
-              url: '/ui/advance/nestable'
+              url: '/ui/advance/nestable',
             },
             {
               id: 'p-notify',
               title: 'P-Notify',
               type: 'item',
-              url: '/ui/advance/pnotify'
+              url: '/ui/advance/pnotify',
             },
             {
               id: 'rating',
               title: 'Rating',
               type: 'item',
-              url: '/ui/advance/rating'
+              url: '/ui/advance/rating',
             },
             /* {
               id: 'range-slider',
@@ -490,7 +490,7 @@ export default {
               type: 'item',
               url: '/ui/advance/timeline'
             } */
-          ]
+          ],
         },
         {
           id: 'animations',
@@ -512,18 +512,18 @@ export default {
               url: '/icon/feather',
               badge: {
                 title: 'NEW',
-                type: 'label-danger'
-              }
+                type: 'label-danger',
+              },
             },
             {
               id: 'flag',
               title: 'Flag',
               type: 'item',
-              url: '/icon/flag'
-            }
-          ]
-        }
-      ]
+              url: '/icon/flag',
+            },
+          ],
+        },
+      ],
     },
     {
       id: 'Forms',
@@ -541,35 +541,35 @@ export default {
               id: 'form-basic',
               title: 'Form Elements',
               type: 'item',
-              url: '/form/basic/elements'
+              url: '/form/basic/elements',
             },
             {
               id: 'form-advance',
               title: 'Form Advance',
               type: 'item',
-              url: '/form/advance/elements'
+              url: '/form/advance/elements',
             },
             {
               id: 'form-validation',
               title: 'Form Validation',
               type: 'item',
-              url: '/form/validation'
+              url: '/form/validation',
             },
             {
               id: 'form-masking',
               title: 'Form Masking',
               type: 'item',
-              url: '/form/masking'
+              url: '/form/masking',
             },
             {
               id: 'form-wizard',
               title: 'Form Wizard',
               type: 'item',
-              url: '/form/wizard'
-            }
-          ]
-        }
-      ]
+              url: '/form/wizard',
+            },
+          ],
+        },
+      ],
     },
     {
       id: 'table',
@@ -587,29 +587,29 @@ export default {
               id: 'bootstrap',
               title: 'Bootstrap Basic Table',
               type: 'item',
-              url: '/table/bt/basic'
+              url: '/table/bt/basic',
             },
             {
               id: 'Sizing-table',
               title: 'Bootstrap Sizing Tables',
               type: 'item',
-              url: '/table/bt/sizing'
+              url: '/table/bt/sizing',
             },
             {
               id: 'Border-table',
               title: 'Bootstrap Border Tables',
               type: 'item',
-              url: '/table/bt/border'
+              url: '/table/bt/border',
             },
             {
               id: 'Styling-table',
               title: 'Bootstrap Styling Tables',
               type: 'item',
-              url: '/table/bt/styling'
-            }
-          ]
-        }
-      ]
+              url: '/table/bt/styling',
+            },
+          ],
+        },
+      ],
     },
     {
       id: 'Data-table',
@@ -650,7 +650,7 @@ export default {
               type: 'item',
               url: '/register',
               target: true,
-              breadcrumbs: false
+              breadcrumbs: false,
             },
             {
               id: 'signup-2',
@@ -659,10 +659,10 @@ export default {
               url: '/maint/singin2',
               badge: {
                 title: 'New',
-                type: 'label-primary'
+                type: 'label-primary',
               },
               target: true,
-              breadcrumbs: false
+              breadcrumbs: false,
             },
             {
               id: 'signin',
@@ -670,7 +670,7 @@ export default {
               type: 'item',
               url: '/maint/auth-singin',
               target: true,
-              breadcrumbs: false
+              breadcrumbs: false,
             },
             {
               id: 'signin-2',
@@ -681,7 +681,7 @@ export default {
               breadcrumbs: false,
               badge: {
                 title: 'New',
-                type: 'label-primary'
+                type: 'label-primary',
               },
             },
             {
@@ -691,10 +691,10 @@ export default {
               url: '/maint/singin2',
               badge: {
                 title: 'New',
-                type: 'label-primary'
+                type: 'label-primary',
               },
               target: true,
-              breadcrumbs: false
+              breadcrumbs: false,
             },
             {
               id: 'reset-password-1',
@@ -702,7 +702,7 @@ export default {
               type: 'item',
               url: '/maint/reset',
               target: true,
-              breadcrumbs: false
+              breadcrumbs: false,
             },
             {
               id: 'change-password',
@@ -710,7 +710,7 @@ export default {
               type: 'item',
               url: '/maint/change-password',
               target: true,
-              breadcrumbs: false
+              breadcrumbs: false,
             },
             {
               id: 'profile-settings',
@@ -718,9 +718,9 @@ export default {
               type: 'item',
               url: '/maint/profile-setting',
               target: true,
-              breadcrumbs: false
+              breadcrumbs: false,
             },
-          ]
+          ],
         },
         {
           id: 'maintenance',
@@ -734,7 +734,7 @@ export default {
               type: 'item',
               url: '/maint/error-page',
               target: true,
-              breadcrumbs: false
+              breadcrumbs: false,
             },
             {
               id: 'offline-ui',
@@ -742,7 +742,7 @@ export default {
               type: 'item',
               url: '/maint/offline-ui',
               target: true,
-              breadcrumbs: false
+              breadcrumbs: false,
             },
             {
               id: 'coming-soon',
@@ -750,11 +750,11 @@ export default {
               type: 'item',
               url: '/maint/comming-soon',
               target: true,
-              breadcrumbs: false
-            }
-          ]
-        }
-      ]
+              breadcrumbs: false,
+            },
+          ],
+        },
+      ],
     },
     {
       id: 'app',
@@ -768,7 +768,7 @@ export default {
           type: 'item',
           classes: 'nav-item',
           url: '/app/chat',
-          icon: 'feather icon-message-circle'
+          icon: 'feather icon-message-circle',
         },
         {
           id: 'mail',
@@ -776,7 +776,7 @@ export default {
           type: 'item',
           classes: 'nav-item',
           url: '/app/email',
-          icon: 'feather icon-mail'
+          icon: 'feather icon-mail',
         },
         {
           id: 'task',
@@ -788,21 +788,21 @@ export default {
               id: 'task-list',
               title: 'Task List',
               type: 'item',
-              url: '/task/list'
+              url: '/task/list',
             },
             {
               id: 'task-board',
               title: 'Task Board',
               type: 'item',
-              url: '/task/board'
+              url: '/task/board',
             },
             {
               id: 'task-detail',
               title: 'Task Detail',
               type: 'item',
-              url: '/task/details'
-            }
-          ]
+              url: '/task/details',
+            },
+          ],
         },
         {
           id: 'to-dos',
@@ -814,17 +814,17 @@ export default {
               id: 'todo',
               title: 'Todo',
               type: 'item',
-              url: '/app/todos'
+              url: '/app/todos',
             },
             {
               id: 'notes',
               title: 'Notes',
               type: 'item',
-              url: '/app/note'
-            }
-          ]
+              url: '/app/note',
+            },
+          ],
         },
-      ]
+      ],
     },
     {
       id: 'extension',
@@ -838,7 +838,7 @@ export default {
           type: 'item',
           url: '/extension/fileUpload',
           classes: 'nav-item',
-          icon: 'feather icon-upload-cloud'
+          icon: 'feather icon-upload-cloud',
         },
         {
           id: 'image-cropper',
@@ -846,9 +846,9 @@ export default {
           type: 'item',
           url: '/extension/image-cropper',
           classes: 'nav-item',
-          icon: 'feather icon-scissors'
-        }
-      ]
+          icon: 'feather icon-scissors',
+        },
+      ],
     },
     {
       id: 'other',
@@ -895,12 +895,12 @@ export default {
                       title: 'Menu Level 3.2',
                       type: 'item',
                       url: '#',
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
         },
         {
           id: 'disabled-menu',
@@ -908,7 +908,7 @@ export default {
           type: 'item',
           url: '#',
           classes: 'nav-item disabled',
-          icon: 'feather icon-power'
+          icon: 'feather icon-power',
         },
         {
           id: 'sample-page',
@@ -916,9 +916,9 @@ export default {
           type: 'item',
           url: '/page/sample-page',
           classes: 'nav-item',
-          icon: 'feather icon-sidebar'
-        }
-      ]
-    }
-  ]
+          icon: 'feather icon-sidebar',
+        },
+      ],
+    },
+  ],
 }

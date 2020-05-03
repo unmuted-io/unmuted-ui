@@ -1,137 +1,137 @@
-export const layOut = layout => dispatch =>
+export const layOut = (layout) => (dispatch) =>
   dispatch({
-    type: "LAYOUT",
-    layout
-  });
+    type: 'LAYOUT',
+    layout,
+  })
 
-export const layOutType = layout => dispatch =>
+export const layOutType = (layout) => (dispatch) =>
   dispatch({
-    type: "LAYOUT_TYPE",
-    layout
-  });
+    type: 'LAYOUT_TYPE',
+    layout,
+  })
 
-export const collapseMenuRes = () => dispatch =>
+export const collapseMenuRes = () => (dispatch) =>
   dispatch({
-    type: "COLLAPSE_MENU_RES"
-  });
+    type: 'COLLAPSE_MENU_RES',
+  })
 
-export const collapseMenu = () => dispatch =>
+export const collapseMenu = () => (dispatch) =>
   dispatch({
-    type: "COLLAPSE_MENU"
-  });
+    type: 'COLLAPSE_MENU',
+  })
 
-export const onItemClick = () => dispatch =>
+export const onItemClick = () => (dispatch) =>
   dispatch({
-    type: "ON_ITEM_CLICK"
-  });
+    type: 'ON_ITEM_CLICK',
+  })
 
-export const colorIcon = () => dispatch =>
+export const colorIcon = () => (dispatch) =>
   dispatch({
-    type: "COLOR_ICON"
-  });
+    type: 'COLOR_ICON',
+  })
 
-export const fixedMEnu = () => dispatch =>
+export const fixedMEnu = () => (dispatch) =>
   dispatch({
-    type: "MENU_FIXED"
-  });
+    type: 'MENU_FIXED',
+  })
 
-export const fixedHeader = () => dispatch =>
+export const fixedHeader = () => (dispatch) =>
   dispatch({
-    type: "HEADER_FIXED"
-  });
+    type: 'HEADER_FIXED',
+  })
 
-export const layoutBox = () => dispatch =>
+export const layoutBox = () => (dispatch) =>
   dispatch({
-    type: "BOX_LAYOUT"
-  });
+    type: 'BOX_LAYOUT',
+  })
 
-export const layoutRtl = () => dispatch =>
+export const layoutRtl = () => (dispatch) =>
   dispatch({
-    type: "RTL"
-  });
+    type: 'RTL',
+  })
 
-export const menuDropDownIcon = layout => dispatch =>
+export const menuDropDownIcon = (layout) => (dispatch) =>
   dispatch({
-    type: "MENU_DROPDOWN_ICON",
-    layout
-  });
+    type: 'MENU_DROPDOWN_ICON',
+    layout,
+  })
 
-export const menuListStyle = layout => dispatch =>
+export const menuListStyle = (layout) => (dispatch) =>
   dispatch({
-    type: "MENU_LIST_STYLE",
-    layout
-  });
+    type: 'MENU_LIST_STYLE',
+    layout,
+  })
 
-export const menuActiveColor = layout => dispatch =>
+export const menuActiveColor = (layout) => (dispatch) =>
   dispatch({
-    type: "MENU_ACTIVE_COLOR",
-    layout
-  });
+    type: 'MENU_ACTIVE_COLOR',
+    layout,
+  })
 
-export const menuTitleColor = layout => dispatch =>
+export const menuTitleColor = (layout) => (dispatch) =>
   dispatch({
-    type: "MENU_TITLE_COLOR",
-    layout
-  });
+    type: 'MENU_TITLE_COLOR',
+    layout,
+  })
 
-export const hideCaption = () => dispatch =>
+export const hideCaption = () => (dispatch) =>
   dispatch({
-    type: "HIDE_CAPTION"
-  });
+    type: 'HIDE_CAPTION',
+  })
 
-export const hideBreadcrumb = () => dispatch =>
+export const hideBreadcrumb = () => (dispatch) =>
   dispatch({
-    type: "HEADER_BREADCRUMB_HIDE"
-  });
+    type: 'HEADER_BREADCRUMB_HIDE',
+  })
 
-export const headerBg = layout => dispatch =>
+export const headerBg = (layout) => (dispatch) =>
   dispatch({
-    type: "HEADER_BAGRAOUND",
-    layout
-  });
+    type: 'HEADER_BAGRAOUND',
+    layout,
+  })
 
-export const bgBrand = layout => dispatch =>
+export const bgBrand = (layout) => (dispatch) =>
   dispatch({
-    type: "BRAND_BAGROUND",
-    layout
-  });
+    type: 'BRAND_BAGROUND',
+    layout,
+  })
 
-export const bgGradient = layout => dispatch =>
+export const bgGradient = (layout) => (dispatch) =>
   dispatch({
-    type: "MENU_BAGROUND_GRADIENT",
-    layout
-  });
+    type: 'MENU_BAGROUND_GRADIENT',
+    layout,
+  })
 
-export const bgPattern = layout => dispatch =>
+export const bgPattern = (layout) => (dispatch) =>
   dispatch({
-    type: "MENU_BAGROUND_PATTERN",
-    layout
-  });
+    type: 'MENU_BAGROUND_PATTERN',
+    layout,
+  })
 
-export const bgImage = layout => dispatch =>
+export const bgImage = (layout) => (dispatch) =>
   dispatch({
-    type: "MENU_BAGROUND_IMAGE",
-    layout
-  });
+    type: 'MENU_BAGROUND_IMAGE',
+    layout,
+  })
 
-export const bgMenu = layout => dispatch =>
+export const bgMenu = (layout) => (dispatch) =>
   dispatch({
-    type: "MENU_BAGROUND",
-    layout
-  });
+    type: 'MENU_BAGROUND',
+    layout,
+  })
 
-export const layoutPrebuild = layout => dispatch =>
+export const layoutPrebuild = (layout) => (dispatch) =>
   dispatch({
-    type: "PREBUILD_LAYOUT",
-    layout
-  });
+    type: 'PREBUILD_LAYOUT',
+    layout,
+  })
 
-export const resetTemplate = () => dispatch =>
+export const resetTemplate = () => (dispatch) =>
   dispatch({
-    type: "RESET",
-  });
+    type: 'RESET',
+  })
 
-export const configBlock = () => dispatch =>
+export const configBlock = () => (dispatch) =>
   dispatch({
-    type: "CONFIG_BLOCK"
-  });
+    type: 'CONFIG_BLOCK',
+  })

@@ -30,14 +30,14 @@ class Layout extends Component {
       const newData = {
         currencyCode: rateData.currency,
         name: rateData.name,
-        price: rateData.price
+        price: rateData.price,
       }
       prices[rateData.currency] = newData
     })
     prices.TLOS = {
       currencyCode: 'TLOS',
       name: 'Telos',
-      price: '0.03'
+      price: '0.03',
     }
     dispatch({ type: 'UPDATE_EXCHANGE_RATES', data: prices })
   }
@@ -46,7 +46,7 @@ class Layout extends Component {
     clearInterval(this.fetchExchangeRateInterval)
   }
 
-  render () {
+  render() {
     const menu = routes.map((route, index) => {
       // @ts-ignore
       return route.component ? (
@@ -55,7 +55,7 @@ class Layout extends Component {
           path={route.path}
           exact={route.exact}
           name={route.name}
-          render={(props) => <route.component {...props} />}
+          render={props => <route.component {...props} />}
         />
       ) : null
     })
@@ -71,13 +71,13 @@ class Layout extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {}
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    dispatch
+    dispatch,
   }
 }
 

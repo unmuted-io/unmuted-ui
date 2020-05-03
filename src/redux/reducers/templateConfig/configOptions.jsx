@@ -26,5 +26,4 @@ const options = {
   prebuildLayout: config.prebuildLayout,
 }
 
-
 export default options

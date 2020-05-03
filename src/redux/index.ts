@@ -6,19 +6,13 @@ import rootSaga from './sagas/'
 
 const sagaMiddleware = createSagaMiddleware()
 
-const middleware = [
-  thunk,
-  sagaMiddleware
-]
+const middleware = [thunk, sagaMiddleware]
 const enhancers = [applyMiddleware(...middleware)]
 
 /* tslint:disable */
-const composeEnhancers = window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] as typeof compose || compose
+const composeEnhancers = (window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] as typeof compose) || compose
 
-const store = createStore(
-  rootReducer,
-  composeEnhancers(...enhancers),
-)
+const store = createStore(rootReducer, composeEnhancers(...enhancers))
 
 sagaMiddleware.run(rootSaga)
 
