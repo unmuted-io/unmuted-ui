@@ -27,7 +27,8 @@ const { REACT_APP_API_BASE_URL } = process.env
 
 interface UserAccountProps {
   account: Account,
-  edgeAccount: EdgeAccount
+  edgeAccount: EdgeAccount,
+  dispatch: any
 }
 
 interface UserAccountState {
@@ -43,11 +44,12 @@ export class UserAccount extends Component<UserAccountProps, UserAccountState> {
   constructor (props) {
     super(props)
     const { account: { username, email, edge_username, settings} } = props
+    const { fullName = '', description = '' } = settings
     this.state = {
       username,
-      fullName: '',
+      fullName,
       email,
-      description: '',
+      description,
       isModalOpen: false,
       modalType: ''
     }
@@ -91,6 +93,19 @@ export class UserAccount extends Component<UserAccountProps, UserAccountState> {
     })
   }
 
+  saveProfile = (e) => {
+    e.preventDefault()
+    const { dispatch } = this.props
+    const { fullName, description } = this.state
+    dispatch({
+      type: 'SAVE_PROFILE_REQUEST',
+      data: {
+        fullName,
+        description
+      }
+    })
+  }
+
   render() {
     const { account: { edge_username, settings: { coverImageUrl, profileImageUrl } } } = this.props
     const { username, fullName, email, description, isModalOpen, modalType } = this.state
@@ -104,7 +119,7 @@ export class UserAccount extends Component<UserAccountProps, UserAccountState> {
             <MainCard title="Account">
               <Row>
                 <Col xl={6} md={6} lg={6} sm={12}>
-                  <Form>
+                  <Form onSubmit={this.saveProfile}>
                     <Row className="align-items-center">
                       <CardBody>
                         <h4 className="mb-3 f-w-400">Account Details</h4>
@@ -114,7 +129,7 @@ export class UserAccount extends Component<UserAccountProps, UserAccountState> {
                               @
                             </span>
                           </InputGroupAddon>
-                          <Input onChange={this.onChangeUsername} value={username} type="text" placeholder="Username" />
+                          <Input disabled onChange={this.onChangeUsername} className='disabled' value={username} type="text" placeholder="Username" />
                         </InputGroup>
                         <InputGroup className="mb-2">
                           <InputGroupAddon addonType="prepend">
@@ -138,7 +153,7 @@ export class UserAccount extends Component<UserAccountProps, UserAccountState> {
                               <i className="feather icon-mail" />
                             </span>
                           </InputGroupAddon>
-                          <Input onChange={this.onChangeEmail} value={email} type="email" placeholder="Email address" />
+                          <Input disabled onChange={this.onChangeEmail} className='disabled' value={email} type="email" placeholder="Email address" />
                         </InputGroup>
                         <InputGroup className="mb-2">
                           <InputGroupAddon addonType="prepend">
@@ -195,7 +210,9 @@ const mapStateToProps = (state: State) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {}
+  return {
+    dispatch
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserAccount)

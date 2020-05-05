@@ -86,10 +86,33 @@ function * updateAccountImage (data: any) {
   })
 }
 
+function * saveProfile ({ type, data }) {
+  console.log('in save profile, data: ', data)
+  const state = yield select()
+  const { settings, token } = state.auth.account
+  const newSettings = {
+    ...settings,
+    ...data
+  }
+  const response: AxiosResponse = yield call(() => axios({
+    method: 'put',
+    url: `${REACT_APP_API_BASE_URL}/user/settings`,
+    data: newSettings,
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  }))
+  yield put ({
+    type: 'UPDATE_ACCOUNT_SETTINGS',
+    data: { settings: response.data.settings }
+  })
+}
+
 function * authSaga () {
   yield takeEvery('UPDATE_USERNAME', updateUsername)
   yield takeEvery('AUTHENTICATE_EDGE_LOGIN', authenticateEdgeLogin)
   yield takeEvery('UPDATE_ACCOUNT_IMAGE_REQUEST', updateAccountImage)
+  yield takeEvery('SAVE_PROFILE_REQUEST', saveProfile)
 }
 
 export default authSaga
