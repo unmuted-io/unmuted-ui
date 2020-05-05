@@ -23,6 +23,8 @@ import edgeLoginLogo from '../../assets/images/auth/edge-login-logo.svg'
 import { Account, EdgeAccount } from '../../types'
 import AccountImageUploader from './AccountImageUploader'
 
+const { REACT_APP_API_BASE_URL } = process.env
+
 interface UserAccountProps {
   account: Account,
   edgeAccount: EdgeAccount
@@ -33,7 +35,6 @@ interface UserAccountState {
   fullName: string,
   email: string,
   description: string,
-  profileImageUrl: string,
   isModalOpen: boolean,
   modalType: string
 }
@@ -41,13 +42,12 @@ interface UserAccountState {
 export class UserAccount extends Component<UserAccountProps, UserAccountState> {
   constructor (props) {
     super(props)
-    const { account: { username, email, edge_username } } = props
+    const { account: { username, email, edge_username, settings} } = props
     this.state = {
       username,
       fullName: '',
       email,
       description: '',
-      profileImageUrl: '',
       isModalOpen: false,
       modalType: ''
     }
@@ -92,8 +92,10 @@ export class UserAccount extends Component<UserAccountProps, UserAccountState> {
   }
 
   render() {
-    const { account: { edge_username } } = this.props
+    const { account: { edge_username, settings: { coverImageUrl, profileImageUrl } } } = this.props
     const { username, fullName, email, description, isModalOpen, modalType } = this.state
+    const cover = `${REACT_APP_API_BASE_URL}/${coverImageUrl}` || coverImage
+    const profile = `${REACT_APP_API_BASE_URL}/${profileImageUrl}` || profileImage
     const disabled = false
     return (
       <>
@@ -159,10 +161,10 @@ export class UserAccount extends Component<UserAccountProps, UserAccountState> {
                     username={`@${username}`}
                     description={description}
                     card="middle"
-                    coverImage={coverImage}
+                    coverImage={cover}
                     isCoverImageEditable={true}
                     onClickCover={this.onClickCover}
-                    profileImage={profileImage}
+                    profileImage={profile}
                     isProfileImageEditable={true}
                     onClickProfile={this.onClickProfile}
                     design={400}
@@ -178,7 +180,7 @@ export class UserAccount extends Component<UserAccountProps, UserAccountState> {
           isOpen={isModalOpen}
           toggle={this.toggleModal}
         >
-          <AccountImageUploader type={modalType} />
+          <AccountImageUploader toggleModal={this.toggleModal} type={modalType} />
         </Modal>
       </>
     )

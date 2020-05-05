@@ -15,11 +15,19 @@ export const account = (state = null, action) => {
   const { data, type } = action
   switch (type) {
     case 'ACCOUNT':
-      return data.account
+      return {
+        ...data.account,
+        settings: JSON.parse(data.account.settings)
+      }
     case 'UPDATE_USERNAME_SUCCESS':
       return {
         ...state,
         username: data.username
+      }
+    case 'UPDATE_ACCOUNT_SETTINGS':
+      return {
+        ...state,
+        settings: JSON.parse(data.settings)
       }
     case 'LOGOUT':
       return null

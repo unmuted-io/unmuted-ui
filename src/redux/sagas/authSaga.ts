@@ -1,7 +1,7 @@
 import { call, put, takeEvery, select } from 'redux-saga/effects'
 import axios from 'axios'
 import { AxiosResponse } from '../../types'
-
+import { dataURLtoBlob } from '../../utility/utility'
 const { REACT_APP_API_BASE_URL } = process.env
 
 function * updateUsername (input: { type: string; data: { username: string; history: any } }) {
@@ -64,10 +64,11 @@ function * authenticateEdgeLogin (data: any): any {
 
 function * updateAccountImage (data: any) {
   const { data: { base64Image, type }} = data
+  const blob = dataURLtoBlob(base64Image)
   const state = yield select()
   const { token } = state.auth.account
   const formData = new FormData()
-  formData.append('file', base64Image)
+  formData.append('file', blob)
   formData.append('type', type)
   const response: AxiosResponse = yield call(() => axios({
     method: 'post',
@@ -77,8 +78,12 @@ function * updateAccountImage (data: any) {
       'Content-Type': 'multipart/form-data',
       'Authorization': `Bearer ${token}`
     }
+  }))
+  const { data: { settings } } = response
+  yield put({
+    type: 'UPDATE_ACCOUNT_SETTINGS',
+    data: { settings }
   })
-  )
 }
 
 function * authSaga () {

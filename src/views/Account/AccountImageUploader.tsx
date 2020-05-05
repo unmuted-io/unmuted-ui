@@ -9,7 +9,6 @@ import 'cropperjs/dist/cropper.css'
 import { debounce } from '../../utility/utility'
 
 const { REACT_APP_API_BASE_URL } = process.env
-const cropper = React.createRef()
 const ASPECT_RATIOS = {
   profile: 1,
   cover: 3 // width: height
@@ -17,7 +16,8 @@ const ASPECT_RATIOS = {
 
 interface AccountImageUploaderProps {
   type: string,
-  dispatch: ({ type: string, data: any }) => { type, data }
+  dispatch: ({ type: string, data: any }) => { type, data },
+  toggleModal: (type: string) => void
 }
 
 interface AccountImageUploaderState {
@@ -81,7 +81,6 @@ class AccountImageUploader extends Component<AccountImageUploaderProps, AccountI
         console.log('data: ', data)
         const response = JSON.parse(data.xhr && data.xhr.response)
         if (data.xhr.status === 200) {
-          const { type, source } = response
           let { height, width } = data
           const heightRatio = height / maxHeight
           const widthRatio = width / maxWidth
@@ -120,13 +119,14 @@ class AccountImageUploader extends Component<AccountImageUploaderProps, AccountI
 
   onSubmit = (e) => {
     e.preventDefault()
-    const { dispatch, type } = this.props
+    const { dispatch, type, toggleModal } = this.props
     // @ts-ignore
     const base64Image = this.refs.cropper.getCroppedCanvas().toDataURL('image/jpeg')
     dispatch({
       type: 'UPDATE_ACCOUNT_IMAGE_REQUEST',
       data: { base64Image, type, save: true }
     })
+    toggleModal(type)
   }
 
   render() {

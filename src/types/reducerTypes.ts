@@ -9,6 +9,10 @@ export type Account = {
   edge_username?: string;
   type: string;
   token: string;
+  settings: {
+    profileImageUrl?: string,
+    coverImageUrl?: string
+  }
 } | null
 
 export type EdgeAccount = {
