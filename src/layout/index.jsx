@@ -13,9 +13,8 @@ class Layout extends Component {
   componentDidMount = () => {
     // on dev will automatically log in
     if (process.env.REACT_APP_ENVIRONMENT === 'dev') {
-      const { dispatch, history, state, location } = this.props
-      const fromUrl = location && location.pathname
-      dispatch(login({ email: 'kylan.hurt@gmail.com', password: 'Test123456' }, history, fromUrl))
+      const { dispatch, history } = this.props
+      dispatch(login({ email: 'kylan.hurt@gmail.com', password: 'Test123456' }, history))
     }
   }
 

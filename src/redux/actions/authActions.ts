@@ -13,7 +13,7 @@ export const attemptAutoLoginFromCookies = (history: any) => (dispatch: any, get
   const userInfo = {
     username,
     email,
-    password
+    password,
   }
   dispatch(login(userInfo, history))
 }
@@ -40,7 +40,10 @@ export const createUser = (newUserInfo: UserInfo, history: object) => async (dis
   }, 2000)
 }
 
-export const login = (userInfo: UserInfo, history: any, isAnimated?: boolean) => async (dispatch: any, getState: any) => {
+export const login = (userInfo: UserInfo, history: any, isAnimated?: boolean) => async (
+  dispatch: any,
+  getState: any
+) => {
   dispatch({ type: 'IS_LOGGING_IN', data: { isLoggingIn: true } })
   // slow down login process so that user knows they are being logged in
   setTimeout(async () => {
@@ -55,7 +58,7 @@ export const login = (userInfo: UserInfo, history: any, isAnimated?: boolean) =>
       const loginResponse = await fetch(url, {
         method: 'POST',
         // @ts-ignore
-        body: formData
+        body: formData,
       })
       if (!loginResponse.ok) {
         console.log(loginResponse.statusText)
@@ -73,20 +76,27 @@ export const login = (userInfo: UserInfo, history: any, isAnimated?: boolean) =>
       // const futureTimestamp = (currentTimestampFixed + 86400).toString()
       dispatch({ type: 'ACCOUNT', data: { account: { ...loginData.user, ...loginData.access_token } } })
       // localStorage.setItem('expiration', futureTimestamp)
-      if (history.location.pathname === '/register') { // vs just logging in
+      if (history.location.pathname === '/register') {
+        // vs just logging in
         // history.goBack()
         history.push({
           pathname: '/username',
           state: {
-            ...userInfo
-          }
+            ...userInfo,
+          },
         })
       } else {
         history.push((history.location && history.location.pathname) || '/')
       }
     } catch (e) {
       console.log('Error: ', e)
-      dispatch({ type: 'AUTH_ERROR', data: { authError: 'There was a problem logging in with those credentials. Please check your credentials and try again.' } })
+      dispatch({
+        type: 'AUTH_ERROR',
+        data: {
+          authError:
+            'There was a problem logging in with those credentials. Please check your credentials and try again.',
+        },
+      })
     }
     // should isLoggingIn reducer just look at ACCOUNT action?
     dispatch({ type: 'IS_LOGGING_IN', data: { isLoggingIn: false } })
@@ -95,7 +105,7 @@ export const login = (userInfo: UserInfo, history: any, isAnimated?: boolean) =>
 
 export const logout = () => (dispatch: any): void => {
   dispatch({
-    type: 'LOGOUT'
+    type: 'LOGOUT',
   })
   localStorage.clear()
 }
@@ -103,6 +113,6 @@ export const logout = () => (dispatch: any): void => {
 export const updateEdgeAccount = (account: any) => (dispatch: any, getState: any) => {
   dispatch({
     type: 'UPDATE_EDGE_ACCOUNT',
-    data: account
+    data: account,
   })
 }
