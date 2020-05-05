@@ -11,6 +11,7 @@ const AuthUsername = lazy(() => import('./views/authentication/authUsername'))
 const LoginConnector = lazy(() => import('./redux/connectors/AuthSinginConnector'))
 
 /* User */
+const UserAccount = lazy(() => import('./views/Account/UserAccount'))
 const RecentlyViewed = lazy(() => import('./views/recentlyViewed/recentlyViewed'))
 const Alarts = lazy(() => import('./views/ui-element/basic/alarts'))
 const Buttons = lazy(() => import('./views/ui-element/basic/buttons'))
@@ -91,6 +92,7 @@ const RouteList = [
 
   /* User-Specific */
   { exact: true, protected: true, path: '/recently-viewed', name: 'Recently Viewed', component: RecentlyViewed },
+  { exact: true, protected: true, path: '/user/account', name: 'User Account', component: UserAccount },
 
   /* Layout */
   { exact: true, path: '/layout/fixed', name: 'fixed', component: FixedLayout },

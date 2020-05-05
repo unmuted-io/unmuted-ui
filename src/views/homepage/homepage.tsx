@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Row, Col } from 'reactstrap'
-import MainCard from '../../components/mainCard/mainCard'
 import LoggedInHomepage from './loggedInHomepage'
 
 interface HomepageProps {

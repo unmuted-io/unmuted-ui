@@ -2,8 +2,23 @@ import React, { Fragment, Component } from 'react'
 import { UncontrolledDropdown, DropdownToggle, DropdownMenu } from 'reactstrap'
 import { Link } from 'react-router-dom'
 import avatar from '../../../assets/images/user/avatar-1.jpg'
+import { State, Account } from '../../../types'
 
-export class UserProfile extends Component {
+type UserProfileOwnProps = {
+  logout: () => void
+}
+
+type UserProfileStateProps = {
+  account: Account
+}
+
+type UserProfileProps = UserProfileOwnProps & UserProfileStateProps
+
+type UserProfileState = {
+
+}
+
+class UserProfile extends Component<UserProfileProps, UserProfileState> {
   render() {
     const { logout, account } = this.props
     const { username } = account
@@ -23,23 +38,13 @@ export class UserProfile extends Component {
             </div>
             <ul className="pro-body">
               <li>
-                <Link to="#" className="dropdown-item">
-                  <i className="feather icon-settings" /> Settings
+                <Link to="/user/account" className="dropdown-item">
+                  <i className="feather icon-settings" /> Account
                 </Link>
               </li>
               <li>
-                <Link to="#" className="dropdown-item">
-                  <i className="feather icon-user" /> Profile
-                </Link>
-              </li>
-              <li>
-                <Link to="#" className="dropdown-item">
+                <Link to="/user/messages" className="dropdown-item">
                   <i className="feather icon-mail" /> My Messages
-                </Link>
-              </li>
-              <li>
-                <Link to="#" className="dropdown-item">
-                  <i className="feather icon-lock" /> Lock Screen
                 </Link>
               </li>
             </ul>
@@ -49,5 +54,12 @@ export class UserProfile extends Component {
     )
   }
 }
+
+const mapStateToProps = (state: State, ownProps) => {
+  return {
+    account: state.auth.account
+  }
+}
+
 
 export default UserProfile

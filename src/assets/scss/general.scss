@@ -1,3 +1,7 @@
 .menu-styler, .footer-fab {
   display: none;
 }
+
+img.clickable:hover {
+  cursor: pointer;
+}

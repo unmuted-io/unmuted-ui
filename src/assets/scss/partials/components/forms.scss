@@ -17,4 +17,8 @@
 
 input {
   color: #686c71;
+
+  &.disabled:hover {
+    cursor: not-allowed;
+  }
 }

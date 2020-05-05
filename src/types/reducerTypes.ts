@@ -8,7 +8,7 @@ export type Account = {
   username: string;
   edge_username?: string;
   type: string;
-  bearer: string;
+  token: string;
 } | null
 
 export type EdgeAccount = {
