@@ -20,7 +20,7 @@ import logoDark from '../../assets/images/logo-dark.png'
 import authBg from '../../assets/images/auth-bg.jpg'
 import { makeEdgeUiContext } from 'edge-login-ui-web'
 import edgeLoginLogo from '../../assets/images/auth/edge-login-logo.svg'
-import { UserInfo } from '../../types'
+import { UserInfo, Account } from '../../types'
 import { isLoggingIn } from '../../redux/reducers/authReducer'
 
 let edgeUiContext
@@ -28,6 +28,7 @@ const assetsPath = 'http://localhost:11234'
 
 export interface AuthSinginComponentStateProps {
   isLoggingIn: boolean;
+  account: Account
 }
 
 export interface AuthSinginComponentDispatchProps {

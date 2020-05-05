@@ -1,20 +1,23 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { State } from '../../types'
+import { Form, Button } from 'reactstrap'
 import { DropzoneComponent } from 'react-dropzone-component'
 import Cropper from 'react-cropper'
 import previewImage from '../../assets/images/light-box/l1.jpg'
 import 'cropperjs/dist/cropper.css'
+import { debounce } from '../../utility/utility'
 
 const { REACT_APP_API_BASE_URL } = process.env
-
+const cropper = React.createRef()
 const ASPECT_RATIOS = {
   profile: 1,
   cover: 3 // width: height
 }
 
 interface AccountImageUploaderProps {
-  type: string
+  type: string,
+  dispatch: ({ type: string, data: any }) => { type, data }
 }
 
 interface AccountImageUploaderState {
@@ -68,7 +71,7 @@ class AccountImageUploader extends Component<AccountImageUploaderProps, AccountI
       uploadprogress: 100,
       maxFiles: 1,
       url: `${REACT_APP_API_BASE_URL}/user/image/${type}`,
-      headers: { "Authorization": `Bearer ${jwtToken}` },
+      headers: { 'Authorization': `Bearer ${jwtToken}` },
       maxfilesreached: () => {
         console.log('maxfilesreached')
       },
@@ -98,10 +101,10 @@ class AccountImageUploader extends Component<AccountImageUploaderProps, AccountI
         }
       }
     }
+    this._crop = debounce(this._crop, 600, false)
   }
 
-  _crop (event){
-    // image in dataUrl
+  _crop = (event) => {
     // @ts-ignore
     this.setState({
       dataX: Math.round(event.detail.x),
@@ -112,7 +115,18 @@ class AccountImageUploader extends Component<AccountImageUploaderProps, AccountI
       dataScaleX: Math.round(event.detail.scaleX),
       dataScaleY: Math.round(event.detail.scaleY)
     })
-    console.log('_cropped triggered')
+    console.log('executing _crop')
+  }
+
+  onSubmit = (e) => {
+    e.preventDefault()
+    const { dispatch, type } = this.props
+    // @ts-ignore
+    const base64Image = this.refs.cropper.getCroppedCanvas().toDataURL('image/jpeg')
+    dispatch({
+      type: 'UPDATE_ACCOUNT_IMAGE_REQUEST',
+      data: { base64Image, type, save: true }
+    })
   }
 
   render() {
@@ -132,16 +146,23 @@ class AccountImageUploader extends Component<AccountImageUploaderProps, AccountI
             eventHandlers={eventHandlers}
           />
         </div>
-        <div style={{ display: (step === 1) ? 'block' : 'none', height: cropperHeight, width: cropperWidth }}>
-          <Cropper
-            ref='cropper'
-            src={image}
-            style={{ height: cropperHeight, width: cropperWidth }}
-            // Cropper.js options
-            aspectRatio={ASPECT_RATIOS[type]}
-            guides={true}
-            crop={this._crop.bind(this)}
-          />
+        <div
+          style={{ display: (step === 1) ? 'block' : 'none', height: cropperHeight, width: cropperWidth }}
+        >
+          <Form onSubmit={this.onSubmit}>
+            <Cropper
+              ref='cropper'
+              src={image}
+              style={{ height: cropperHeight, width: cropperWidth }}
+              // Cropper.js options
+              aspectRatio={ASPECT_RATIOS[type]}
+              guides={true}
+              crop={this._crop.bind(this)}
+            />
+            <div>
+              <Button color='success' onClick={this.onSubmit}>Crop &amp; Save</Button>
+            </div>
+          </Form>
         </div>
       </div>
     )
@@ -156,7 +177,7 @@ const mapStateToProps = (state: State) => {
 
 const mapDispatchToProps = (dispatch: Function) => {
   return {
-
+    dispatch
   }
 }
 

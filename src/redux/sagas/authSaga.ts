@@ -62,9 +62,29 @@ function * authenticateEdgeLogin (data: any): any {
   console.log('after conditionals')
 }
 
+function * updateAccountImage (data: any) {
+  const { data: { base64Image, type }} = data
+  const state = yield select()
+  const { token } = state.auth.account
+  const formData = new FormData()
+  formData.append('file', base64Image)
+  formData.append('type', type)
+  const response: AxiosResponse = yield call(() => axios({
+    method: 'post',
+    url: `${REACT_APP_API_BASE_URL}/user/image/save`,
+    data: formData,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      'Authorization': `Bearer ${token}`
+    }
+  })
+  )
+}
+
 function * authSaga () {
   yield takeEvery('UPDATE_USERNAME', updateUsername)
   yield takeEvery('AUTHENTICATE_EDGE_LOGIN', authenticateEdgeLogin)
+  yield takeEvery('UPDATE_ACCOUNT_IMAGE_REQUEST', updateAccountImage)
 }
 
 export default authSaga

@@ -10,7 +10,8 @@ import { UserInfo } from '../../types'
 
 const mapStateToProps = (state: any): AuthSinginComponentStateProps => {
   return {
-    isLoggingIn: state.auth.isLoggingIn
+    isLoggingIn: state.auth.isLoggingIn,
+    account: state.auth.account
   }
 }
 
