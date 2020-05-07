@@ -5,6 +5,7 @@ import Settings from '../../containers/templateConfig/settings'
 import ContentWrapper from './contentWrapper'
 import Footer from '../footer'
 import MessageBox from '../header/component/headerchat'
+import ToastedLayout from '../notifications/ToastedLayout'
 
 class MainLayout extends Component {
   render () {
@@ -12,7 +13,9 @@ class MainLayout extends Component {
       <Fragment>
         <Sidebar />
         <Header />
-        <ContentWrapper {...this.props} />
+        <ToastedLayout>
+          <ContentWrapper {...this.props} />
+        </ToastedLayout>
         <Footer />
         {this.props.templetConfigBlock && <Settings />}
         <MessageBox />

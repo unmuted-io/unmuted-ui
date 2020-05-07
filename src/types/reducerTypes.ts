@@ -57,3 +57,9 @@ export type AuthReducer = {
 export type ExchangeRatesReducer = {
   [currencyCode: string]: ExchangeRate;
 }
+
+export type Notification = {
+  message: string,
+  type: string,
+  autoDismiss: boolean
+}

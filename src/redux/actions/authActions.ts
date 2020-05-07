@@ -2,6 +2,7 @@ import FormData from 'form-data'
 import { UserInfo, LoginSuccessResponse, RegisterSuccessResponse, RegisterFailResponse } from '../../types'
 import { AxiosResponse } from '../../types/fetchTypes'
 import axios from 'axios'
+import { useToasts } from 'react-toast-notifications'
 
 export const attemptAutoLoginFromCookies = (history: any) => (dispatch: any, getState: any) => {
   const username = localStorage.getItem('username')
@@ -41,10 +42,10 @@ export const createUser = (newUserInfo: UserInfo, history: object) => async (dis
 }
 
 export const login = (userInfo: UserInfo, history: any, isAnimated?: boolean) => async (
-  dispatch: any,
-  getState: any
+  dispatch: any
 ) => {
   dispatch({ type: 'IS_LOGGING_IN', data: { isLoggingIn: true } })
+  let loginResponse
   // slow down login process so that user knows they are being logged in
   setTimeout(async () => {
     try {
@@ -55,7 +56,8 @@ export const login = (userInfo: UserInfo, history: any, isAnimated?: boolean) =>
       formData.append('password', password)
       formData.append('email', email)
       // @ts-ignore
-      const loginResponse = await fetch(url, {
+      loginResponse = await axios({
+        url,
         method: 'POST',
         // @ts-ignore
         body: formData,
@@ -65,7 +67,7 @@ export const login = (userInfo: UserInfo, history: any, isAnimated?: boolean) =>
         throw new Error(loginResponse.statusText)
       }
       const loginData: LoginSuccessResponse = await loginResponse.json()
-      const { user, access_token } = loginData
+      const { access_token } = loginData
       localStorage.setItem('email', email)
       localStorage.setItem('username', username)
       localStorage.setItem('password', password)
@@ -88,14 +90,18 @@ export const login = (userInfo: UserInfo, history: any, isAnimated?: boolean) =>
       } else {
         history.push((history.location && history.location.pathname) || '/')
       }
-    } catch (e) {
-      console.log('Error: ', e)
+    } catch (error) {
+      let { message, response } = error
+      if (response && response.data && response.data.message) {
+        message = response.data.message
+      }
       dispatch({
-        type: 'AUTH_ERROR',
+        type: 'NEW_NOTIFICATION',
         data: {
-          authError:
-            'There was a problem logging in with those credentials. Please check your credentials and try again.',
-        },
+          type: 'error',
+          message,
+          autoDismiss: true
+        }
       })
     }
     // should isLoggingIn reducer just look at ACCOUNT action?

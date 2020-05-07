@@ -9,10 +9,20 @@ import Icons from './icons/'
 import { authReducer as auth } from './authReducer'
 import exchangeRates from './exchangeRatesReducer'
 
+const notification = (state = {}, action) => {
+  switch (action.type) {
+    case 'NEW_NOTIFICATION':
+      return action.data
+    default:
+      return state
+  }
+}
+
 const rootReducer = combineReducers({
   auth,
   config,
   exchangeRates,
+  notification,
   Navigation,
   todoApp: todoReducer,
   noteApp: Notes,
