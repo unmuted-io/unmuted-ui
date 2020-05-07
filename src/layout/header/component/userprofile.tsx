@@ -23,9 +23,9 @@ type UserProfileState = {
 class UserProfile extends Component<UserProfileProps, UserProfileState> {
   render() {
     const { logout, account } = this.props
-    const { username, settings } = account
-    const { profileImageUrl = '' } = settings
-    const profileImageSrc = `${REACT_APP_API_BASE_URL}/${profileImageUrl}`
+    const { username } = account
+    const profileImageUrl = (account && account.settings && account.settings.profileImageUrl) || ''
+    const profileImageSrc = profileImageUrl ? `${REACT_APP_API_BASE_URL}/${profileImageUrl}` : ''
 
     return (
       <Fragment>
