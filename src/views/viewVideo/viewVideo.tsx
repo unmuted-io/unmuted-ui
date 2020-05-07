@@ -151,18 +151,18 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
     const videoPath = `${REACT_APP_API_BASE_URL}/videos/processed/${source}`
     const poster = `${REACT_APP_API_BASE_URL}/videos/processed/thumbnails/${source.replace('.mp4', '')}-1.png`
     const videoJsOptions = {
-      autoplay: false,
+      autoplay: true,
       controls: true,
-      muted: true,
+      muted: false,
       sources: [
         {
-          src: videoPath,
-          type: 'video/mp4',
+          src: 'http://localhost:3873/index.m3u8'
         },
       ],
       fill: true,
       aspectRatio: '16:9',
-      poster
+      liveui: true,
+      liveTracker: true
     }
     const date = new Date(created_at)
     const dtf = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'long', day: '2-digit' })

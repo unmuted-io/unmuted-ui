@@ -26,6 +26,7 @@ class VideoPlayer extends React.Component<VideoPlayerComponentProps, VideoPlayer
   componentDidMount (): void {
     const { updateViewCount, rand } = this.props
     // instantiate Video.js
+    console.log('instantiating videojs, this.props: ', this.props)
     this.player = videojs(this.videoNode, this.props, function onPlayerReady () {
       console.log('onPlayerReady', this)
     })
@@ -39,6 +40,7 @@ class VideoPlayer extends React.Component<VideoPlayerComponentProps, VideoPlayer
         })
         // then turn off this event
         this.player.off('timeupdate')
+        console.log('this.player.livetracker:', this.player.livetracker)
       }
       this.timeupdateCount++
     })
