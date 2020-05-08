@@ -13,9 +13,7 @@ class MainLayout extends Component {
       <Fragment>
         <Sidebar />
         <Header />
-        <ToastedLayout>
-          <ContentWrapper {...this.props} />
-        </ToastedLayout>
+        <ContentWrapper {...this.props} />
         <Footer />
         {this.props.templetConfigBlock && <Settings />}
         <MessageBox />

@@ -3,6 +3,7 @@ import Routes from '../../containers/routes/mainRoutes'
 import Config from '../../configure'
 import Breadcrumb from '../breadcrumb/breadcrumb'
 import classnames from 'classnames'
+import ToastedLayout from '../notifications/ToastedLayout'
 
 class ContentWrapper extends Component {
   render () {
@@ -27,7 +28,9 @@ class ContentWrapper extends Component {
                     )
                     : null
                   }
-                  <Routes defaultPath={Config.defaultPath} />
+                  <ToastedLayout>
+                    <Routes defaultPath={Config.defaultPath} />
+                  </ToastedLayout>
                 </div>
               </div>
             </div>
