@@ -12,17 +12,17 @@ class Layout extends Component {
 
   componentDidMount = () => {
     // on dev will automatically log in
-    if (process.env.REACT_APP_ENVIRONMENT === 'dev') {
-      const { dispatch, history } = this.props
-      dispatch(login({ email: 'kylan.hurt@gmail.com', password: 'Test123456' }, history))
-    }
+    // if (process.env.REACT_APP_ENVIRONMENT === 'dev') {
+    //   const { dispatch, history } = this.props
+    //   dispatch(login({ email: 'kylan.hurt@gmail.com', password: 'Test123456' }, history))
+    // }
   }
 
   componentWillMount = () => {
     const { history, dispatch } = this.props
     dispatch(attemptAutoLoginFromCookies(history))
     this.fetchExchangeRates()
-    this.fetchExchangeRateInterval = setInterval(this.fetchExchangeRates, 10000 * 60)
+    // this.fetchExchangeRateInterval = setInterval(this.fetchExchangeRates, 10000 * 60)
   }
 
   fetchExchangeRates = async () => {
