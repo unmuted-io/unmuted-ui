@@ -94,22 +94,26 @@ function * saveProfile ({ type, data }) {
     ...settings,
     ...data
   }
-  const response: AxiosResponse = yield call(() => axios({
-    method: 'put',
-    url: `${REACT_APP_API_BASE_URL}/user/settings`,
-    data: newSettings,
-    headers: {
-      'Authorization': `Bearer ${token}`
-    }
-  }))
-  yield put ({
-    type: 'UPDATE_ACCOUNT_SETTINGS',
-    data: { settings: response.data.settings }
-  })
-  yield put({
-    type: 'NEW_NOTIFICATION',
-    data: { type: 'success', message: 'Profile saved successfully', autoDismiss: true}
-  })
+  try {
+    const response: AxiosResponse = yield call(() => axios({
+      method: 'put',
+      url: `${REACT_APP_API_BASE_URL}/user/settings`,
+      data: newSettings,
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    }))
+    yield put ({
+      type: 'UPDATE_ACCOUNT_SETTINGS',
+      data: { settings: response.data.settings }
+    })
+    yield put({
+      type: 'NEW_NOTIFICATION',
+      data: { type: 'success', message: 'Profile saved successfully', autoDismiss: true}
+    })
+  } catch (error) {
+    yield put ({ type: 'NEW_NOTIFICATION', message: error.message })
+  }
 }
 
 function * authSaga () {
