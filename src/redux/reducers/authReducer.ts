@@ -17,17 +17,17 @@ export const account = (state = null, action) => {
     case 'ACCOUNT':
       return {
         ...data.account,
-        settings: JSON.parse(data.account.settings) || {}
+        profile: JSON.parse(data.account.profile) || {}
       }
     case 'UPDATE_USERNAME_SUCCESS':
       return {
         ...state,
         username: data.username
       }
-    case 'UPDATE_ACCOUNT_SETTINGS':
+    case 'UPDATE_ACCOUNT_PROFILE':
       return {
         ...state,
-        settings: JSON.parse(data.settings) || {}
+        profile: JSON.parse(data.profile) || {}
       }
     case 'LOGOUT':
       return null

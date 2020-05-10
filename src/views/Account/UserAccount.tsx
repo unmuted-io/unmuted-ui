@@ -43,8 +43,8 @@ interface UserAccountState {
 export class UserAccount extends Component<UserAccountProps, UserAccountState> {
   constructor (props) {
     super(props)
-    const { account: { username, email, edge_username, settings} } = props
-    const { fullName = '', description = '' } = settings
+    const { account: { username, email, edge_username, profile} } = props
+    const { fullName = '', description = '' } = profile
     this.state = {
       username,
       fullName,
@@ -107,7 +107,7 @@ export class UserAccount extends Component<UserAccountProps, UserAccountState> {
   }
 
   render() {
-    const { account: { edge_username, settings: { coverImageUrl, profileImageUrl } } } = this.props
+    const { account: { edge_username, profile: { coverImageUrl, profileImageUrl } } } = this.props
     const { username, fullName, email, description, isModalOpen, modalType } = this.state
     const cover = coverImageUrl ? `${REACT_APP_API_BASE_URL}/${coverImageUrl}` : coverImage
     const profile = profileImageUrl ? `${REACT_APP_API_BASE_URL}/${profileImageUrl}` : profileImage

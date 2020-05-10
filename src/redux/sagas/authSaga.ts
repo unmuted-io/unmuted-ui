@@ -79,33 +79,33 @@ function * updateAccountImage (data: any) {
       'Authorization': `Bearer ${token}`
     }
   }))
-  const { data: { settings } } = response
+  const { data: { profile } } = response
   yield put({
-    type: 'UPDATE_ACCOUNT_SETTINGS',
-    data: { settings }
+    type: 'UPDATE_ACCOUNT_PROFILE',
+    data: { profile }
   })
 }
 
 function * saveProfile ({ type, data }) {
   console.log('in save profile, data: ', data)
   const state = yield select()
-  const { settings, token } = state.auth.account
-  const newSettings = {
-    ...settings,
+  const { profile, token } = state.auth.account
+  const newProfile = {
+    ...profile,
     ...data
   }
   try {
     const response: AxiosResponse = yield call(() => axios({
       method: 'put',
-      url: `${REACT_APP_API_BASE_URL}/user/settings`,
-      data: newSettings,
+      url: `${REACT_APP_API_BASE_URL}/user/profile`,
+      data: newProfile,
       headers: {
         'Authorization': `Bearer ${token}`
       }
     }))
     yield put ({
-      type: 'UPDATE_ACCOUNT_SETTINGS',
-      data: { settings: response.data.settings }
+      type: 'UPDATE_ACCOUNT_PROFILE',
+      data: { profile: response.data.profile }
     })
     yield put({
       type: 'NEW_NOTIFICATION',

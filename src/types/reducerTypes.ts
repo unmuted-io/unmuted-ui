@@ -9,7 +9,7 @@ export type Account = {
   edge_username?: string;
   type: string;
   token: string;
-  settings: {
+  profile: {
     profileImageUrl?: string,
     coverImageUrl?: string
   }
