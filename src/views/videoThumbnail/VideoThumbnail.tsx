@@ -74,7 +74,7 @@ class VideoThumbnail extends React.Component<VideoThumbnailProps, VideoThumbnail
     const timeAgo = secondsToHms(msTimeDifference / 1000)
     const thumbnailTimer = Math.floor(timer / 1000)
     const thumbnailIterator = (thumbnailTimer % 8) + 1
-    const thumbnailSource = `${REACT_APP_API_BASE_URL}/videos/processed/thumbnails/${source.replace('.mp4', '')}-5.png`
+    const thumbnailSource = `${REACT_APP_API_BASE_URL}/videos/processed/thumbnails/${source.replace('.mp4', '')}-360x240-5.png`
     return (
       <div className='video-thumbnail'>
         <div className='video-thumbnail-image'>
