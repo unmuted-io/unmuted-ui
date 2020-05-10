@@ -6,7 +6,7 @@ import InputMask from 'react-input-mask'
 import ReactNumeric, { predefinedOptions } from 'react-numeric'
 import MainCard from '../../components/mainCard/mainCard'
 import WebSocketChat from '../../components/WebSocketChat/WebSocketChat'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import VideoPlayer from '../../components/videoPlayer/VideoPlayer'
 import axios from 'axios'
 import { AxiosResponse } from '../../types'
@@ -171,14 +171,14 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
     const createdAtSyntax = `${mo} ${da}, ${ye}`
 
     return (
-      <Row id="view-video">
-        <Col sm={12} lg={8} id="video-wrapper">
+      <Row id='view-video'>
+        <Col sm={12} lg={8} id='video-wrapper'>
           <Card>
             <CardBody>
               <VideoPlayer {...videoJsOptions} rand={rand} />
-              <div className="primary-video-info">
-                <div className="primary-video-info-upper">
-                  <div className="primary-video-info-upper-summary">
+              <div className='primary-video-info'>
+                <div className='primary-video-info-upper'>
+                  <div className='primary-video-info-upper-summary'>
                     <h3 className="primary-video-info-upper-summary-title">{title}</h3>
                   </div>
                   <div className="primary-video-info-upper-interaction">
@@ -204,16 +204,22 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
                 </div>
                 <div className="lower">
                   <div className="left">
-                    <img src={profileImage} className='img-fluid img-thumbnail clickable user-avatar' />
+                    <Link to={`/channel/${username}`}>
+                      <img src={profileImage} className='img-fluid img-thumbnail clickable user-avatar' />
+                    </Link>
                   </div>
                   <div className="right">
-                    <h5 className="">{username}</h5>
-                    <span className="">
+                    <h5>
+                      <Link to={`/channel/${username}`} className='channel-link'>
+                        {username}
+                      </Link>
+                    </h5>
+                    <span>
                       {count} views | {createdAtSyntax}
                     </span>
                     <br />
                     <br />
-                    <span className="">{description}</span>
+                    <span>{description}</span>
                   </div>
                 </div>
               </div>

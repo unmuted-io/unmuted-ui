@@ -60,9 +60,27 @@
           }
         }
 
-        &-description {
-          &-stats {
+        .lower {
+          display: flex;
+          flex-direction: 'row';
 
+          .left {
+            img.user-avatar {
+              width: 64px;
+              border-radius: 50%;
+            }
+          }
+
+          .right {
+            padding: .6rem 1rem;
+
+            h5 {
+              margin-bottom: .2rem;
+
+              .channel-link {
+                color: #333333;
+              }
+            }
           }
         }
       }
