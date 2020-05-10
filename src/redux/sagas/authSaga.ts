@@ -106,6 +106,10 @@ function * saveProfile ({ type, data }) {
     type: 'UPDATE_ACCOUNT_SETTINGS',
     data: { settings: response.data.settings }
   })
+  yield put({
+    type: 'NEW_NOTIFICATION',
+    data: { type: 'success', message: 'Profile saved successfully', autoDismiss: true}
+  })
 }
 
 function * authSaga () {

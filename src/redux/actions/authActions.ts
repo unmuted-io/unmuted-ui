@@ -2,7 +2,6 @@ import FormData from 'form-data'
 import { UserInfo, LoginSuccessResponse, RegisterSuccessResponse, RegisterFailResponse } from '../../types'
 import { AxiosResponse } from '../../types/fetchTypes'
 import axios from 'axios'
-import { useToasts } from 'react-toast-notifications'
 
 const { REACT_APP_API_BASE_URL } = process.env
 
