@@ -23,7 +23,7 @@ export class ToastedLayout extends React.Component<ToastedLayoutProps> {
     if (nextProps.notification !== notification) {
       addToast(message, {
         appearance: type,
-        autoDismiss
+        autoDismiss: autoDismiss || true
       })
     }
   }
