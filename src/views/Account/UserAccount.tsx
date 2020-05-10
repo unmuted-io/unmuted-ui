@@ -109,8 +109,8 @@ export class UserAccount extends Component<UserAccountProps, UserAccountState> {
   render() {
     const { account: { edge_username, settings: { coverImageUrl, profileImageUrl } } } = this.props
     const { username, fullName, email, description, isModalOpen, modalType } = this.state
-    const cover = `${REACT_APP_API_BASE_URL}/${coverImageUrl}` || coverImage
-    const profile = `${REACT_APP_API_BASE_URL}/${profileImageUrl}` || profileImage
+    const cover = coverImageUrl ? `${REACT_APP_API_BASE_URL}/${coverImageUrl}` : coverImage
+    const profile = profileImageUrl ? `${REACT_APP_API_BASE_URL}/${profileImageUrl}` : profileImage
     const disabled = false
     return (
       <>

@@ -17,7 +17,7 @@ export const account = (state = null, action) => {
     case 'ACCOUNT':
       return {
         ...data.account,
-        settings: JSON.parse(data.account.settings)
+        settings: JSON.parse(data.account.settings) || {}
       }
     case 'UPDATE_USERNAME_SUCCESS':
       return {
@@ -27,7 +27,7 @@ export const account = (state = null, action) => {
     case 'UPDATE_ACCOUNT_SETTINGS':
       return {
         ...state,
-        settings: JSON.parse(data.settings)
+        settings: JSON.parse(data.settings) || {}
       }
     case 'LOGOUT':
       return null
