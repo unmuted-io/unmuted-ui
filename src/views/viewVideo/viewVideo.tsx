@@ -10,6 +10,7 @@ import { useParams } from 'react-router-dom'
 import VideoPlayer from '../../components/videoPlayer/VideoPlayer'
 import axios from 'axios'
 import { AxiosResponse } from '../../types'
+import profileImage from '../../assets/images/widget/img-round1.jpg'
 
 const { REACT_APP_API_BASE_URL } = process.env
 
@@ -156,7 +157,7 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
       muted: false,
       sources: [
         {
-          src: 'http://localhost:3873/index.m3u8'
+          src: videoPath //'http://localhost:3873/index.m3u8'
         },
       ],
       fill: true,
@@ -179,7 +180,6 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
                 <div className="primary-video-info-upper">
                   <div className="primary-video-info-upper-summary">
                     <h3 className="primary-video-info-upper-summary-title">{title}</h3>
-                    <h4 className="primary-video-info-upper-summary-username">{username}</h4>
                   </div>
                   <div className="primary-video-info-upper-interaction">
                     <div className="votes">
@@ -202,14 +202,20 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
                     </div>
                   </div>
                 </div>
-                <p className="primary-video-info-description">
-                  <span className="primary-video-info-description-stats">
-                    {count} views | {createdAtSyntax}
-                  </span>
-                  <br />
-                  <br />
-                  <span className="primary-video-info-description-content">{description}</span>
-                </p>
+                <div className="lower">
+                  <div className="left">
+                    <img src={profileImage} className='img-fluid img-thumbnail clickable user-avatar' />
+                  </div>
+                  <div className="right">
+                    <h5 className="">{username}</h5>
+                    <span className="">
+                      {count} views | {createdAtSyntax}
+                    </span>
+                    <br />
+                    <br />
+                    <span className="">{description}</span>
+                  </div>
+                </div>
               </div>
             </CardBody>
           </Card>
