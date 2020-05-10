@@ -14,9 +14,13 @@ export const attemptAutoLoginFromCookies = (history: any) => (dispatch: any, get
   const userInfo = {
     username,
     email,
-    password,
+    password
   }
-  dispatch(login(userInfo, history))
+  dispatch(login(userInfo, history, true, true))
+}
+
+export const refreshToken = () => (dispatch, getState) => {
+
 }
 
 export const createUser = (newUserInfo: UserInfo, history: object) => async (dispatch: any, getState: any) => {
@@ -41,7 +45,7 @@ export const createUser = (newUserInfo: UserInfo, history: object) => async (dis
   }, 2000)
 }
 
-export const login = (userInfo: UserInfo, history: any, isAnimated?: boolean) => async (
+export const login = (userInfo: UserInfo, history: any, isAnimated?: boolean, isFromCookies?: boolean) => async (
   dispatch: any
 ) => {
   dispatch({ type: 'IS_LOGGING_IN', data: { isLoggingIn: true } })
@@ -52,31 +56,31 @@ export const login = (userInfo: UserInfo, history: any, isAnimated?: boolean) =>
       const { username, password, email } = userInfo
       const { REACT_APP_API_BASE_URL } = process.env
       const url = `${REACT_APP_API_BASE_URL}/auth/login`
-      const formData: FormData = new FormData()
-      formData.append('password', password)
-      formData.append('email', email)
+      const data: FormData = new FormData()
+      data.append('password', password)
+      data.append('email', email)
       // @ts-ignore
       loginResponse = await axios({
         url,
         method: 'POST',
         // @ts-ignore
-        body: formData,
+        data,
       })
-      if (!loginResponse.ok) {
+      if (loginResponse.statusText !== 'OK') {
         console.log(loginResponse.statusText)
         throw new Error(loginResponse.statusText)
       }
-      const loginData: LoginSuccessResponse = await loginResponse.json()
-      const { access_token } = loginData
+      const { access_token, user } = loginResponse.data
       localStorage.setItem('email', email)
       localStorage.setItem('username', username)
       localStorage.setItem('password', password)
       localStorage.setItem('access_type', access_token.type)
       localStorage.setItem('access_token', access_token.token)
+      localStorage.setItem('refresh_token', access_token.refreshToken)
       // const currentTimestamp = new Date().getTime()
       // const currentTimestampFixed = currentTimestamp / 1000
       // const futureTimestamp = (currentTimestampFixed + 86400).toString()
-      dispatch({ type: 'ACCOUNT', data: { account: { ...loginData.user, ...loginData.access_token } } })
+      dispatch({ type: 'ACCOUNT', data: { account: { ...user, ...access_token } } })
       // localStorage.setItem('expiration', futureTimestamp)
       if (history.location.pathname === '/register') {
         // vs just logging in
@@ -103,10 +107,11 @@ export const login = (userInfo: UserInfo, history: any, isAnimated?: boolean) =>
           autoDismiss: true
         }
       })
+      dispatch(logout())
     }
     // should isLoggingIn reducer just look at ACCOUNT action?
     dispatch({ type: 'IS_LOGGING_IN', data: { isLoggingIn: false } })
-  }, 2000)
+  }, 1000)
 }
 
 export const logout = () => (dispatch: any): void => {
