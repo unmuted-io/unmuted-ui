@@ -3,7 +3,7 @@ export default {
   defaultPath: '/',
   collapseMenu: false,
   layout: 'vertical', // vertical, horizontal
-  layoutType: 'default', // default, light, dark
+  layoutType: 'dark', // default, light, dark
   // layout-2, layout-3,layout-4,layout-5,layout-6,layout-7,layout-8,layout-9,layout-10,layout-11,layout-12
   prebuildLayout: 'null',
   iconColor: false,
