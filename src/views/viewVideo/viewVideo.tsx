@@ -31,6 +31,7 @@ interface ViewVideoComponentState {
   videoRating: number;
   upvote: number;
   downvote: number;
+  profile: string;
 }
 
 class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentState> {
@@ -43,6 +44,7 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
       source: '',
       created_at: '',
       username: '',
+      profile: '',
       videoRating: 0,
       count: 0,
       upvote: 0,
@@ -146,7 +148,8 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
       videoRating,
       upvote,
       downvote,
-      source
+      source,
+      profile
     } = this.state
     if (!rand) return <div />
     const videoPath = `${REACT_APP_API_BASE_URL}/videos/processed/${source}`
@@ -169,6 +172,8 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
     const dtf = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'long', day: '2-digit' })
     const [{ value: mo }, , { value: da }, , { value: ye }] = dtf.formatToParts(date)
     const createdAtSyntax = `${mo} ${da}, ${ye}`
+    const profileImageUrl = profile ? JSON.parse(profile).profileImageUrl : ''
+    const profileImageSrc = profileImageUrl ? `${REACT_APP_API_BASE_URL}/${profileImageUrl}` : profileImage
 
     return (
       <Row id='view-video'>
@@ -177,9 +182,9 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
             <CardBody>
               <VideoPlayer {...videoJsOptions} rand={rand} />
               <div className='primary-video-info'>
-                <div className='primary-video-info-upper'>
-                  <div className='primary-video-info-upper-summary'>
-                    <h3 className="primary-video-info-upper-summary-title">{title}</h3>
+                <div className='upper'>
+                  <div className='summary'>
+                    <h3 className="title">{title}</h3>
                   </div>
                   <div className="primary-video-info-upper-interaction">
                     <div className="votes">
@@ -205,7 +210,7 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
                 <div className="lower">
                   <div className="left">
                     <Link to={`/channel/${username}`}>
-                      <img src={profileImage} className='img-fluid img-thumbnail clickable user-avatar' />
+                      <img src={profileImageSrc} className='img-fluid img-thumbnail clickable user-avatar' />
                     </Link>
                   </div>
                   <div className="right">

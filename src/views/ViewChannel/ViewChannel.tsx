@@ -68,7 +68,7 @@ export class ViewChannelComponent extends Component<ViewChannelProps, ViewChanne
     const { channel } = this.props.match.params
     const { profileImageUrl, coverImageUrl, isSubscribed } = this.state
     const coverImageSrc = coverImageUrl ? `${REACT_APP_API_BASE_URL}/${coverImageUrl}` : coverImage
-    const profileImageSrc = profileImageUrl ? `${REACT_APP_API_BASE_URL}/${profileImageUrl}` : coverImage
+    const profileImageSrc = profileImageUrl ? `${REACT_APP_API_BASE_URL}/${profileImageUrl}` : profileImage
 
     return (
       <Row>

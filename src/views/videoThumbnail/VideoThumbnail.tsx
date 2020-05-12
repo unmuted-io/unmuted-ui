@@ -1,10 +1,11 @@
-import React, { Component } from 'react'
-import { NavLink } from 'react-router-dom'
+import React from 'react'
+import { Link } from 'react-router-dom'
 import { Video } from '../../types/'
 import {
   cutOffText,
   secondsToHms
 } from '../../utility/utility'
+import profileImage from '../../assets/images/widget/img-round1.jpg'
 import PlaceholderImage from '../../assets/images/placeholder.png'
 
 const { REACT_APP_API_BASE_URL } = process.env
@@ -20,6 +21,7 @@ export interface VideoThumbnailProps {
   updated_at: string;
   username: string;
   count: number;
+  profile: string;
 }
 
 export interface VideoThumbnailState {
@@ -64,7 +66,8 @@ class VideoThumbnail extends React.Component<VideoThumbnailProps, VideoThumbnail
       created_at,
       username,
       count,
-      rand
+      rand,
+      profile
     } = this.props
     const { currentThumbnail, timer } = this.state
     const shortenedTitle = cutOffText(title, 60)
@@ -74,22 +77,36 @@ class VideoThumbnail extends React.Component<VideoThumbnailProps, VideoThumbnail
     const timeAgo = secondsToHms(msTimeDifference / 1000)
     const thumbnailTimer = Math.floor(timer / 1000)
     const thumbnailIterator = (thumbnailTimer % 8) + 1
-    const thumbnailSource = `${REACT_APP_API_BASE_URL}/images/videos/thumbnails/${source.replace('.mp4', '')}-360x240-5.png`
+    const thumbnailSource = `${REACT_APP_API_BASE_URL}/images/videos/thumbnails/${source.replace('.mp4', '')}-360x240-${thumbnailIterator}.png`
+    const profileImageUrl = profile ? JSON.parse(profile).profileImageUrl : ''
+    const profileImageSrc = profileImageUrl ? `${REACT_APP_API_BASE_URL}/${profileImageUrl}` : profileImage
     return (
       <div className='video-thumbnail'>
         <div className='video-thumbnail-image'>
-          <NavLink to={`/videos/${rand}`}>
+          <Link to={`/videos/${rand}`}>
             <img className='video-thumbnail-image-content' src={thumbnailSource} onMouseOver={this.onMouseIn} onMouseOut={this.onMouseOut} />
-          </NavLink>
+          </Link>
         </div>
         <div className='video-thumbnail-info'>
-          <div className='video-thumbnail-avatar'></div>
+          <div className='avatar'>
+            <Link to={`/channel/${username}`}>
+              <img
+                className={`img-fluid img-thumbnail clickable`}
+                src={profileImageSrc}
+                alt="Profile-user"
+              />
+            </Link>
+          </div>
           <div className='video-thumbnail-info-text'>
-            <NavLink to={`/videos/${rand}`}>
-              <span className='video-thumbnail-info-text-title'>{shortenedTitle}</span>
-            </NavLink><br />
-            <span className='video-thumbnail-info-text-user'>{username}</span><br />
-            <span className='video-thumbnail-info-text-views'>{count} Views</span> | <span className='video-thumbnail-info-text-time'>{`${timeAgo} ago`}</span>
+            <Link to={`/videos/${rand}`}>
+              <span className='title'>{shortenedTitle}</span>
+            </Link><br />
+            <span className='user'>
+              <Link to={`/channel/${username}`}>
+                {username}
+              </Link>
+            </span><br />
+            <span className='views'>{count} Views</span> | <span className='time'>{`${timeAgo} ago`}</span>
           </div>
         </div>
       </div>
