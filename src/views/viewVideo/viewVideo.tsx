@@ -50,7 +50,7 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
     }
   }
 
-  componentWillMount = async () => {
+  UNSAFE_componentWillMount = async () => {
     const { rand } = this.props.match.params
     const { account } = this.props
     const videoResponse: AxiosResponse = await axios.get(`${REACT_APP_API_BASE_URL}/videos/${rand}`)
@@ -150,7 +150,7 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
     } = this.state
     if (!rand) return <div />
     const videoPath = `${REACT_APP_API_BASE_URL}/videos/processed/${source}`
-    const poster = `${REACT_APP_API_BASE_URL}/videos/processed/thumbnails/${source.replace('.mp4', '')}-1.png`
+    const poster = `${REACT_APP_API_BASE_URL}/images/videos/thumbnails/${source.replace('.mp4', '')}-1.png`
     const videoJsOptions = {
       autoplay: true,
       controls: true,
