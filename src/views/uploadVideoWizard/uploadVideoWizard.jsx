@@ -38,6 +38,7 @@ class UploadVideoWizard extends Component {
     }
 
     ws.onmessage = (message) => {
+      console.log('ws message: ', message)
       const { progress, rand } = this.state
       const { history } = this.props
       const newProgress = parseFloat(message.data)
@@ -53,6 +54,10 @@ class UploadVideoWizard extends Component {
         })
       }
     }
+  }
+
+  componentWillUnmount = () => {
+    ws.close()
   }
 
   onChangeInput = (event, callback) => {
