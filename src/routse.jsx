@@ -13,6 +13,7 @@ const LoginConnector = lazy(() => import('./redux/connectors/AuthSinginConnector
 /* User */
 const UserAccount = lazy(() => import('./views/Account/UserAccount'))
 const RecentlyViewed = lazy(() => import('./views/recentlyViewed/recentlyViewed'))
+const ViewChannel = lazy(() => import('./views/ViewChannel/ViewChannel'))
 const Alarts = lazy(() => import('./views/ui-element/basic/alarts'))
 const Buttons = lazy(() => import('./views/ui-element/basic/buttons'))
 const Badges = lazy(() => import('./views/ui-element/basic/badges'))
@@ -85,6 +86,9 @@ const RouteList = [
   /* Videos */
   { exact: true, protected: true, path: '/upload', name: 'Upload Video', component: UploadVideoWizard },
   { exact: false, path: '/videos/:rand', name: 'View Video', component: ViewVideo },
+
+  /* Channel */
+  { exact: false, path: '/channel/:channel', name: 'Channel', component: ViewChannel },
 
   /* Auth */
   { exact: true, protected: false, path: '/login', name: 'Login', component: LoginConnector },

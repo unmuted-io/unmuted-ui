@@ -28,7 +28,7 @@ class ProfileStaticCard extends PureComponent {
           <div className="widget-profile-card-1">
             <img
               onClick={onClickCover}
-              className={`img-fluid img-thumbnail clickable`}
+              className={`img-fluid img-thumbnail clickable banner`}
               src={cover}
               alt="card-style-1"
             />

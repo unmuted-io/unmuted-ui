@@ -49,6 +49,7 @@ class MainCard extends PureComponent {
   }
 
   render () {
+    const { id } = this.props
     let fullScreenStyle; let loader; let cardHeaderRight; let cardHeader
     let card = ''
     let cardClass = []
@@ -170,7 +171,7 @@ class MainCard extends PureComponent {
     }
 
     card = (
-      <Card className={cardClass.join(' ')} style={fullScreenStyle}>
+      <Card className={cardClass.join(' ')} style={fullScreenStyle} id={id}>
         {cardHeader}
         <Collapse isOpen={!this.state.collapseCard}>
           <CardBody

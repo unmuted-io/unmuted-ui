@@ -23,7 +23,7 @@ class ProfileSetting extends Component {
         </div>
         <Card>
           <CardBody className="text-center">
-            <h5 className="mb-4">Profile Settings</h5>
+            <h5 className="mb-4">Profile</h5>
             <img src={avatar} className="img-radius mb-4" alt="User-Profile" />
             <InputGroup className="mb-3">
               <Input type="text" placeholder="Name" />

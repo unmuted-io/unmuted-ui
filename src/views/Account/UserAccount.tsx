@@ -12,7 +12,7 @@ import {
   Button,
   CardBody,
   Input,
-  Modal
+  Modal,
 } from 'reactstrap'
 import MainCard from '../../components/mainCard/mainCard'
 import ProfileStaticCard from '../../components/profileStaticCard'
@@ -26,24 +26,26 @@ import AccountImageUploader from './AccountImageUploader'
 const { REACT_APP_API_BASE_URL } = process.env
 
 interface UserAccountProps {
-  account: Account,
-  edgeAccount: EdgeAccount,
+  account: Account
+  edgeAccount: EdgeAccount
   dispatch: any
 }
 
 interface UserAccountState {
-  username: string,
-  fullName: string,
-  email: string,
-  description: string,
-  isModalOpen: boolean,
+  username: string
+  fullName: string
+  email: string
+  description: string
+  isModalOpen: boolean
   modalType: string
 }
 
 export class UserAccount extends Component<UserAccountProps, UserAccountState> {
-  constructor (props) {
+  constructor(props) {
     super(props)
-    const { account: { username, email, edge_username, profile} } = props
+    const {
+      account: { username, email, edge_username, profile },
+    } = props
     const { fullName = '', description = '' } = profile
     this.state = {
       username,
@@ -51,7 +53,7 @@ export class UserAccount extends Component<UserAccountProps, UserAccountState> {
       email,
       description,
       isModalOpen: false,
-      modalType: ''
+      modalType: '',
     }
   }
 
@@ -89,7 +91,7 @@ export class UserAccount extends Component<UserAccountProps, UserAccountState> {
     const { isModalOpen } = this.state
     this.setState({
       isModalOpen: !isModalOpen,
-      modalType
+      modalType,
     })
   }
 
@@ -101,20 +103,25 @@ export class UserAccount extends Component<UserAccountProps, UserAccountState> {
       type: 'SAVE_PROFILE_REQUEST',
       data: {
         fullName,
-        description
-      }
+        description,
+      },
     })
   }
 
   render() {
-    const { account: { edge_username, profile: { coverImageUrl, profileImageUrl } } } = this.props
+    const {
+      account: {
+        edge_username,
+        profile: { coverImageUrl, profileImageUrl },
+      },
+    } = this.props
     const { username, fullName, email, description, isModalOpen, modalType } = this.state
     const cover = coverImageUrl ? `${REACT_APP_API_BASE_URL}/${coverImageUrl}` : coverImage
     const profile = profileImageUrl ? `${REACT_APP_API_BASE_URL}/${profileImageUrl}` : profileImage
     const disabled = false
     return (
       <>
-        <Row>
+        <Row id="user-account">
           <Col>
             <MainCard title="Account">
               <Row>
@@ -125,11 +132,16 @@ export class UserAccount extends Component<UserAccountProps, UserAccountState> {
                         <h4 className="mb-3 f-w-400">Account Details</h4>
                         <InputGroup className="mb-2">
                           <InputGroupAddon addonType="prepend">
-                            <span className="input-group-text">
-                              @
-                            </span>
+                            <span className="input-group-text">@</span>
                           </InputGroupAddon>
-                          <Input disabled onChange={this.onChangeUsername} className='disabled' value={username} type="text" placeholder="Username" />
+                          <Input
+                            disabled
+                            onChange={this.onChangeUsername}
+                            className="disabled"
+                            value={username}
+                            type="text"
+                            placeholder="Username"
+                          />
                         </InputGroup>
                         <InputGroup className="mb-2">
                           <InputGroupAddon addonType="prepend">
@@ -137,7 +149,13 @@ export class UserAccount extends Component<UserAccountProps, UserAccountState> {
                               <img src={edgeLoginLogo} />
                             </span>
                           </InputGroupAddon>
-                          <Input disabled value={edge_username} className='disabled' type="text" placeholder="Edge Account" />
+                          <Input
+                            disabled
+                            value={edge_username}
+                            className="disabled"
+                            type="text"
+                            placeholder="Edge Account"
+                          />
                         </InputGroup>
                         <InputGroup className="mb-2">
                           <InputGroupAddon addonType="prepend">
@@ -145,7 +163,12 @@ export class UserAccount extends Component<UserAccountProps, UserAccountState> {
                               <i className="feather icon-user" />
                             </span>
                           </InputGroupAddon>
-                          <Input onChange={this.onChangeFullName} value={fullName} type="text" placeholder="Full Name" />
+                          <Input
+                            onChange={this.onChangeFullName}
+                            value={fullName}
+                            type="text"
+                            placeholder="Full Name"
+                          />
                         </InputGroup>
                         <InputGroup className="mb-2">
                           <InputGroupAddon addonType="prepend">
@@ -153,7 +176,14 @@ export class UserAccount extends Component<UserAccountProps, UserAccountState> {
                               <i className="feather icon-mail" />
                             </span>
                           </InputGroupAddon>
-                          <Input disabled onChange={this.onChangeEmail} className='disabled' value={email} type="email" placeholder="Email address" />
+                          <Input
+                            disabled
+                            onChange={this.onChangeEmail}
+                            className="disabled"
+                            value={email}
+                            type="email"
+                            placeholder="Email address"
+                          />
                         </InputGroup>
                         <InputGroup className="mb-2">
                           <InputGroupAddon addonType="prepend">
@@ -161,7 +191,12 @@ export class UserAccount extends Component<UserAccountProps, UserAccountState> {
                               <i className="feather icon-info" />
                             </span>
                           </InputGroupAddon>
-                          <Input onChange={this.onChangeDescription} value={description} type="textarea" placeholder="Description" />
+                          <Input
+                            onChange={this.onChangeDescription}
+                            value={description}
+                            type="textarea"
+                            placeholder="Description"
+                          />
                         </InputGroup>
                         <Button color="primary" className="mb-4 login">
                           Save
@@ -191,10 +226,7 @@ export class UserAccount extends Component<UserAccountProps, UserAccountState> {
             </MainCard>
           </Col>
         </Row>
-        <Modal
-          isOpen={isModalOpen}
-          toggle={this.toggleModal}
-        >
+        <Modal isOpen={isModalOpen} toggle={this.toggleModal}>
           <AccountImageUploader toggleModal={this.toggleModal} type={modalType} />
         </Modal>
       </>
@@ -205,13 +237,13 @@ export class UserAccount extends Component<UserAccountProps, UserAccountState> {
 const mapStateToProps = (state: State) => {
   return {
     account: state.auth.account,
-    edgeAccount: state.auth.edgeAccount
+    edgeAccount: state.auth.edgeAccount,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    dispatch
+    dispatch,
   }
 }
 
