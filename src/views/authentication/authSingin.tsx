@@ -24,7 +24,7 @@ import { UserInfo, Account } from '../../types'
 import { isLoggingIn } from '../../redux/reducers/authReducer'
 
 let edgeUiContext
-const assetsPath = 'http://localhost:11234'
+const assetsPath = 'http://edge-login.unmuted.io:11234/edge-iframe/index.html'
 
 export interface AuthSinginComponentStateProps {
   isLoggingIn: boolean;
