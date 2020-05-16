@@ -7,6 +7,8 @@ import Spinner from '../components/spinner/Spinner'
 import { attemptAutoLoginFromCookies, login } from '../redux/actions/authActions'
 import axios from 'axios'
 
+const { REACT_APP_FACEBOOK_APP_ID } = process.env
+
 class Layout extends Component {
   fetchExchangeRateInterval
 
@@ -23,6 +25,41 @@ class Layout extends Component {
     dispatch(attemptAutoLoginFromCookies(history))
     this.fetchExchangeRates()
     // this.fetchExchangeRateInterval = setInterval(this.fetchExchangeRates, 10000 * 60)
+    FB.getLoginStatus(function(response) {
+      console.log('FB response: ', response)
+      // {
+      //   status: 'connected',
+      //   authResponse: {
+      //       accessToken: '...',
+      //       expiresIn:'...',
+      //       signedRequest:'...',
+      //       userID:'...'
+      //   }
+      // }
+    })
+
+    initializeFacebook = () => {
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : REACT_APP_FACEBOOK_APP_ID,
+          cookie     : true,
+          xfbml      : true,
+          version    : '{api-version}'
+        });
+
+        FB.AppEvents.logPageView();
+
+      };
+
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "https://connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'))
+    }
+
   }
 
   fetchExchangeRates = async () => {

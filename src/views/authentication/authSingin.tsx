@@ -144,12 +144,20 @@ export class AuthSinginComponent extends Component<AuthSinginComponentProps, Aut
                     <div className="saprator">
                       <span>OR</span>
                     </div>
-                    <Button disabled={disabled} color="facebook" className="mb-2 mr-2">
-                      <i>
-                        <FontAwesomeIcon icon={['fab', 'facebook-f']} />
-                      </i>
-                      facebook
-                    </Button>
+
+                    <window.fb:login-button
+                      scope="public_profile,email"
+                      onlogin="checkLoginState();">
+                    </window.fb:login-button>
+                    {/*
+                      <Button disabled={disabled} color="facebook" className="mb-2 mr-2">
+                        <i>
+                          <FontAwesomeIcon icon={['fab', 'facebook-f']} />
+                        </i>
+                        facebook
+                      </Button>
+                    */}
+
                     <Button disabled={disabled} color="googleplus" className="mb-2 mr-2">
                       <i>
                         <FontAwesomeIcon icon={['fab', 'google-plus-g']} />

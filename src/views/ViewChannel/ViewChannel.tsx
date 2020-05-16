@@ -4,7 +4,7 @@ import { Row, Col } from 'reactstrap'
 import MainCard from '../../components/mainCard/mainCard'
 import coverImage from '../../assets/images/widget/slider7.jpg'
 import profileImage from '../../assets/images/widget/img-round1.jpg'
-import { State, AxiosResponse } from '../../types'
+import { State, AxiosResponse, Account } from '../../types'
 import axios from 'axios'
 import ChannelInfo from './ChannelInfo'
 
@@ -13,6 +13,7 @@ const { REACT_APP_API_BASE_URL } = process.env
 type ViewChannelProps = {
   match: any
   dispatch: any
+  account: Account
 }
 
 type ViewChannelState = {
@@ -34,12 +35,13 @@ export class ViewChannelComponent extends Component<ViewChannelProps, ViewChanne
   }
 
   componentDidMount = async (): Promise<void> => {
-    const { dispatch, match } = this.props
+    const { dispatch, match, account } = this.props
     const { channel } = match.params
+    const user_id = account ? account.id : ''
     try {
       const fetchChannelResponse: AxiosResponse = await axios({
         method: 'GET',
-        url: `${REACT_APP_API_BASE_URL}/channel/${channel}`
+        url: `${REACT_APP_API_BASE_URL}/channel/${channel}/${user_id}`
       })
       const { coverImageUrl, profileImageUrl } = fetchChannelResponse.data
       this.setState({
@@ -57,11 +59,49 @@ export class ViewChannelComponent extends Component<ViewChannelProps, ViewChanne
     }
   }
 
-  onClickSubscribe = () => {
+  componentWillReceiveProps = async (nextProps: ViewChannelProps) => {
+    const { account } = this.props
+    if (account != nextProps.account) {
+      const { dispatch, match } = this.props
+      const { channel } = match.params
+      const user_id = account ? account.id : ''
+      try {
+        const fetchChannelResponse: AxiosResponse = await axios({
+          method: 'GET',
+          url: `${REACT_APP_API_BASE_URL}/channel/${channel}/${user_id}`
+        })
+        const { coverImageUrl, profileImageUrl } = fetchChannelResponse.data
+        this.setState({
+          coverImageUrl,
+          profileImageUrl
+        })
+      } catch (e) {
+        dispatch({
+          type: 'NEW_NOTIFICATION',
+          data: {
+            type: 'error',
+            message: 'Unable to fetch profile images'
+          }
+        })
+      }
+    }
+  }
+
+  onClickSubscribe = async () => {
+    const { dispatch, match, account } = this.props
+    const { channel } = match.params
     const { isSubscribed } = this.state
     this.setState({
       isSubscribed: !isSubscribed
     })
+    const updateIsSubscribedResponse = await axios({
+      method: 'POST',
+      url: `${REACT_APP_API_BASE_URL}/subscription/${account.id}/${channel}`,
+      data: {
+        isSubscribed: !isSubscribed
+      }
+    })
+    console.log('updateIsSubscribedResponse: ', updateIsSubscribedResponse)
   }
 
   render () {
@@ -90,7 +130,9 @@ export class ViewChannelComponent extends Component<ViewChannelProps, ViewChanne
 }
 
 const mapStateToProps = (state: State) => {
-  return {}
+  return {
+    account: state.auth.account
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
