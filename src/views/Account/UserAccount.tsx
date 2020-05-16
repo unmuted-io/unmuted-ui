@@ -16,7 +16,7 @@ import {
 } from 'reactstrap'
 import MainCard from '../../components/mainCard/mainCard'
 import ProfileStaticCard from '../../components/profileStaticCard'
-import coverImage from '../../assets/images/widget/slider7.jpg'
+import coverImage from '../../assets/images/widget/slider7-800x266.jpg'
 import profileImage from '../../assets/images/widget/img-round1.jpg'
 import logoDark from '../../assets/images/logo-dark.png'
 import edgeLoginLogo from '../../assets/images/auth/edge-login-logo.svg'
