@@ -1,6 +1,19 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { Row, Col, Card, CardHeader, CardBody, Button, FormGroup, Label, Input } from 'reactstrap'
+import {
+  Row,
+  Col,
+  Card,
+  CardHeader,
+  CardBody,
+  Button,
+  FormGroup,
+  Label,
+  Input,
+  Popover,
+  Popoverheader,
+  PopoverBody,
+} from 'reactstrap'
 import DropzoneComponent from 'react-dropzone-component'
 import InputMask from 'react-input-mask'
 import ReactNumeric, { predefinedOptions } from 'react-numeric'
@@ -12,6 +25,9 @@ import axios from 'axios'
 import { AxiosResponse } from '../../types'
 import profileImage from '../../assets/images/widget/img-round1.jpg'
 import SlotText from '../../components/SlotText'
+import BrandTooltip from '../../components/BrandTooltip'
+import PopoverItem from '../../components/PopoverItem'
+import classnames from 'classnames'
 
 const { REACT_APP_API_BASE_URL } = process.env
 
@@ -180,7 +196,7 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
       source,
       profile,
       upvoteRotation,
-      downvoteRotation
+      downvoteRotation,
     } = this.state
     if (!rand) return <div />
     const videoPath = `${REACT_APP_API_BASE_URL}/videos/processed/${source}`
@@ -218,7 +234,15 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
                   <div className='summary'>
                     <h3 className="title">{title}</h3>
                   </div>
-                  <div className="primary-video-info-upper-interaction">
+                  <div className="upper">
+                    <PopoverItem
+                      placement='top'
+                      button='Brand'
+                      color='warning'
+                      title='Brand Channel'
+                      text='Something'
+                      className='mr-4'
+                    />
                     <div className="votes">
                       <div className="vote-icon-wrap">
                         <i
