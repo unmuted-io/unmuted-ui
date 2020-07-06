@@ -27,6 +27,7 @@ import profileImage from '../../assets/images/widget/img-round1.jpg'
 import SlotText from '../../components/SlotText'
 import BrandTooltip from '../../components/BrandTooltip'
 import PopoverItem from '../../components/PopoverItem'
+import SentimentTokenInfo from '../../components/BrandTooltip/SentimentTokenInfo'
 import classnames from 'classnames'
 
 const { REACT_APP_API_BASE_URL } = process.env
@@ -240,7 +241,7 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
                       button='Brand'
                       color='warning'
                       title='Brand Channel'
-                      text='Something'
+                      text={<SentimentTokenInfo />}
                       className='mr-4'
                     />
                     <div className="votes">
