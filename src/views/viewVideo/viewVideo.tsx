@@ -1,6 +1,19 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { Row, Col, Card, CardHeader, CardBody, Button, FormGroup, Label, Input } from 'reactstrap'
+import {
+  Row,
+  Col,
+  Card,
+  CardHeader,
+  CardBody,
+  Button,
+  FormGroup,
+  Label,
+  Input,
+  Popover,
+  Popoverheader,
+  PopoverBody,
+} from 'reactstrap'
 import DropzoneComponent from 'react-dropzone-component'
 import InputMask from 'react-input-mask'
 import ReactNumeric, { predefinedOptions } from 'react-numeric'
@@ -11,6 +24,11 @@ import VideoPlayer from '../../components/videoPlayer/VideoPlayer'
 import axios from 'axios'
 import { AxiosResponse } from '../../types'
 import profileImage from '../../assets/images/widget/img-round1.jpg'
+import SlotText from '../../components/SlotText'
+import BrandTooltip from '../../components/BrandTooltip'
+import PopoverItem from '../../components/PopoverItem'
+import SentimentTokenInfo from '../../components/BrandTooltip/SentimentTokenInfo'
+import classnames from 'classnames'
 
 const { REACT_APP_API_BASE_URL } = process.env
 
@@ -28,10 +46,13 @@ interface ViewVideoComponentState {
   created_at: string;
   username: string;
   count: number;
-  videoRating: number;
-  upvote: number;
-  downvote: number;
+  userScore: number;
+  upvoteScores: number[];
+  downvoteScores: number[];
+  upvoteRotation: string;
+  downvoteRotation: string;
   profile: string;
+  isVotingDisabled: boolean;
 }
 
 class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentState> {
@@ -45,10 +66,13 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
       created_at: '',
       username: '',
       profile: '',
-      videoRating: 0,
+      userScore: 0,
       count: 0,
-      upvote: 0,
-      downvote: 0
+      upvoteScores: [-1, 0, 1],
+      downvoteScores: [-1, 0, 1],
+      upvoteRotation: 'none',
+      downvoteRotation: 'none',
+      isVotingDisabled: false
     }
   }
 
@@ -61,73 +85,95 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
       ...videoData,
       rand,
     })
-    const videoRatingsStatsResponse: AxiosResponse = await axios.get(`${REACT_APP_API_BASE_URL}/video-rating/${rand}`)
-    const stats = videoRatingsStatsResponse.data
+    const userScoresStatsResponse: AxiosResponse = await axios.get(`${REACT_APP_API_BASE_URL}/video-rating/${rand}`)
+    const stats = userScoresStatsResponse.data
+    const currentUpvoteValue = parseInt(stats['1'])
+    const currentDownvoteValue = parseInt(stats['1'])
     this.setState({
-      upvote: stats['1'],
-      downvote: stats['-1']
+      upvoteScores: [currentUpvoteValue - 1, currentUpvoteValue, currentUpvoteValue + 1],
+      downvoteScores: [currentDownvoteValue - 1, currentDownvoteValue, currentDownvoteValue + 1]
     })
     if (account) {
-      const videoRatingResponse: AxiosResponse = await axios.get(
+      const userScoreResponse: AxiosResponse = await axios.get(
         `${REACT_APP_API_BASE_URL}/video-rating/${rand}/user/${account.username}`
       )
-      const videoRating = videoRatingResponse.data
+      const userScore = userScoreResponse.data
       this.setState({
-        videoRating: videoRating.direction,
+        userScore: userScore.direction,
       })
     }
   }
 
   onThumbClick = async (input: number) => {
-    const { videoRating, rand, upvote, downvote } = this.state
+    const { userScore, rand, upvoteScores, downvoteScores, isVotingDisabled } = this.state
     const { account } = this.props
+    // ignore if not logged in or user just voted right beforehand
+    if (!account || isVotingDisabled) return
     // initialize variables as current state
-    let newRating = videoRating
-    let newUpvote = upvote
-    let newDownvote = downvote
-    // ignore if not logged in
-    if (!account) return
+    let newUserScore = userScore
+    let newUpvoteScore = upvoteScores[1]
+    let newDownvoteScore = downvoteScores[1]
+    let upvoteRotation
+    let downvoteRotation
     // if pressed up
     if (input === 1) {
       // if already upvoted
-      if (videoRating === 1) {
+      if (userScore === 1) {
         // then undo upvote
-        newRating = 0
-        newUpvote--
+        newUserScore = 0
+        newUpvoteScore--
+        upvoteRotation = 'rotated-up'
         // if was 0 before
-      } else if (videoRating === 0) {
+      } else if (userScore === 0) {
         // then add upvote
-        newRating = 1
-        newUpvote++
+        newUserScore = 1
+        newUpvoteScore++
+        upvoteRotation = 'rotated-down'
       } else {
         // if was -1 before
-        newRating = 1
-        newUpvote++
-        newDownvote--
+        newUserScore = 1
+        newUpvoteScore++
+        newDownvoteScore--
+        upvoteRotation = 'rotated-down'
+        downvoteRotation = 'rotated-up'
       }
     } else {
-      // if input is -1 and beforehand was positive 1
-      if (videoRating === 1) {
-        newRating = -1
-        newUpvote--
-        newDownvote++
+      // if was 1 and input is -1
+      if (userScore === 1) {
+        newUserScore = -1
+        newUpvoteScore--
+        newDownvoteScore++
+        downvoteRotation = 'rotated-down'
+        upvoteRotation = 'rotated-up'
         // if input is -1 and previous was 0
-      } else if (videoRating === 0) {
-        newRating = -1
-        newDownvote++
+      } else if (userScore === 0) {
+        newUserScore = -1
+        newDownvoteScore++
+        downvoteRotation = 'rotated-down'
       } else {
         // if input is -1 and was already -1
-        newRating = 0
-        newDownvote--
+        newUserScore = 0
+        newDownvoteScore--
+        downvoteRotation = 'rotated-up'
       }
     }
     this.setState(
       {
-        videoRating: newRating,
-        upvote: newUpvote,
-        downvote: newDownvote
+        userScore: newUserScore,
+        upvoteRotation,
+        downvoteRotation,
+        isVotingDisabled: true
       },
       async () => {
+        setTimeout(() => {
+          this.setState({
+            upvoteRotation: 'none',
+            downvoteRotation: 'none',
+            upvoteScores: [newUpvoteScore - 1, newUpvoteScore, newUpvoteScore + 1],
+            downvoteScores: [newDownvoteScore - 1, newDownvoteScore, newDownvoteScore + 1],
+            isVotingDisabled: false
+          })
+        }, 1000)
         const response: AxiosResponse = await axios.post(`${REACT_APP_API_BASE_URL}/video-rating`, {
           username: account.username,
           uuid: rand,
@@ -145,11 +191,13 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
       created_at,
       username,
       count,
-      videoRating,
-      upvote,
-      downvote,
+      userScore,
+      upvoteScores,
+      downvoteScores,
       source,
-      profile
+      profile,
+      upvoteRotation,
+      downvoteRotation,
     } = this.state
     if (!rand) return <div />
     const videoPath = `${REACT_APP_API_BASE_URL}/videos/processed/${source}`
@@ -174,7 +222,8 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
     const createdAtSyntax = `${mo} ${da}, ${ye}`
     const profileImageUrl = profile ? JSON.parse(profile).profileImageUrl : ''
     const profileImageSrc = profileImageUrl ? `${REACT_APP_API_BASE_URL}/${profileImageUrl}` : profileImage
-
+    const upvoteScoresValues = upvoteScores.map(score => score.toString())
+    const downvoteScoresValues = downvoteScores.map(score => score.toString())
     return (
       <Row id='view-video'>
         <Col sm={12} lg={8} id='video-wrapper'>
@@ -186,23 +235,31 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
                   <div className='summary'>
                     <h3 className="title">{title}</h3>
                   </div>
-                  <div className="primary-video-info-upper-interaction">
+                  <div className="upper">
+                    <PopoverItem
+                      placement='top'
+                      button='Brand'
+                      color='warning'
+                      title='Brand Channel'
+                      text={<SentimentTokenInfo />}
+                      className='mr-4'
+                    />
                     <div className="votes">
                       <div className="vote-icon-wrap">
                         <i
                           className="feather icon-thumbs-up vote-icon"
                           onClick={() => this.onThumbClick(1)}
-                          style={{ color: videoRating === 1 ? '#00cc00' : 'inherit' }}
+                          style={{ color: userScore === 1 ? '#00cc00' : 'inherit' }}
                         />
-                        <span className="vote-count">{upvote}</span>
+                        <SlotText rotation={upvoteRotation} values={upvoteScoresValues} />
                       </div>
                       <div className="vote-icon-wrap">
                         <i
                           className="feather icon-thumbs-down vote-icon"
                           onClick={() => this.onThumbClick(-1)}
-                          style={{ color: videoRating === -1 ? 'red' : 'inherit' }}
+                          style={{ color: userScore === -1 ? 'red' : 'inherit' }}
                         />
-                        <span className="vote-count">{downvote}</span>
+                        <SlotText rotation={downvoteRotation} values={downvoteScoresValues} />
                       </div>
                     </div>
                   </div>

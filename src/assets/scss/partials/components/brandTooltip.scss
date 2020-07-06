@@ -1,0 +1,8 @@
+.brand-tooltip {
+  position: absolute;
+  z-index: 999;
+  bottom: 200px;
+  background-color: $dark-color;
+  padding: 1rem;
+  border: 2px solid $dark-layout;
+}

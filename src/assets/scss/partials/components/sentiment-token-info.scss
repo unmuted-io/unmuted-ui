@@ -1,0 +1,37 @@
+.sentiment-token-info {
+  padding: .4rem;
+  font-size: 1.3rem;
+  line-height: 2rem;
+  color: $theme-font-color;
+
+  .row {
+    flex: 1;
+    justify-content: space-between;
+
+    .sentiment {
+      margin-right: 3rem;
+    }
+
+    .scores {
+      display: flex;
+      flex-direction: row;
+
+      .vote-icon {
+        margin-right: .3rem;
+        margin-left: .3rem;
+        position: relative;
+        top: 3px;
+        cursor: pointer;
+      }
+
+      .score-number {
+        min-width: 4rem;
+        text-align: center;
+      }
+    }
+  }
+}
+
+.popover {
+  max-width: 500px;
+}
