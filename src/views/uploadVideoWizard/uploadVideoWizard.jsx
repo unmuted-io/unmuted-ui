@@ -152,6 +152,34 @@ class UploadVideoWizard extends Component {
     })
   }
 
+  initializeWebsockets = () => {
+    ws.onopen = () => {
+      console.log('connected')
+      ws.send('in the browser right now')
+    }
+    ws.onclose = () => {
+      console.log('disconnected')
+    }
+
+    ws.onmessage = (message) => {
+      console.log('ws message: ', message)
+      const { progress, rand } = this.state
+      const { history } = this.props
+      const newProgress = parseFloat(message.data)
+      if (newProgress > progress) {
+        this.setState({
+          progress: newProgress
+        }, () => {
+          if (newProgress === 100) {
+            setTimeout(() => {
+              history.push(`/videos/${rand}`)
+            }, 2000)
+          }
+        })
+      }
+    }
+  }
+
   handlePost = async () => {
     const { account } = this.props
     const { videoFile, videoTitle, videoDescription } = this.state
@@ -161,13 +189,15 @@ class UploadVideoWizard extends Component {
     formData.append('file', videoFile)
     formData.append('username', account.username)
     try {
-      const resp = await fetch('http://localhost:3333/videos', {
+      const resp = fetch('http://localhost:3333/videos', {
         method: 'POST',
         body: formData,
         headers: {
           Authorization: `Bearer ${account.token}`
         }
       })
+      setTimeout(() => this.initializeWebsockets(), 3000)
+      await resp
       if (resp.ok) {
         const rand = await resp.text()
         this.setState({
