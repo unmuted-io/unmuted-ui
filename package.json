@@ -11,6 +11,7 @@
     "deploy": "yarn build && firebase deploy"
   },
   "dependencies": {
+    "@apollo/react-hooks": "^3.1.5",
     "@ckeditor/ckeditor5-build-balloon": "^12.1.0",
     "@ckeditor/ckeditor5-build-classic": "^12.1.0",
     "@ckeditor/ckeditor5-build-decoupled-document": "^12.1.0",
@@ -23,6 +24,7 @@
     "@fortawesome/react-fontawesome": "^0.1.4",
     "@videojs/http-streaming": "^1.13.3",
     "aphrodite": "^2.3.1",
+    "apollo-boost": "^0.4.9",
     "bns": "^0.11.0",
     "bootstrap": "^4.3.1",
     "chart.js": "^2.8.0",
@@ -33,6 +35,7 @@
     "eosjs": "20.0.0",
     "flag-icon-css": "^3.3.0",
     "form-data": "^3.0.0",
+    "graphql": "^15.3.0",
     "isomorphic-ws": "^4.0.1",
     "parallax-js": "^3.1.0",
     "peity-react": "0.0.7",

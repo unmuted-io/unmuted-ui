@@ -7,6 +7,8 @@ import profileImage from '../../assets/images/widget/img-round1.jpg'
 import { State, AxiosResponse } from '../../types'
 import axios from 'axios'
 import ChannelInfo from './ChannelInfo'
+import SentimentTokenInfo from '../../components/BrandTooltip/SentimentTokenInfo'
+import ListVideos from '../videos/ListVideos'
 
 const { REACT_APP_API_BASE_URL } = process.env
 
@@ -71,20 +73,32 @@ export class ViewChannelComponent extends Component<ViewChannelProps, ViewChanne
     const profileImageSrc = profileImageUrl ? `${REACT_APP_API_BASE_URL}/${profileImageUrl}` : profileImage
 
     return (
-      <Row>
-        <Col id='view-channel'>
-          <div className='cover-image-wrap'>
-            <img src={coverImageSrc} className='cover-image' />
-          </div>
-          <ChannelInfo
-            profileImageUrl={profileImageSrc}
-            subscriberCount={0}
-            channel={channel}
-            isSubscribed={isSubscribed}
-            onClickSubscribe={this.onClickSubscribe}
-          />
-        </Col>
-      </Row>
+      <div id='view-channel'>
+        <Row>
+          <Col>
+            <div className='cover-image-wrap'>
+              <img src={coverImageSrc} className='cover-image' />
+            </div>
+            <ChannelInfo
+              profileImageUrl={profileImageSrc}
+              subscriberCount={0}
+              channel={channel}
+              isSubscribed={isSubscribed}
+              onClickSubscribe={this.onClickSubscribe}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col s='12' lg='9'>
+            <ListVideos
+              channel={channel}
+            />
+          </Col>
+          <Col s='12' lg='3'>
+            <SentimentTokenInfo />
+          </Col>
+        </Row>
+      </div>
     )
   }
 }

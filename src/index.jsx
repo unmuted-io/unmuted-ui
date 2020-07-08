@@ -11,6 +11,12 @@ import './index.scss'
 import './assets/fonts/feather/css/feather.css'
 import 'flag-icon-css/sass/flag-icon.scss'
 import { createBrowserHistory } from 'history'
+import ApolloClient from 'apollo-boost'
+import { ApolloProvider } from '@apollo/react-hooks'
+
+const client = new ApolloClient({
+  uri: 'http://localhost:3333/graphql',
+})
 
 const App = lazy(() => import('./App/App'))
 console.echo = variable => console.log(`${variable}: `, variable)
@@ -19,11 +25,13 @@ const history = createBrowserHistory()
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter basename={Config.basename} history={history}>
-      <Suspense fallback={<Spinner />}>
-        <App />
-      </Suspense>
-    </BrowserRouter>
+    <ApolloProvider client={client}>
+      <BrowserRouter basename={Config.basename} history={history}>
+        <Suspense fallback={<Spinner />}>
+          <App />
+        </Suspense>
+      </BrowserRouter>
+    </ApolloProvider>
   </Provider>,
   root
 )
