@@ -14,8 +14,10 @@ import { createBrowserHistory } from 'history'
 import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from '@apollo/react-hooks'
 
+const { REACT_APP_API_BASE_URL } = process.env
+
 const client = new ApolloClient({
-  uri: 'http://localhost:3333/graphql',
+  uri: `${REACT_APP_API_BASE_URL}/graphql`,
 })
 
 const App = lazy(() => import('./App/App'))
