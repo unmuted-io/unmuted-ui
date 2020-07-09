@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Row, Col } from 'reactstrap'
-import MainCard from '../../components/mainCard/mainCard'
 import coverImage from '../../assets/images/widget/slider7-800x266.jpg'
 import profileImage from '../../assets/images/widget/img-round1.jpg'
 import { State, AxiosResponse } from '../../types'
@@ -22,6 +21,7 @@ type ViewChannelState = {
   coverImageUrl: string
   isSubscribed: boolean
   subscriberCount: number
+  id: number
 }
 
 export class ViewChannelComponent extends Component<ViewChannelProps, ViewChannelState> {
@@ -31,7 +31,8 @@ export class ViewChannelComponent extends Component<ViewChannelProps, ViewChanne
       profileImageUrl: '',
       coverImageUrl: '',
       isSubscribed: false,
-      subscriberCount: 0
+      subscriberCount: 0,
+      id: null
     }
   }
 
@@ -43,10 +44,11 @@ export class ViewChannelComponent extends Component<ViewChannelProps, ViewChanne
         method: 'GET',
         url: `${REACT_APP_API_BASE_URL}/channel/${channel}`
       })
-      const { coverImageUrl, profileImageUrl } = fetchChannelResponse.data
+      const { coverImageUrl, profileImageUrl, id } = fetchChannelResponse.data
       this.setState({
         coverImageUrl,
-        profileImageUrl
+        profileImageUrl,
+        id
       })
     } catch (e) {
       dispatch({
@@ -68,7 +70,7 @@ export class ViewChannelComponent extends Component<ViewChannelProps, ViewChanne
 
   render () {
     const { channel } = this.props.match.params
-    const { profileImageUrl, coverImageUrl, isSubscribed } = this.state
+    const { profileImageUrl, coverImageUrl, isSubscribed, id } = this.state
     const coverImageSrc = coverImageUrl ? `${REACT_APP_API_BASE_URL}/${coverImageUrl}` : coverImage
     const profileImageSrc = profileImageUrl ? `${REACT_APP_API_BASE_URL}/${profileImageUrl}` : profileImage
 
@@ -90,9 +92,11 @@ export class ViewChannelComponent extends Component<ViewChannelProps, ViewChanne
         </Row>
         <Row>
           <Col s='12' lg='9'>
-            <ListVideos
-              channel={channel}
-            />
+            {!!id && (
+              <ListVideos
+                id={id}
+              />
+            )}
           </Col>
           <Col s='12' lg='3'>
             <SentimentTokenInfo />

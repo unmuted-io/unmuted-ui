@@ -1,3 +1,5 @@
+import { Video } from './index'
+
 export interface AxiosResponse {
   data: any;
   status: number;
@@ -58,4 +60,10 @@ export interface ExchangeRate {
   currencyCode: string;
   name: string;
   price: string;
+}
+
+export interface ChannelVideo extends Video {
+  username: string,
+  count: number,
+  profile: string
 }

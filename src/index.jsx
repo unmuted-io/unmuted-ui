@@ -2,7 +2,7 @@ import React, { Suspense, lazy } from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
-import store from './redux/'
+import store from './redux'
 import * as serviceWorker from './serviceWorker'
 import Config from './configure'
 import Spinner from './components/spinner/Spinner'
@@ -21,7 +21,7 @@ const client = new ApolloClient({
 })
 
 const App = lazy(() => import('./App/App'))
-console.echo = variable => console.log(`${variable}: `, variable)
+console.echo = (variable) => console.log(`${variable}: `, variable)
 const root = document.getElementById('root')
 const history = createBrowserHistory()
 

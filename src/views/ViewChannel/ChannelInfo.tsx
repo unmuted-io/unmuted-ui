@@ -6,7 +6,7 @@ interface ChannelInfoProps {
   subscriberCount: number;
   channel: string;
   isSubscribed: boolean;
-  onClickSubscribe: () => void;
+  onClickSubscribe: () => void
 }
 
 export default memo(function ChannelInfo (props: ChannelInfoProps) {

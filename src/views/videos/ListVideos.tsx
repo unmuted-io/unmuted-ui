@@ -1,27 +1,34 @@
 import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import VideoThumbnail from '../videoThumbnail/VideoThumbnail'
-import { useQuery } from '@apollo/react-hooks'
-import { gql } from 'apollo-boost'
-import { FETCH_USERS } from '../../graphql/queries'
+import { getAxiosConfig } from '../../utility/fetch'
+import { ChannelVideo, Account, State } from '../../types'
+import axios from 'axios'
 
 interface Props {
   query?: string
-  channel: string
+  id: number
 }
 
 const ListVideos = (props: Props) => {
-  // @ts-ignore
-  const {loading, error, videos = []} = useQuery(FETCH_USERS)
+  const [videos, setVideos]: [ChannelVideo[], any] = useState([])
+  const account: Account = useSelector((state: State) => state.auth.account)
 
-  return (
-    <div>
-      {videos && videos.map(video => (
-        <VideoThumbnail
-          {...video}
-        />
-      ))}
-    </div>
-  )
+  const fetchLatestChannelVideos = async () => {
+    const latestChannelVideoResponse = await axios({
+      ...getAxiosConfig({
+        endpoint: `videos/channel/${props.id}`
+      })
+    })
+    const videoData: ChannelVideo[] = latestChannelVideoResponse.data
+    setVideos(videoData)
+  }
+
+  useEffect(() => {
+    fetchLatestChannelVideos()
+  }, [])
+
+  return <div>{videos.map((video) => <VideoThumbnail key={video.rand} {...video} />)}</div>
 }
 
 export default ListVideos

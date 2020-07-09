@@ -57,4 +57,12 @@
   .sentiment-token-info {
     color: $dark-layout-font;
   }
+
+  .video-thumbnail {
+    .video-thumbnail-info {
+      .avatar {
+        display: none;
+      }
+    }
+  }
 }
