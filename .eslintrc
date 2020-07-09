@@ -34,7 +34,7 @@
         "@typescript-eslint/prefer-for-of": "error",
         "@typescript-eslint/prefer-function-type": "error",
         "@typescript-eslint/unified-signatures": "error",
-        "@typescript-eslint/member-delimiter-style": "none",
+        "@typescript-eslint/member-delimiter-style": 0,
         "camelcase": "off",
         "@typescript-eslint/camelcase": "off",
         "complexity": "off",
