@@ -203,7 +203,7 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
       downvoteRotation,
     } = this.state
     if (!rand) return <div />
-    const videoPath = `${REACT_APP_DSTOR_API_BASE_URL}/ipfs/${hash}`
+    const videoPath = `${REACT_APP_API_BASE_URL}/videos/processed/stream/${source.replace('.mp4', '')}/stream.m3u8`
     const poster = `${REACT_APP_API_BASE_URL}/images/videos/thumbnails/${source.replace('.mp4', '')}-1.png`
     const videoJsOptions = {
       autoplay: true,
@@ -211,8 +211,8 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
       muted: false,
       sources: [
         {
-          type: 'video/mp4',
-          src: videoPath //'http://localhost:3873/index.m3u8'
+          type: 'application/x-mpegurl',
+          src: videoPath
         },
       ],
       fill: true,
