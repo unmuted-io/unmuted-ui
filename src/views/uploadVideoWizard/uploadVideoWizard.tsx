@@ -15,9 +15,18 @@ import { Link } from 'react-router-dom'
 import FormWizardForm from '../forms/wizard/wizard'
 import { UploadVideo } from './uploadVideo'
 import { SubmitBasicVideoInfo } from './submitBasicVideoInfo'
+import { Account } from '../../types'
 
-const ws = new WebSocket('ws://localhost:9824')
-class UploadVideoWizard extends Component {
+interface UploadVideoWizardProps {
+  history: any,
+  account: Account
+}
+
+interface UploadVideoWizardState {
+
+}
+
+class UploadVideoWizard extends Component<UploadVideoWizardProps, UploadVideoWizardState> {
   state = {
     isFinished: false,
     videoTitle: '',
@@ -27,17 +36,23 @@ class UploadVideoWizard extends Component {
     rand: ''
   }
 
-  constructor (props) {
-    super(props)
-    ws.onopen = () => {
+  ws = null
+
+  componentWillUnmount = () => {
+    this.ws.close()
+  }
+
+  initializeWebsocket = () => {
+    this.ws = new WebSocket('ws://localhost:9824')
+    this.ws.onopen = () => {
       console.log('connected')
-      ws.send('in the browser right now')
+      this.ws.send('in the browser right now')
     }
-    ws.onclose = () => {
+    this.ws.onclose = () => {
       console.log('disconnected')
     }
 
-    ws.onmessage = (message) => {
+    this.ws.onmessage = (message) => {
       console.log('ws message: ', message)
       const { progress, rand } = this.state
       const { history } = this.props
@@ -54,10 +69,6 @@ class UploadVideoWizard extends Component {
         })
       }
     }
-  }
-
-  componentWillUnmount = () => {
-    ws.close()
   }
 
   onChangeInput = (event, callback) => {
@@ -152,34 +163,6 @@ class UploadVideoWizard extends Component {
     })
   }
 
-  initializeWebsockets = () => {
-    ws.onopen = () => {
-      console.log('connected')
-      ws.send('in the browser right now')
-    }
-    ws.onclose = () => {
-      console.log('disconnected')
-    }
-
-    ws.onmessage = (message) => {
-      console.log('ws message: ', message)
-      const { progress, rand } = this.state
-      const { history } = this.props
-      const newProgress = parseFloat(message.data)
-      if (newProgress > progress) {
-        this.setState({
-          progress: newProgress
-        }, () => {
-          if (newProgress === 100) {
-            setTimeout(() => {
-              history.push(`/videos/${rand}`)
-            }, 2000)
-          }
-        })
-      }
-    }
-  }
-
   handlePost = async () => {
     const { account } = this.props
     const { videoFile, videoTitle, videoDescription } = this.state
@@ -196,9 +179,11 @@ class UploadVideoWizard extends Component {
           Authorization: `Bearer ${account.token}`
         }
       })
-      setTimeout(() => this.initializeWebsockets(), 3000)
+      setTimeout(() => this.initializeWebsocket(), 3000)
       await resp
+      // @ts-ignore
       if (resp.ok) {
+        // @ts-ignore
         const rand = await resp.text()
         this.setState({
           rand

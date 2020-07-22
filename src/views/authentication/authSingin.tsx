@@ -55,6 +55,10 @@ export class AuthSinginComponent extends Component<AuthSinginComponentProps, Aut
     const fromUrl = location.state && location.state.fromUrl
     this.setState({
       disabled: false,
+      email: 'kylan.hurt@gmail.com',
+      password: 'Test123456'
+    }, () => {
+      this.onClickLogin({ preventDefault: () => { } })
     })
     try {
       const context = await makeEdgeUiContext({

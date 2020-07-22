@@ -30,7 +30,7 @@ import PopoverItem from '../../components/PopoverItem'
 import SentimentTokenInfo from '../../components/BrandTooltip/SentimentTokenInfo'
 import classnames from 'classnames'
 
-const { REACT_APP_API_BASE_URL } = process.env
+const { REACT_APP_API_BASE_URL, REACT_APP_DSTOR_API_BASE_URL } = process.env
 
 // const eosClient = new EOSIOClient('haytemrtg4ge') // hardcode app name
 interface ViewVideoComponentProps {
@@ -46,6 +46,7 @@ interface ViewVideoComponentState {
   created_at: string;
   username: string;
   count: number;
+  hash: string;
   userScore: number;
   upvoteScores: number[];
   downvoteScores: number[];
@@ -68,6 +69,7 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
       profile: '',
       userScore: 0,
       count: 0,
+      hash: '',
       upvoteScores: [-1, 0, 1],
       downvoteScores: [-1, 0, 1],
       upvoteRotation: 'none',
@@ -195,12 +197,13 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
       upvoteScores,
       downvoteScores,
       source,
+      hash,
       profile,
       upvoteRotation,
       downvoteRotation,
     } = this.state
     if (!rand) return <div />
-    const videoPath = `${REACT_APP_API_BASE_URL}/videos/processed/${source}`
+    const videoPath = `${REACT_APP_DSTOR_API_BASE_URL}/ipfs/${hash}`
     const poster = `${REACT_APP_API_BASE_URL}/images/videos/thumbnails/${source.replace('.mp4', '')}-1.png`
     const videoJsOptions = {
       autoplay: true,
@@ -208,6 +211,7 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
       muted: false,
       sources: [
         {
+          type: 'video/mp4',
           src: videoPath //'http://localhost:3873/index.m3u8'
         },
       ],
