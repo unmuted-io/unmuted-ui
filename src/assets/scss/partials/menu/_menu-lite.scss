@@ -623,6 +623,20 @@
       transition: unset;
     }
 
+    .logo-image {
+      opacity: 1;
+      height: 32px;
+    }
+
+    .logo-text {
+      transform: rotateY(-90deg);
+      transform-origin: 0 0;
+      opacity: 0;
+      transition: unset;
+      height: 18px;
+      margin-left: 12px;
+    }
+
     + .scroll-div {
       float: left;
       display: inline-block;
@@ -819,17 +833,18 @@
       width: $Menu-collapsed-width;
       padding: 10px 20px;
 
-      img {
-        &.logo-image {
-          opacity: 1;
-        }
+      .logo-image {
+        opacity: 1;
+        height: 32px;
+      }
 
-        &.logo-text {
-          transform: rotateY(-90deg);
-          transform-origin: 0 0;
-          opacity: 0;
-          transition: unset;
-        }
+      .logo-text {
+        transform: rotateY(-90deg);
+        transform-origin: 0 0;
+        opacity: 0;
+        transition: unset;
+        height: 18;
+        margin-left: 12;
       }
 
       .logo-thumb {
