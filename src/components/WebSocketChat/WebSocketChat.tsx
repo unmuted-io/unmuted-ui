@@ -7,41 +7,43 @@ import ChatForm from '../ChatForm/RegularChatForm'
 import { Account, SuperChatData, State, ExchangeRatesReducer } from '../../types'
 import { debounce } from '../../utility/utility'
 
+const { REACT_APP_API_BASE_URL } = process.env
+
 interface WebSocketChatOwnProps {
-  rand: string;
+  rand: string
 }
 
 interface WebSocketChatStateProps {
-  account: Account;
-  edgeAccount: any;
-  exchangeRates: ExchangeRatesReducer;
+  account: Account
+  edgeAccount: any
+  exchangeRates: ExchangeRatesReducer
 }
 
 interface WebSocketChatDispatchProps {
-  sendSuperChat: (data: { input: string; amount: string; username: string }) => void;
+  sendSuperChat: (data: { input: string; amount: string; username: string }) => void
 }
 
 type WebSocketChatProps = WebSocketChatOwnProps & WebSocketChatStateProps & WebSocketChatDispatchProps
 
 type WebSocketChatState = {
-  chat: object;
-  input: string;
-  isConnected: boolean;
-  superChatAmount: number;
-  uri: string;
-  currentTab: string;
-  isQrCodeVisible: boolean;
-  currentWalletId: string;
+  chat: object
+  input: string
+  isConnected: boolean
+  superChatAmount: number
+  uri: string
+  currentTab: string
+  isQrCodeVisible: boolean
+  currentWalletId: string
 }
 
 export class WebSocketChatComponent extends Component<WebSocketChatProps, WebSocketChatState> {
   ws: any
 
-  constructor (props: WebSocketChatProps) {
+  constructor(props: WebSocketChatProps) {
     super(props)
     const { rand, edgeAccount } = props
     const activeWalletIds = (edgeAccount && edgeAccount.activeWalletIds) || []
-    this.ws = io(`http://localhost:9825/${rand}`)
+    this.ws = io(`http://${REACT_APP_API_BASE_URL}:9825/${rand}`)
     this.state = {
       chat: {},
       input: '',
@@ -50,7 +52,7 @@ export class WebSocketChatComponent extends Component<WebSocketChatProps, WebSoc
       uri: '',
       currentTab: '1',
       isQrCodeVisible: false,
-      currentWalletId: (activeWalletIds && activeWalletIds[0]) || ''
+      currentWalletId: (activeWalletIds && activeWalletIds[0]) || '',
     }
 
     this.updateUri = debounce(this.updateUri, 600, false)
@@ -70,7 +72,7 @@ export class WebSocketChatComponent extends Component<WebSocketChatProps, WebSoc
     })
   }
 
-  componentDidMount (): void {
+  componentDidMount(): void {
     this.ws.on('open', () => {
       console.log('WebSocket Client Connected')
     })
@@ -85,9 +87,9 @@ export class WebSocketChatComponent extends Component<WebSocketChatProps, WebSoc
             [message.timestamp]: {
               username,
               content,
-              amount
-            }
-          }
+              amount,
+            },
+          },
         })
       }
     })
@@ -98,15 +100,18 @@ export class WebSocketChatComponent extends Component<WebSocketChatProps, WebSoc
     const { input } = this.state
     if (!input) return
     const { account } = this.props
-    this.setState({
-      input: '',
-    }, () => {
-      this.ws.emit('userMessage', {
-        type: 'chatSubmission',
-        username: account.username,
-        content: input,
-      })
-    })
+    this.setState(
+      {
+        input: '',
+      },
+      () => {
+        this.ws.emit('userMessage', {
+          type: 'chatSubmission',
+          username: account.username,
+          content: input,
+        })
+      }
+    )
   }
 
   updateUri = async () => {
@@ -121,7 +126,7 @@ export class WebSocketChatComponent extends Component<WebSocketChatProps, WebSoc
     // convert superChatAmount (in fiat) to the cryptocurrency exchange denomination
     const exchangeAmount = bns.div(superChatAmount.toString(), exchangeRate.price)
     // find the exchange denomination in the currencyInfo for that currency
-    const exchangeDenomination = denominations.find(denom => {
+    const exchangeDenomination = denominations.find((denom) => {
       return denom.name === currencyCode
     })
     if (!exchangeDenomination) throw new Error('No Currency Denomination')
@@ -130,32 +135,38 @@ export class WebSocketChatComponent extends Component<WebSocketChatProps, WebSoc
     const data = {
       publicAddress: 'haytemrtg4ge',
       currencyCode,
-      nativeAmount
+      nativeAmount,
     }
     const encodedUri = await wallet.encodeUri(data)
     this.setState({
-      uri: encodedUri
+      uri: encodedUri,
     })
   }
 
   onChangeTab = (tab: string) => {
     const { currentWalletId } = this.state
     if (currentWalletId !== tab) {
-      this.setState({
-        currentWalletId: tab
-      }, () => {
-        this.updateUri()
-      })
+      this.setState(
+        {
+          currentWalletId: tab,
+        },
+        () => {
+          this.updateUri()
+        }
+      )
     }
   }
 
   onChangeSuperChatAmount = (e) => {
     const { value } = e.target
-    this.setState({
-      superChatAmount: parseFloat(value),
-    }, () => {
-      this.updateUri()
-    })
+    this.setState(
+      {
+        superChatAmount: parseFloat(value),
+      },
+      () => {
+        this.updateUri()
+      }
+    )
   }
 
   onClickSuperChat = () => {
@@ -170,29 +181,25 @@ export class WebSocketChatComponent extends Component<WebSocketChatProps, WebSoc
     }
     sendSuperChat(data)
     this.setState({
-      isQrCodeVisible: true
+      isQrCodeVisible: true,
     })
   }
 
   onChangeInput = (e) => {
     const { value } = e.target
-    this.setState({
-      input: value,
-    }, () => {
-      this.updateUri()
-    })
+    this.setState(
+      {
+        input: value,
+      },
+      () => {
+        this.updateUri()
+      }
+    )
   }
 
-  render (): ReactNode {
+  render(): ReactNode {
     const { rand, edgeAccount } = this.props
-    const {
-      chat,
-      input,
-      isQrCodeVisible,
-      superChatAmount,
-      currentWalletId,
-      uri
-    } = this.state
+    const { chat, input, isQrCodeVisible, superChatAmount, currentWalletId, uri } = this.state
     const isBountiedChatVisible = !!edgeAccount
     return (
       <div className={'chat'} style={{ alignSelf: 'flex-end', width: '100%', flex: 1 }}>
@@ -232,12 +239,7 @@ export class WebSocketChatComponent extends Component<WebSocketChatProps, WebSoc
             currentWalletId={currentWalletId}
           />
         ) : (
-          <ChatForm
-            rand={rand}
-            input={input}
-            onChangeInput={this.onChangeInput}
-            onSubmit={this.onSubmit}
-          />
+          <ChatForm rand={rand} input={input} onChangeInput={this.onChangeInput} onSubmit={this.onSubmit} />
         )}
       </div>
     )
@@ -248,7 +250,7 @@ const mapStateToProps = (state: State): WebSocketChatStateProps => {
   return {
     account: state.auth.account,
     edgeAccount: state.auth.edgeAccount,
-    exchangeRates: state.exchangeRates
+    exchangeRates: state.exchangeRates,
   }
 }
 

@@ -5,7 +5,9 @@ import InputMask from 'react-input-mask'
 import ReactNumeric, { predefinedOptions } from 'react-numeric'
 import { useHistory } from 'react-router-dom'
 
-const FullCard = props => (
+const { REACT_APP_API_BASE_URL } = process.env
+
+const FullCard = (props) => (
   <Col md={6}>
     <Card>
       <CardHeader>
@@ -17,23 +19,23 @@ const FullCard = props => (
 )
 
 class UploadVideo extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       videoTitle: '',
       videoDescription: '',
-      videoFile: null
+      videoFile: null,
     }
     this.djsConfig = {
       addRemoveLinks: false,
       acceptedFiles: 'video/mp4',
       autoProcessQueue: false,
-      uploadprogress: 100
+      uploadprogress: 100,
     }
     this.componentConfig = {
       iconFiletypes: ['.mp4'],
       showFiletypeIcon: true,
-      postUrl: 'no-url'
+      postUrl: 'no-url',
     }
 
     // If you want to attach multiple callbacks, simply
@@ -42,8 +44,8 @@ class UploadVideo extends Component {
 
     // Simple callbacks work too, of course
     this.callback = () => console.log('Hello!')
-    this.success = file => console.log('kylan uploaded', file)
-    this.removedfile = file => console.log('removing...', file)
+    this.success = (file) => console.log('kylan uploaded', file)
+    this.removedfile = (file) => console.log('removing...', file)
     this.addedfile = (file) => console.log('addedFile: ', file)
     this.dropzone = null
   }
@@ -55,9 +57,9 @@ class UploadVideo extends Component {
     formData.append('title', videoTitle)
     formData.append('description', videoDescription)
     formData.append('file', videoFile)
-    const resp = await fetch('http://localhost:3333/videos', {
+    const resp = await fetch(`${REACT_APP_API_BASE_URL}/videos`, {
       method: 'POST',
-      body: formData
+      body: formData,
     })
     if (!resp.ok) return
     const data = await resp.json()
@@ -66,13 +68,13 @@ class UploadVideo extends Component {
 
   onChangeInput = (event, callback) => {
     this.setState({
-      [`video${callback}`]: event.target.value
+      [`video${callback}`]: event.target.value,
     })
   }
 
-  render () {
+  render() {
     const eventHandlers = {
-      init: dz => this.dropzone = dz,
+      init: (dz) => (this.dropzone = dz),
       drop: this.callbackArray,
       addedfile: this.callback,
       success: this.success,
@@ -81,9 +83,9 @@ class UploadVideo extends Component {
       addedfile: (file) => {
         console.log('addedFile2: ', file)
         this.setState({
-          videoFile: file
+          videoFile: file,
         })
-      }
+      },
     }
     return (
       <Fragment>
@@ -106,19 +108,15 @@ class UploadVideo extends Component {
                 rows={3}
                 onChange={(event) => this.onChangeInput(event, 'Description')}
               />
-
             </FormGroup>
           </FullCard>
           <FullCard>
-            <DropzoneComponent
-              config={this.componentConfig}
-              djsConfig={this.djsConfig}
-              eventHandlers={eventHandlers}
-            />
+            <DropzoneComponent config={this.componentConfig} djsConfig={this.djsConfig} eventHandlers={eventHandlers} />
             <div className="text-center m-t-20">
-              <Button color="primary" onClick={this.handlePost}>Upload Video</Button>
+              <Button color="primary" onClick={this.handlePost}>
+                Upload Video
+              </Button>
             </div>
-
           </FullCard>
         </Row>
       </Fragment>

@@ -11,7 +11,7 @@ import {
   Input,
   FormGroup,
   Label,
-  Spinner
+  Spinner,
 } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router-dom'
@@ -20,13 +20,13 @@ import authBg from '../../assets/images/auth-bg.jpg'
 import { UserInfo } from '../../types'
 
 export interface RegisterComponentStateProps {
-  isRegistering: boolean;
-  history: any;
+  isRegistering: boolean
+  history: any
 }
 
 export interface RegisterComponentDispatchProps {
-  dispatch: any;
-  createUser: (userInfo: UserInfo, history: any) => void;
+  dispatch: any
+  createUser: (userInfo: UserInfo, history: any) => void
 }
 
 export type RegisterComponentProps = RegisterComponentStateProps &
@@ -38,20 +38,20 @@ export class RegisterComponent extends Component<RegisterComponentProps, Registe
   state = {
     disabled: true,
     email: '',
-    password: ''
+    password: '',
   }
 
   onChangeEmail = (e: any) => {
     const email: string = e.target.value
     this.setState({
-      email
+      email,
     })
   }
 
   onChangePassword = (e: any) => {
     const password: string = e.target.value
     this.setState({
-      password
+      password,
     })
   }
 
@@ -68,10 +68,10 @@ export class RegisterComponent extends Component<RegisterComponentProps, Registe
     )
   }
 
-  render () {
+  render() {
     const { isRegistering } = this.props
     return (
-      <div className="auth-wrapper" style={{ backgroundColor: '#eff3f6' }}>
+      <div className="auth-wrapper">
         <div className="auth-content container">
           <Card>
             <Form onSubmit={(e) => e.preventDefault()}>
@@ -118,8 +118,13 @@ export class RegisterComponent extends Component<RegisterComponentProps, Registe
                       Twitter
                     </Button>
                     <br />
-                    <Button disabled={isRegistering} onClick={this.onClickSignup} color="primary" className="mb-4 signup">
-                      {isRegistering ? <Spinner size='sm' /> : 'Sign up'}
+                    <Button
+                      disabled={isRegistering}
+                      onClick={this.onClickSignup}
+                      color="primary"
+                      className="mb-4 signup"
+                    >
+                      {isRegistering ? <Spinner size="sm" /> : 'Sign up'}
                     </Button>
                     <p className="mb-2">
                       Already have an account?&nbsp;

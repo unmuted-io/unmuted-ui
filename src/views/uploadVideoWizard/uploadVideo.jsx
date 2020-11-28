@@ -1,8 +1,10 @@
 import React, { Component, Fragment } from 'react'
 import DropzoneComponent from 'react-dropzone-component'
 
+const { REACT_APP_API_BASE_URL } = process.env
+
 export class UploadVideo extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       videoFile: null,
@@ -38,7 +40,7 @@ export class UploadVideo extends Component {
     formData.append('title', videoTitle)
     formData.append('description', videoDescription)
     formData.append('file', videoFile)
-    const resp = await fetch('http://localhost:3333/videos', {
+    const resp = await fetch(`${REACT_APP_API_BASE_URL}/videos`, {
       method: 'POST',
       body: formData,
     })
@@ -46,7 +48,7 @@ export class UploadVideo extends Component {
     const data = await resp.json()
   }
 
-  render () {
+  render() {
     const eventHandlers = {
       init: (dz) => (this.dropzone = dz),
       drop: this.callbackArray,

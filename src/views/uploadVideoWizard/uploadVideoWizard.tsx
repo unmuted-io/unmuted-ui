@@ -1,15 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {
-  Row,
-  Col,
-  Card,
-  CardHeader,
-  CardBody,
-  ButtonGroup,
-  Button,
-  Progress
-} from 'reactstrap'
+import { Row, Col, Card, CardHeader, CardBody, ButtonGroup, Button, Progress } from 'reactstrap'
 import Loki from 'react-loki'
 import { Link } from 'react-router-dom'
 import FormWizardForm from '../forms/wizard/wizard'
@@ -17,14 +8,14 @@ import { UploadVideo } from './uploadVideo'
 import { SubmitBasicVideoInfo } from './submitBasicVideoInfo'
 import { Account } from '../../types'
 
+const { REACT_APP_API_BASE_URL } = process.env
+
 interface UploadVideoWizardProps {
-  history: any,
+  history: any
   account: Account
 }
 
-interface UploadVideoWizardState {
-
-}
+interface UploadVideoWizardState {}
 
 class UploadVideoWizard extends Component<UploadVideoWizardProps, UploadVideoWizardState> {
   state = {
@@ -33,7 +24,7 @@ class UploadVideoWizard extends Component<UploadVideoWizardProps, UploadVideoWiz
     videoDescription: '',
     videoFile: null,
     progress: 0,
-    rand: ''
+    rand: '',
   }
 
   ws = null
@@ -43,7 +34,7 @@ class UploadVideoWizard extends Component<UploadVideoWizardProps, UploadVideoWiz
   }
 
   initializeWebsocket = () => {
-    this.ws = new WebSocket('ws://localhost:9824')
+    this.ws = new WebSocket(`ws://${REACT_APP_API_BASE_URL}:9824`)
     this.ws.onopen = () => {
       console.log('connected')
       this.ws.send('in the browser right now')
@@ -58,22 +49,25 @@ class UploadVideoWizard extends Component<UploadVideoWizardProps, UploadVideoWiz
       const { history } = this.props
       const newProgress = parseFloat(message.data)
       if (newProgress > progress) {
-        this.setState({
-          progress: newProgress
-        }, () => {
-          if (newProgress === 100) {
-            setTimeout(() => {
-              history.push(`/videos/${rand}`)
-            }, 2000)
+        this.setState(
+          {
+            progress: newProgress,
+          },
+          () => {
+            if (newProgress === 100) {
+              setTimeout(() => {
+                history.push(`/videos/${rand}`)
+              }, 2000)
+            }
           }
-        })
+        )
       }
     }
   }
 
   onChangeInput = (event, callback) => {
     this.setState({
-      [`video${callback}`]: event.target.value
+      [`video${callback}`]: event.target.value,
     })
   }
 
@@ -82,24 +76,17 @@ class UploadVideoWizard extends Component<UploadVideoWizardProps, UploadVideoWiz
       label: 'Step 1',
       caption: 'Upload File',
       icon: <i className="fa fa-upload" />,
-      component: <UploadVideo setFile={(videoFile) => this.setState({ videoFile })} />
+      component: <UploadVideo setFile={(videoFile) => this.setState({ videoFile })} />,
     },
     {
       label: 'Step 2',
       caption: 'Basic Info',
       icon: <i className="fa fa-lock" />,
-      component: <SubmitBasicVideoInfo onChangeInput={this.onChangeInput} />
-    }
+      component: <SubmitBasicVideoInfo onChangeInput={this.onChangeInput} />,
+    },
   ]
 
-  customRenderer = ({
-    currentStep,
-    stepIndex,
-    cantBack,
-    isInFinalStep,
-    backHandler,
-    nextHandler,
-  }) => {
+  customRenderer = ({ currentStep, stepIndex, cantBack, isInFinalStep, backHandler, nextHandler }) => {
     let i = 0
     const steps = this.customSteps.map((step, index) => {
       const isActive = currentStep === index + 1
@@ -124,25 +111,14 @@ class UploadVideoWizard extends Component<UploadVideoWizardProps, UploadVideoWiz
     return <ul className="nav nav-tabs step-anchor">{steps}</ul>
   }
 
-  customActions = ({
-    currentStep,
-    stepIndex,
-    cantBack,
-    isInFinalStep,
-    backHandler,
-    nextHandler,
-    progress
-  }) => {
+  customActions = ({ currentStep, stepIndex, cantBack, isInFinalStep, backHandler, nextHandler, progress }) => {
     return (
       <div className="btn-toolbar sw-toolbar sw-toolbar-bottom justify-content-end">
         <ButtonGroup className="sw-btn-group wizard-buttons" aria-label="Wizard Buttons">
           <Button onClick={backHandler} disabled={cantBack}>
             Back
           </Button>
-          <Button
-            onClick={nextHandler}
-            disabled={this.state.isFinished && isInFinalStep}
-          >
+          <Button onClick={nextHandler} disabled={this.state.isFinished && isInFinalStep}>
             {isInFinalStep ? 'Finish' : 'Next'}
           </Button>
         </ButtonGroup>
@@ -172,12 +148,12 @@ class UploadVideoWizard extends Component<UploadVideoWizardProps, UploadVideoWiz
     formData.append('file', videoFile)
     formData.append('username', account.username)
     try {
-      const resp = fetch('http://localhost:3333/videos', {
+      const resp = fetch(`${REACT_APP_API_BASE_URL}/videos`, {
         method: 'POST',
         body: formData,
         headers: {
-          Authorization: `Bearer ${account.token}`
-        }
+          Authorization: `Bearer ${account.token}`,
+        },
       })
       setTimeout(() => this.initializeWebsocket(), 3000)
       await resp
@@ -186,7 +162,7 @@ class UploadVideoWizard extends Component<UploadVideoWizardProps, UploadVideoWiz
         // @ts-ignore
         const rand = await resp.text()
         this.setState({
-          rand
+          rand,
         })
       }
     } catch (e) {
@@ -194,7 +170,7 @@ class UploadVideoWizard extends Component<UploadVideoWizardProps, UploadVideoWiz
     }
   }
 
-  render () {
+  render() {
     const { progress } = this.state
     const color = progress < 100 ? '' : 'success'
     const animated = progress < 100
@@ -227,7 +203,7 @@ class UploadVideoWizard extends Component<UploadVideoWizardProps, UploadVideoWiz
 
 const mapStateToProps = (state) => {
   return {
-    account: state.auth.account
+    account: state.auth.account,
   }
 }
 

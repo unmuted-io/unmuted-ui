@@ -34,30 +34,31 @@ const { REACT_APP_API_BASE_URL, REACT_APP_DSTOR_API_BASE_URL } = process.env
 
 // const eosClient = new EOSIOClient('haytemrtg4ge') // hardcode app name
 interface ViewVideoComponentProps {
-  match: any;
-  account: any;
+  match: any
+  account: any
 }
 
 interface ViewVideoComponentState {
-  title: string;
-  description: string;
-  rand: string;
-  source: string;
-  created_at: string;
-  username: string;
-  count: number;
-  hash: string;
-  userScore: number;
-  upvoteScores: number[];
-  downvoteScores: number[];
-  upvoteRotation: string;
-  downvoteRotation: string;
-  profile: string;
-  isVotingDisabled: boolean;
+  title: string
+  description: string
+  rand: string
+  source: string
+  created_at: string
+  username: string
+  count: number
+  hash: string
+  userScore: number
+  upvoteScores: number[]
+  downvoteScores: number[]
+  upvoteRotation: string
+  downvoteRotation: string
+  profile: string
+  isVotingDisabled: boolean
+  processed: string
 }
 
 class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentState> {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       title: '',
@@ -74,7 +75,8 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
       downvoteScores: [-1, 0, 1],
       upvoteRotation: 'none',
       downvoteRotation: 'none',
-      isVotingDisabled: false
+      isVotingDisabled: false,
+      processed: '',
     }
   }
 
@@ -93,7 +95,7 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
     const currentDownvoteValue = parseInt(stats['1'])
     this.setState({
       upvoteScores: [currentUpvoteValue - 1, currentUpvoteValue, currentUpvoteValue + 1],
-      downvoteScores: [currentDownvoteValue - 1, currentDownvoteValue, currentDownvoteValue + 1]
+      downvoteScores: [currentDownvoteValue - 1, currentDownvoteValue, currentDownvoteValue + 1],
     })
     if (account) {
       const userScoreResponse: AxiosResponse = await axios.get(
@@ -164,7 +166,7 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
         userScore: newUserScore,
         upvoteRotation,
         downvoteRotation,
-        isVotingDisabled: true
+        isVotingDisabled: true,
       },
       async () => {
         setTimeout(() => {
@@ -173,7 +175,7 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
             downvoteRotation: 'none',
             upvoteScores: [newUpvoteScore - 1, newUpvoteScore, newUpvoteScore + 1],
             downvoteScores: [newDownvoteScore - 1, newDownvoteScore, newDownvoteScore + 1],
-            isVotingDisabled: false
+            isVotingDisabled: false,
           })
         }, 1000)
         const response: AxiosResponse = await axios.post(`${REACT_APP_API_BASE_URL}/video-rating`, {
@@ -185,7 +187,7 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
     )
   }
 
-  render () {
+  render() {
     const {
       rand,
       title,
@@ -201,10 +203,19 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
       profile,
       upvoteRotation,
       downvoteRotation,
+      processed,
     } = this.state
     if (!rand) return <div />
-    const videoPath = `${REACT_APP_API_BASE_URL}/videos/processed/stream/${source.replace('.mp4', '')}/stream.m3u8`
-    const poster = `${REACT_APP_API_BASE_URL}/images/videos/thumbnails/${source.replace('.mp4', '')}-1.png`
+    const processedJSON = JSON.parse(processed)
+    let playlistHash
+    for (const file in processedJSON.files) {
+      if (file.includes('.m3u8')) {
+        playlistHash = processedJSON.files[file]
+      }
+    }
+    const videoIdentifier = source.replace('.mp4', '')
+    const videoPath = `${REACT_APP_DSTOR_API_BASE_URL}/ipfs/${playlistHash}`
+    const poster = `${REACT_APP_API_BASE_URL}/images/videos/thumbnails/${videoIdentifier}-1.png`
     const videoJsOptions = {
       autoplay: true,
       controls: true,
@@ -212,13 +223,13 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
       sources: [
         {
           type: 'application/x-mpegurl',
-          src: videoPath
+          src: videoPath,
         },
       ],
       fill: true,
       aspectRatio: '16:9',
       liveui: true,
-      liveTracker: true
+      liveTracker: true,
     }
     const date = new Date(created_at)
     const dtf = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'long', day: '2-digit' })
@@ -226,27 +237,27 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
     const createdAtSyntax = `${mo} ${da}, ${ye}`
     const profileImageUrl = profile ? JSON.parse(profile).profileImageUrl : ''
     const profileImageSrc = profileImageUrl ? `${REACT_APP_API_BASE_URL}/${profileImageUrl}` : profileImage
-    const upvoteScoresValues = upvoteScores.map(score => score.toString())
-    const downvoteScoresValues = downvoteScores.map(score => score.toString())
+    const upvoteScoresValues = upvoteScores.map((score) => score.toString())
+    const downvoteScoresValues = downvoteScores.map((score) => score.toString())
     return (
-      <Row id='view-video'>
-        <Col sm={12} lg={8} id='video-wrapper'>
+      <Row id="view-video">
+        <Col sm={12} lg={8} id="video-wrapper">
           <Card>
             <CardBody>
               <VideoPlayer {...videoJsOptions} rand={rand} />
-              <div className='primary-video-info'>
-                <div className='upper'>
-                  <div className='summary'>
+              <div className="primary-video-info">
+                <div className="upper">
+                  <div className="summary">
                     <h3 className="title">{title}</h3>
                   </div>
                   <div className="upper">
                     <PopoverItem
-                      placement='top'
-                      button='Brand'
-                      color='warning'
-                      title='Brand Channel'
+                      placement="top"
+                      button="Brand"
+                      color="warning"
+                      title="Brand Channel"
                       text={<SentimentTokenInfo />}
-                      className='mr-4'
+                      className="mr-4"
                     />
                     <div className="votes">
                       <div className="vote-icon-wrap">
@@ -271,12 +282,12 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
                 <div className="lower">
                   <div className="left">
                     <Link to={`/channel/${username}`}>
-                      <img src={profileImageSrc} className='img-fluid img-thumbnail clickable user-avatar' />
+                      <img src={profileImageSrc} className="img-fluid img-thumbnail clickable user-avatar" />
                     </Link>
                   </div>
                   <div className="right">
                     <h5>
-                      <Link to={`/channel/${username}`} className='channel-link'>
+                      <Link to={`/channel/${username}`} className="channel-link">
                         {username}
                       </Link>
                     </h5>
