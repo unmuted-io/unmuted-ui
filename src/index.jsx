@@ -16,15 +16,15 @@ import './assets/fonts/feather/css/feather.css'
 import 'flag-icon-css/sass/flag-icon.scss'
 import { createBrowserHistory } from 'history'
 
-const { REACT_APP_CHAIN_ID, REACT_APP_CHAIN_PROTOCOL, REACT_APP_CHAIN_HOST, REACT_APP_CHAIN_PORT } = process.env
+const { REACT_APP_CHAIN_ID, REACT_APP_RPC_PROTOCOL, REACT_APP_RPC_HOST, REACT_APP_RPC_PORT } = process.env
 
 const TELOS_MAINNET = {
   chainId: REACT_APP_CHAIN_ID,
   rpcEndpoints: [
     {
-      protocol: REACT_APP_CHAIN_PROTOCOL,
-      host: REACT_APP_CHAIN_HOST,
-      port: REACT_APP_CHAIN_PORT,
+      protocol: REACT_APP_RPC_PROTOCOL,
+      host: REACT_APP_RPC_HOST,
+      port: REACT_APP_RPC_PORT,
     },
   ],
 }
