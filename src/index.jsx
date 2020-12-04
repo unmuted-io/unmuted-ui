@@ -1,5 +1,9 @@
 import React, { Suspense, lazy } from 'react'
 import ReactDOM from 'react-dom'
+import { UALProvider, withUAL } from 'ual-reactjs-renderer'
+import { Scatter } from 'ual-scatter'
+import { KeycatAuthenticator } from '@telosnetwork/ual-telos-keycat'
+import { Lynx } from 'ual-lynx'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 import store from './redux'
@@ -11,29 +15,43 @@ import './index.scss'
 import './assets/fonts/feather/css/feather.css'
 import 'flag-icon-css/sass/flag-icon.scss'
 import { createBrowserHistory } from 'history'
-import ApolloClient from 'apollo-boost'
-import { ApolloProvider } from '@apollo/react-hooks'
 
-const { REACT_APP_API_BASE_URL } = process.env
+const { REACT_APP_CHAIN_ID, REACT_APP_CHAIN_PROTOCOL, REACT_APP_CHAIN_HOST, REACT_APP_CHAIN_PORT } = process.env
 
-const client = new ApolloClient({
-  uri: `${REACT_APP_API_BASE_URL}/graphql`,
-})
+const TELOS_MAINNET = {
+  chainId: REACT_APP_CHAIN_ID,
+  rpcEndpoints: [
+    {
+      protocol: REACT_APP_CHAIN_PROTOCOL,
+      host: REACT_APP_CHAIN_HOST,
+      port: REACT_APP_CHAIN_PORT,
+    },
+  ],
+}
+
+const keycat = new KeycatAuthenticator([TELOS_MAINNET], { appName: 'Unmuted.io' })
+const scatter = new Scatter([TELOS_MAINNET], { appName: 'Unmuted.io' })
+const lynx = new Lynx([TELOS_MAINNET], { appName: 'Unmuted.io' })
 
 const App = lazy(() => import('./App/App'))
+
+const MyUALConsumer = withUAL(App)
+MyUALConsumer.displayName = 'Unmuted.io'
+
 console.echo = (variable) => console.log(`${variable}: `, variable)
 const root = document.getElementById('root')
 const history = createBrowserHistory()
 
 ReactDOM.render(
   <Provider store={store}>
-    <ApolloProvider client={client}>
-      <BrowserRouter basename={Config.basename} history={history}>
-        <Suspense fallback={<Spinner />}>
-          <App />
-        </Suspense>
-      </BrowserRouter>
-    </ApolloProvider>
+    <BrowserRouter basename={Config.basename} history={history}>
+      <Suspense fallback={<Spinner />}>
+        <UALProvider chains={[TELOS_MAINNET]} authenticators={[scatter, lynx, keycat]} appName={'Unmuted.io'}>
+          <MyUALConsumer />
+        </UALProvider>
+        ,
+      </Suspense>
+    </BrowserRouter>
   </Provider>,
   root
 )

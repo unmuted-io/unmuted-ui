@@ -1,65 +1,68 @@
 import { ExchangeRate } from './index'
 
 export type VideoReducer = {
-  recommended: any[];
+  recommended: any[]
 }
 
 export type Account = {
-  username: string;
-  edge_username?: string;
-  type: string;
-  token: string;
+  username: string
+  email?: string
+  edge_username?: string
+  type: string
+  token: string
   profile: {
-    profileImageUrl?: string,
+    profileImageUrl?: string
     coverImageUrl?: string
+    fullName?: string
+    description?: string
   }
 } | null
 
 export type EdgeAccount = {
-  id: string;
-  keys: any;
-  username: string;
-  currencyConfig: any;
-  activeWalltIds: string[];
+  id: string
+  keys: any
+  username: string
+  currencyConfig: any
+  activeWalltIds: string[]
   currencyWallets: {
-      [key: string]: {
-      fiatCurrencyCode: string;
-      balances: { [currencyCode: string]: string };
-      blockHeight: number;
-      syncRatio: number;
-    };
-  };
+    [key: string]: {
+      fiatCurrencyCode: string
+      balances: { [currencyCode: string]: string }
+      blockHeight: number
+      syncRatio: number
+    }
+  }
   currencyTools: {
     [pluginName: string]: {
       currencyInfo: {
-        currencyCode: string;
-        displayName: string;
-        pluginName: string;
-        walletType: string;
-        addressExplorer: string;
-        transactionExplorer: string;
-        denominations: any[];
-        symbolImage: string;
-        symbolImageDarkMono: string;
-        metaTokens: any[];
-      };
-    };
-  };
+        currencyCode: string
+        displayName: string
+        pluginName: string
+        walletType: string
+        addressExplorer: string
+        transactionExplorer: string
+        denominations: any[]
+        symbolImage: string
+        symbolImageDarkMono: string
+        metaTokens: any[]
+      }
+    }
+  }
 }
 
 export type AuthReducer = {
-  isLoggingIn: boolean;
-  isRegistering: boolean;
-  account: Account;
-  edgeAccount: any;
+  isLoggingIn: boolean
+  isRegistering: boolean
+  account: Account
+  edgeAccount: any
 }
 
 export type ExchangeRatesReducer = {
-  [currencyCode: string]: ExchangeRate;
+  [currencyCode: string]: ExchangeRate
 }
 
 export type Notification = {
-  message: string,
-  type: string,
+  message: string
+  type: string
   autoDismiss: boolean
 }

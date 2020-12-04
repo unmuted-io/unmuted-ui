@@ -22,6 +22,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.8.1",
     "@fortawesome/free-solid-svg-icons": "^5.8.1",
     "@fortawesome/react-fontawesome": "^0.1.4",
+    "@telosnetwork/ual-telos-keycat": "^1.10.3",
     "@videojs/http-streaming": "^1.13.3",
     "aphrodite": "^2.3.1",
     "apollo-boost": "^0.4.9",
@@ -94,6 +95,9 @@
     "scatterjs-plugin-eosjs2": "^1.5.0",
     "socket.io-client": "^2.3.0",
     "sweetalert": "^2.1.2",
+    "ual-lynx": "^0.4.0",
+    "ual-reactjs-renderer": "^0.3.1",
+    "ual-scatter": "^0.3.0",
     "video.js": "^7.8.1",
     "websocket": "^1.0.31",
     "ws": "^7.2.3"
