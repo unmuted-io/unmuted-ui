@@ -15,8 +15,8 @@ export const attemptAutoLoginFromCookies = (history: any) => async (dispatch: an
       url,
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${accessToken}`
-      }
+        Authorization: `Bearer ${accessToken}`,
+      },
     })
     if (loginResponse.statusText !== 'OK') {
       console.log(loginResponse.statusText)
@@ -40,6 +40,7 @@ export const attemptAutoLoginFromCookies = (history: any) => async (dispatch: an
         },
       })
     } else {
+      if (process.env.NODE_ENV === 'development') return history.push('/')
       history.push((history.location && history.location.pathname) || '/')
     }
   } catch (error) {
@@ -52,8 +53,8 @@ export const attemptAutoLoginFromCookies = (history: any) => async (dispatch: an
       data: {
         type: 'error',
         message,
-        autoDismiss: true
-      }
+        autoDismiss: true,
+      },
     })
     dispatch(logout())
   }
@@ -92,6 +93,7 @@ export const login = (userInfo: UserInfo, history: any, isAnimated?: boolean, is
       // const futureTimestamp = (currentTimestampFixed + 86400).toString()
       dispatch({ type: 'ACCOUNT', data: { account: { ...user, ...access_token } } })
       // localStorage.setItem('expiration', futureTimestamp)
+      if (process.env.NODE_ENV === 'development') return history.push('/')
       if (history.location.pathname === '/register') {
         // vs just logging in
         // history.goBack()
@@ -104,7 +106,7 @@ export const login = (userInfo: UserInfo, history: any, isAnimated?: boolean, is
       } else {
         let newPath = '/'
         // use regular path unless it was /login in which case still go to '/' (homepage)
-        if (history.location && (history.location.pathname !== '/login') && history.location.pathname) {
+        if (history.location && history.location.pathname !== '/login' && history.location.pathname) {
           newPath = history.location.pathname
         }
         history.push(newPath)
@@ -119,8 +121,8 @@ export const login = (userInfo: UserInfo, history: any, isAnimated?: boolean, is
         data: {
           type: 'error',
           message,
-          autoDismiss: true
-        }
+          autoDismiss: true,
+        },
       })
       dispatch(logout())
     }
@@ -129,9 +131,7 @@ export const login = (userInfo: UserInfo, history: any, isAnimated?: boolean, is
   }, 1000)
 }
 
-export const refreshToken = () => (dispatch, getState) => {
-
-}
+export const refreshToken = () => (dispatch, getState) => {}
 
 export const createUser = (newUserInfo: UserInfo, history: object) => async (dispatch: any, getState: any) => {
   dispatch({ type: 'UPDATE_IS_REGISTERING', data: { isRegistering: true } })

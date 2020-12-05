@@ -5,9 +5,10 @@ export type VideoReducer = {
 }
 
 export type Account = {
+  id: number
   username: string
   email?: string
-  edge_username?: string
+  telos_account_name?: string
   type: string
   token: string
   profile: {
