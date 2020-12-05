@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useInterval, getUserById } from '../../utility'
 import { State, Account } from '../../types'
 import { withUAL } from 'ual-reactjs-renderer'
 import {
@@ -24,21 +25,16 @@ import AccountImageUploader from './AccountImageUploader'
 import axios from 'axios'
 import ConfirmationCodeDirections from '../../components/Blockchain/ConfirmationCodeDirections'
 
-const { REACT_APP_API_BASE_URL, REACT_APP_BLOCKCHAIN_NAME } = process.env
+const { REACT_APP_API_BASE_URL } = process.env
 
 export const UserAccount = ({ ual }) => {
   const account = useSelector((state: State) => state.auth.account)
-  const {
-    username: accountUsername,
-    email: accountEmail,
-    profile,
-    id: userId,
-    telos_account_name: confirmedTelosAccountName,
-  } = account
+  const { username: accountUsername, email: accountEmail, profile, id: userId, telos_account_name } = account
   const { fullName: accountFullName = '', description: accountDescription = '' } = profile
   const [username, setUsername] = useState(accountUsername)
   const [fullName, setFullName] = useState(accountFullName)
   const [email, setEmail] = useState(accountEmail)
+  const [confirmedTelosAccountName, setConfirmedTelosAccountName] = useState(telos_account_name)
   const [description, setDescription] = useState(accountDescription)
   // const [telosAccountName, setTelosAccountName] = useState('')
   const [confirmationCode, setConfirmationCode] = useState('')
@@ -98,6 +94,17 @@ export const UserAccount = ({ ual }) => {
     ual.showModal()
   }
 
+  const fetchUserTelosAccount = async () => {
+    try {
+      const userData = await getUserById(userId)
+      if (userData.data.user.telos_account_name) {
+        setConfirmedTelosAccountName(userData.data.user.telos_account_name)
+      }
+    } catch (err) {
+      console.log('fetchUserInfoError: ', err)
+    }
+  }
+
   // request confirmation code for transaction
   const onClickTelosAccountConfirm = async () => {
     try {
@@ -120,6 +127,10 @@ export const UserAccount = ({ ual }) => {
       console.log('onClickTelosAccountConfirm error: ', err)
     }
   }
+
+  useInterval(() => {
+    fetchUserTelosAccount()
+  }, 10000)
 
   // check if user has logged in via UAL
   useEffect(() => {
@@ -155,6 +166,9 @@ export const UserAccount = ({ ual }) => {
 
   if (confirmationStatus === 'link' && telosAccountName) {
     confirmationStatus = 'confirm'
+  }
+  if (confirmationCode) {
+    confirmationStatus = 'pending'
   }
   if (confirmedTelosAccountName) {
     confirmationStatus = 'confirmed'
