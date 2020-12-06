@@ -208,9 +208,9 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
     if (!rand) return <div />
     const processedJSON = JSON.parse(processed)
     let playlistHash
-    for (const file in processedJSON.files) {
+    for (const file in processedJSON.video.files) {
       if (file.includes('.m3u8')) {
-        playlistHash = processedJSON.files[file]
+        playlistHash = processedJSON.video.files[file]
       }
     }
     const videoIdentifier = source.replace('.mp4', '')
