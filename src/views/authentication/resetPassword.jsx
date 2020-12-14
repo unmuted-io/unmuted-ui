@@ -1,30 +1,19 @@
 import React, { Component } from 'react'
-import {
-  Card,
-  CardBody,
-  Row,
-  Col,
-  InputGroup,
-  InputGroupAddon,
-  Button,
-  Form,
-  Input,
-} from 'reactstrap'
+import { Card, CardBody, Row, Col, InputGroup, InputGroupAddon, Button, Form, Input } from 'reactstrap'
 import { Link } from 'react-router-dom'
-import logoDark from '../../assets/images/logo-dark.png'
-import authBg from '../../assets/images/auth-bg.jpg'
+
+import unmutedLogo from '../../assets/images/logo/logo-white-text-transparent-1040x1080.png'
 
 class Reset extends Component {
-  render () {
+  render() {
     return (
       <div className="auth-wrapper" style={{ background: '#eff3f6' }}>
         <div className="auth-content container">
           <Card>
-            <Form onSubmit={e => e.preventDefault()}>
+            <Form onSubmit={(e) => e.preventDefault()}>
               <Row className="align-items-center">
                 <Col md={6}>
                   <CardBody>
-                    <img src={logoDark} alt="" className="img-fluid mb-4" />
                     <h4 className="mb-3 f-w-400">Reset your password</h4>
                     <InputGroup className="mb-4">
                       <InputGroupAddon addonType="prepend">
@@ -46,7 +35,7 @@ class Reset extends Component {
                   </CardBody>
                 </Col>
                 <Col md={6}>
-                  <img src={authBg} alt="" className="img-fluid" />
+                  <img src={unmutedLogo} alt="" className="img-fluid auth-logo" />
                 </Col>
               </Row>
             </Form>

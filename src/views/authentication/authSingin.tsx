@@ -1,30 +1,9 @@
 import React, { Component } from 'react'
-import {
-  Card,
-  CardBody,
-  Row,
-  Col,
-  InputGroup,
-  InputGroupAddon,
-  Button,
-  Form,
-  Input,
-  FormGroup,
-  Label,
-  Spinner,
-} from 'reactstrap'
+import { Card, CardBody, Row, Col, InputGroup, InputGroupAddon, Button, Form, Input, Spinner } from 'reactstrap'
 import { RouteComponentProps, Link } from 'react-router-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import logoDark from '../../assets/images/logo-dark.png'
-import authBg from '../../assets/images/auth-bg.jpg'
-import { makeEdgeUiContext } from 'edge-login-ui-web'
-import edgeLoginLogo from '../../assets/images/auth/edge-login-logo.svg'
+import unmutedLogo from '../../assets/images/logo/logo-white-text-transparent-1040x1080.png'
 import { UserInfo, Account } from '../../types'
-import { isLoggingIn } from '../../redux/reducers/authReducer'
-
-let edgeUiContext
-const assetsPath = 'http://edge-login.unmuted.io:11234/edge-iframe/index.html'
 
 export interface AuthSinginComponentStateProps {
   isLoggingIn: boolean
@@ -53,16 +32,19 @@ export class AuthSinginComponent extends Component<AuthSinginComponentProps, Aut
     const { history, dispatch, location } = this.props
     // @ts-ignore
     const fromUrl = location.state && location.state.fromUrl
-    this.setState(
-      {
-        disabled: false,
-        email: 'kylan.hurt@gmail.com',
-        password: 'Test123456',
-      },
-      () => {
-        this.onClickLogin({ preventDefault: () => {} })
-      }
-    )
+    console.log('process.env: ', process.env)
+    if (process.env.NODE_ENV === 'development') {
+      this.setState(
+        {
+          disabled: false,
+          email: 'kylan.hurt@gmail.com',
+          password: 'Test123456',
+        },
+        () => {
+          this.onClickLogin({ preventDefault: () => {} })
+        }
+      )
+    }
   }
 
   onChangeEmail = (e: any) => {
@@ -77,11 +59,6 @@ export class AuthSinginComponent extends Component<AuthSinginComponentProps, Aut
     this.setState({
       password,
     })
-  }
-
-  onClickEdgeLogin = () => {
-    console.log('onClickEdgeLogin executing')
-    edgeUiContext.showLoginWindow()
   }
 
   onClickLogin = (e) => {
@@ -102,7 +79,6 @@ export class AuthSinginComponent extends Component<AuthSinginComponentProps, Aut
               <Row className="align-items-center">
                 <Col md={6}>
                   <CardBody>
-                    <img src={logoDark} alt="" className="img-fluid mb-4" />
                     <h4 className="mb-3 f-w-400">Login into your account</h4>
                     <InputGroup className="mb-2">
                       <InputGroupAddon addonType="prepend">
@@ -139,7 +115,9 @@ export class AuthSinginComponent extends Component<AuthSinginComponentProps, Aut
                   </CardBody>
                 </Col>
                 <Col md={6}>
-                  <img src={authBg} alt="" className="img-fluid" />
+                  <div className="auth-logo-wrap">
+                    <img src={unmutedLogo} alt="" className="img-fluid auth-logo" />
+                  </div>
                 </Col>
               </Row>
             </Form>

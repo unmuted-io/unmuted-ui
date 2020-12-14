@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom'
 import { UALProvider, withUAL } from 'ual-reactjs-renderer'
 import { Scatter } from 'ual-scatter'
 import { KeycatAuthenticator } from '@telosnetwork/ual-telos-keycat'
-import { Lynx } from 'ual-lynx'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 import store from './redux'
@@ -31,7 +30,6 @@ const TELOS_MAINNET = {
 
 const keycat = new KeycatAuthenticator([TELOS_MAINNET], { appName: 'Unmuted.io' })
 const scatter = new Scatter([TELOS_MAINNET], { appName: 'Unmuted.io' })
-const lynx = new Lynx([TELOS_MAINNET], { appName: 'Unmuted.io' })
 
 const App = lazy(() => import('./App/App'))
 
@@ -46,7 +44,7 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter basename={Config.basename} history={history}>
       <Suspense fallback={<Spinner />}>
-        <UALProvider chains={[TELOS_MAINNET]} authenticators={[scatter, lynx, keycat]} appName={'Unmuted.io'}>
+        <UALProvider chains={[TELOS_MAINNET]} authenticators={[scatter, keycat]} appName={'Unmuted.io'}>
           <MyUALConsumer />
         </UALProvider>
         ,

@@ -16,31 +16,31 @@ import {
 } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link, withRouter } from 'react-router-dom'
-import logoDark from '../../assets/images/logo-dark.png'
-import authBg from '../../assets/images/auth-bg.jpg'
+
+import unmutedLogo from '../../assets/images/logo/logo-white-text-transparent-1040x1080.png'
 import { debounce } from '../../utility/utility'
 import axios from 'axios'
 
 interface AuthUsernameProps {
-  email?: string;
-  password?: string;
-  edgeUsername?: string;
-  location: any;
-  history: any;
-  dispatch: any;
+  email?: string
+  password?: string
+  edgeUsername?: string
+  location: any
+  history: any
+  dispatch: any
 }
 
 interface AuthUsernameState {
-  username: string;
-  validity: 'valid' | 'invalid' | '';
+  username: string
+  validity: 'valid' | 'invalid' | ''
 }
 
 class AuthUsername extends Component<AuthUsernameProps, AuthUsernameState> {
-  constructor (props: AuthUsernameProps) {
+  constructor(props: AuthUsernameProps) {
     super(props)
     this.state = {
-      username: props.location && props.location.state && props.location.state.edgeUsername || '',
-      validity: ''
+      username: (props.location && props.location.state && props.location.state.edgeUsername) || '',
+      validity: '',
     }
     this.fetchUsernameAvailability = debounce(this.fetchUsernameAvailability, 400, false)
   }
@@ -54,7 +54,7 @@ class AuthUsername extends Component<AuthUsernameProps, AuthUsernameState> {
     const input = e.target.value
     this.setState({
       username: input,
-      validity: ''
+      validity: '',
     })
     this.fetchUsernameAvailability(input)
   }
@@ -63,11 +63,11 @@ class AuthUsername extends Component<AuthUsernameProps, AuthUsernameState> {
     const { REACT_APP_API_BASE_URL } = process.env
     console.log('debouncing')
     this.setState({
-      validity: ''
+      validity: '',
     })
     const result = await axios.get(`${REACT_APP_API_BASE_URL}/auth/check-username/${username}`)
     this.setState({
-      validity: result.data.isAvailable ? 'valid' : 'invalid'
+      validity: result.data.isAvailable ? 'valid' : 'invalid',
     })
   }
 
@@ -78,7 +78,7 @@ class AuthUsername extends Component<AuthUsernameProps, AuthUsernameState> {
     dispatch({ type: 'UPDATE_USERNAME', data: { username, history } })
   }
 
-  render () {
+  render() {
     const { validity, username } = this.state
     let validProp = {}
     let feedback = ''
@@ -96,12 +96,11 @@ class AuthUsername extends Component<AuthUsernameProps, AuthUsernameState> {
       <div className="auth-wrapper" style={{ background: '#eff3f6' }}>
         <div className="auth-content container">
           <Card>
-            <Form onSubmit={e => e.preventDefault()}>
+            <Form onSubmit={(e) => e.preventDefault()}>
               <Row className="align-items-center">
                 <Col md={6}>
                   <CardBody>
                     <FormGroup>
-                      <img src={logoDark} alt="" className="img-fluid mb-4" />
                       <h4 className="mb-3 f-w-400">Choose a username:</h4>
                       <InputGroup className="mb-2">
                         <InputGroupAddon addonType="prepend">
@@ -109,13 +108,20 @@ class AuthUsername extends Component<AuthUsernameProps, AuthUsernameState> {
                             <i className="feather icon-user" />
                           </span>
                         </InputGroupAddon>
-                        <Input type="text" placeholder="Username" value={username} onChange={this.onChangeUsername} {...validProp} />
+                        <Input
+                          type="text"
+                          placeholder="Username"
+                          value={username}
+                          onChange={this.onChangeUsername}
+                          {...validProp}
+                        />
                         <FormFeedback {...validProp}>{feedback}&nbsp;</FormFeedback>
                       </InputGroup>
                     </FormGroup>
                     <br />
                     <div style={{ width: '100%', textAlign: 'center' }}>
-                      <Button onClick={this.onClickSubmit}
+                      <Button
+                        onClick={this.onClickSubmit}
                         color="primary"
                         className="mb-4"
                         style={{ display: 'inline' }}
@@ -126,7 +132,7 @@ class AuthUsername extends Component<AuthUsernameProps, AuthUsernameState> {
                   </CardBody>
                 </Col>
                 <Col md={6}>
-                  <img src={authBg} alt="" className="img-fluid" />
+                  <img src={unmutedLogo} alt="" className="img-fluid auth-logo" />
                 </Col>
               </Row>
             </Form>
@@ -138,14 +144,12 @@ class AuthUsername extends Component<AuthUsernameProps, AuthUsernameState> {
 }
 
 const mapStateToProps = (state) => {
-  return {
-
-  }
+  return {}
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    dispatch
+    dispatch,
   }
 }
 

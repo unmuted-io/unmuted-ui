@@ -1,10 +1,15 @@
-.invalid-feedback, .valid-feedback {
+.invalid-feedback,
+.valid-feedback {
   display: block !important;
   margin-top: 0.25rem !important;
   font-size: 80% !important;
 }
 
 .auth-wrapper {
+  a,
+  p > a {
+    color: $theme-background;
+  }
   button.login {
     min-width: 100px;
   }
@@ -13,6 +18,9 @@
     min-width: 100px;
   }
 
+  .auth-logo-wrap {
+    padding: 0 30px;
+  }
 }
 
 input {

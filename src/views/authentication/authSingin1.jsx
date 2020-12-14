@@ -15,13 +15,13 @@ import {
 } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router-dom'
-import logoDark from '../../assets/images/logo-dark.png'
+
 import auth1 from '../../assets/images/auth/img-auth-1.jpg'
 import auth2 from '../../assets/images/auth/img-auth-2.jpg'
 import auth3 from '../../assets/images/auth/img-auth-3.jpg'
 
 class AuthSingin extends Component {
-  render () {
+  render() {
     const items = [
       {
         src: auth1,
@@ -39,8 +39,7 @@ class AuthSingin extends Component {
         src: auth3,
         header: 'Third slide label',
         altText: 'Third slide label',
-        caption:
-          'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
+        caption: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
       },
     ]
     return (
@@ -49,11 +48,10 @@ class AuthSingin extends Component {
         <div className="auth-wrapper">
           <div className="auth-content container">
             <Card>
-              <Form onSubmit={e => e.preventDefault()}>
+              <Form onSubmit={(e) => e.preventDefault()}>
                 <Row className="align-items-center">
                   <Col md={6}>
                     <CardBody>
-                      <img src={logoDark} alt="" className="img-fluid mb-4" />
                       <h4 className="mb-3 f-w-400">Login into your account</h4>
                       <InputGroup className="mb-2">
                         <InputGroupAddon addonType="prepend">
@@ -94,11 +92,7 @@ class AuthSingin extends Component {
                       </Button>
                       <FormGroup className="text-left mt-2">
                         <div className="checkbox checkbox-primary d-inline">
-                          <input
-                            type="checkbox"
-                            id="checkbox-1"
-                            defaultChecked
-                          />
+                          <input type="checkbox" id="checkbox-1" defaultChecked />
                           <Label for="checkbox-1" className="cr">
                             Save credentials
                           </Label>
