@@ -33,21 +33,6 @@ export class UploadVideo extends Component {
     this.dropzone = null
   }
 
-  handlePost = async () => {
-    const { history } = this.props
-    const { videoFile, videoTitle, videoDescription } = this.state
-    const formData = new FormData()
-    formData.append('title', videoTitle)
-    formData.append('description', videoDescription)
-    formData.append('file', videoFile)
-    const resp = await fetch(`${REACT_APP_API_BASE_URL}/videos`, {
-      method: 'POST',
-      body: formData,
-    })
-    if (!resp.ok) return
-    const data = await resp.json()
-  }
-
   render() {
     const eventHandlers = {
       init: (dz) => (this.dropzone = dz),

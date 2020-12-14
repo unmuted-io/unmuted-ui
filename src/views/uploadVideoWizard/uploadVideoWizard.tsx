@@ -8,7 +8,7 @@ import { UploadVideo } from './uploadVideo'
 import { SubmitBasicVideoInfo } from './submitBasicVideoInfo'
 import { Account } from '../../types'
 
-const { REACT_APP_API_BASE_URL } = process.env
+const { REACT_APP_API_BASE_URL, REACT_APP_API_WEBSOCKET_URL } = process.env
 
 interface UploadVideoWizardProps {
   history: any
@@ -34,7 +34,7 @@ class UploadVideoWizard extends Component<UploadVideoWizardProps, UploadVideoWiz
   }
 
   initializeWebsocket = () => {
-    this.ws = new WebSocket(`ws://${REACT_APP_API_BASE_URL}:9824`)
+    this.ws = new WebSocket(`${REACT_APP_API_WEBSOCKET_URL}:9824`)
     this.ws.onopen = () => {
       console.log('connected')
       this.ws.send('in the browser right now')
@@ -45,22 +45,27 @@ class UploadVideoWizard extends Component<UploadVideoWizardProps, UploadVideoWiz
 
     this.ws.onmessage = (message) => {
       console.log('ws message: ', message)
-      const { progress, rand } = this.state
+      const { progress } = this.state
       const { history } = this.props
-      const newProgress = parseFloat(message.data)
-      if (newProgress > progress) {
-        this.setState(
-          {
-            progress: newProgress,
-          },
-          () => {
-            if (newProgress === 100) {
-              setTimeout(() => {
-                history.push(`/videos/${rand}`)
-              }, 2000)
+      try {
+        const { progress: messageProgress, rand: finalRand } = JSON.parse(message.data)
+        const newProgress = parseFloat(messageProgress)
+        if (newProgress > progress) {
+          this.setState(
+            {
+              progress: newProgress,
+            },
+            () => {
+              if (newProgress === 100) {
+                setTimeout(() => {
+                  history.push(`/videos/${finalRand}`)
+                }, 2000)
+              }
             }
-          }
-        )
+          )
+        }
+      } catch (e) {
+        console.log('ignore this message')
       }
     }
   }
@@ -142,6 +147,7 @@ class UploadVideoWizard extends Component<UploadVideoWizardProps, UploadVideoWiz
   handlePost = async () => {
     const { account } = this.props
     const { videoFile, videoTitle, videoDescription } = this.state
+    console.log('uploadVideoWizard->handlePost')
     const formData = new FormData()
     formData.append('title', videoTitle)
     formData.append('description', videoDescription)
