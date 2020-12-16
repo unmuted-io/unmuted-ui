@@ -1,34 +1,15 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {
-  Row,
-  Col,
-  Card,
-  CardHeader,
-  CardBody,
-  Button,
-  FormGroup,
-  Label,
-  Input,
-  Popover,
-  Popoverheader,
-  PopoverBody,
-} from 'reactstrap'
-import DropzoneComponent from 'react-dropzone-component'
-import InputMask from 'react-input-mask'
-import ReactNumeric, { predefinedOptions } from 'react-numeric'
-import MainCard from '../../components/mainCard/mainCard'
-import WebSocketChat from '../../components/WebSocketChat/WebSocketChat'
-import { useParams, Link } from 'react-router-dom'
+import { Row, Col, Card, CardBody } from 'reactstrap'
+import { Link } from 'react-router-dom'
 import VideoPlayer from '../../components/videoPlayer/VideoPlayer'
 import axios from 'axios'
 import { AxiosResponse } from '../../types'
 import profileImage from '../../assets/images/widget/img-round1.jpg'
 import SlotText from '../../components/SlotText'
-import BrandTooltip from '../../components/BrandTooltip'
 import PopoverItem from '../../components/PopoverItem'
 import SentimentTokenInfo from '../../components/BrandTooltip/SentimentTokenInfo'
-import classnames from 'classnames'
+import DisabledVideoPlaceholder from './DisabledVideoPlaceholder'
 
 const { REACT_APP_API_BASE_URL, REACT_APP_DSTOR_API_BASE_URL } = process.env
 
@@ -55,6 +36,7 @@ interface ViewVideoComponentState {
   profile: string
   isVotingDisabled: boolean
   processed: string
+  is_active: boolean
 }
 
 class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentState> {
@@ -77,6 +59,7 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
       downvoteRotation: 'none',
       isVotingDisabled: false,
       processed: '',
+      is_active: false,
     }
   }
 
@@ -97,7 +80,7 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
       upvoteScores: [currentUpvoteValue - 1, currentUpvoteValue, currentUpvoteValue + 1],
       downvoteScores: [currentDownvoteValue - 1, currentDownvoteValue, currentDownvoteValue + 1],
     })
-    if (account) {
+    if (account && videoData.is_active) {
       const userScoreResponse: AxiosResponse = await axios.get(
         `${REACT_APP_API_BASE_URL}/video-rating/${rand}/user/${account.username}`
       )
@@ -204,6 +187,7 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
       upvoteRotation,
       downvoteRotation,
       processed,
+      is_active,
     } = this.state
     if (!rand) return <div />
     const processedJSON = JSON.parse(processed)
@@ -244,7 +228,7 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
         <Col sm={12} lg={8} id="video-wrapper">
           <Card>
             <CardBody>
-              <VideoPlayer {...videoJsOptions} rand={rand} />
+              {is_active ? <VideoPlayer {...videoJsOptions} rand={rand} /> : <DisabledVideoPlaceholder rand={rand} />}
               <div className="primary-video-info">
                 <div className="upper">
                   <div className="summary">
@@ -306,7 +290,7 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
         <Col sm={12} lg={4}>
           <Card style={{ height: '100%' }}>
             <CardBody style={{ height: '100%', display: 'flex', flexDirection: 'row' }}>
-              <WebSocketChat rand={rand} />
+              {/*<WebSocketChat rand={rand} /> */}
             </CardBody>
           </Card>
         </Col>

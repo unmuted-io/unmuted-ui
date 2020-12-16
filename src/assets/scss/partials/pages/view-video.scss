@@ -1,8 +1,31 @@
 #view-video {
   #video-wrapper {
-
     .card-body {
       padding: 0px;
+
+      .disabled-video-placeholder {
+        width: 100%;
+        padding-top: 56.25%;
+
+        .repositioned-placeholder {
+          position: absolute;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          top: 0;
+          left: 0;
+          bottom: 100%;
+          right: 0;
+          padding-top: 27%;
+          .icon-video {
+            font-size: 1000%;
+          }
+        }
+      }
+      .progress {
+        height: 1.4rem;
+        font-size: 0.8rem;
+      }
 
       #primary-video {
         margin-bottom: 20px;
@@ -75,10 +98,10 @@
           }
 
           .right {
-            padding: .6rem 1rem;
+            padding: 0.6rem 1rem;
 
             h5 {
-              margin-bottom: .2rem;
+              margin-bottom: 0.2rem;
 
               .channel-link {
                 color: $dark-color;
