@@ -6,9 +6,10 @@ import useInterval from '../../utility/hooks'
 
 interface Props {
   rand: string
+  onProcessingFinished: () => void
 }
 
-function DisabledVideoPlaceholder({ rand }: Props): ReactElement {
+function DisabledVideoPlaceholder({ rand, onProcessingFinished }: Props): ReactElement {
   const { REACT_APP_API_BASE_URL } = process.env
   const [progress, setProgress] = useState({ value: 0, message: '' })
   useEffect(() => {
@@ -21,6 +22,9 @@ function DisabledVideoPlaceholder({ rand }: Props): ReactElement {
       const { data } = videoResponse
       const processedProgressData = getProgressFromJson(data.processed)
       setProgress(processedProgressData)
+      if (processedProgressData.value === 1) {
+        onProcessingFinished()
+      }
       console.log('processedProgressData: ', processedProgressData)
     } catch (err) {}
   }

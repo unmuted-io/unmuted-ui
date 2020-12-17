@@ -64,6 +64,10 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
   }
 
   UNSAFE_componentWillMount = async () => {
+    this.fetchVideoData()
+  }
+
+  fetchVideoData = async () => {
     const { rand } = this.props.match.params
     const { account } = this.props
     const videoResponse: AxiosResponse = await axios.get(`${REACT_APP_API_BASE_URL}/videos/${rand}`)
@@ -228,7 +232,11 @@ class ViewVideo extends Component<ViewVideoComponentProps, ViewVideoComponentSta
         <Col sm={12} lg={8} id="video-wrapper">
           <Card>
             <CardBody>
-              {is_active ? <VideoPlayer {...videoJsOptions} rand={rand} /> : <DisabledVideoPlaceholder rand={rand} />}
+              {is_active ? (
+                <VideoPlayer {...videoJsOptions} rand={rand} />
+              ) : (
+                <DisabledVideoPlaceholder onProcessingFinished={this.fetchVideoData} rand={rand} />
+              )}
               <div className="primary-video-info">
                 <div className="upper">
                   <div className="summary">

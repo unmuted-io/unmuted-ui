@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { Row, Col, Card, CardHeader, CardBody, ButtonGroup, Button, Progress } from 'reactstrap'
 import Loki from 'react-loki'
 import { Link } from 'react-router-dom'
-import FormWizardForm from '../forms/wizard/wizard'
 import { UploadVideo } from './uploadVideo'
 import { SubmitBasicVideoInfo } from './submitBasicVideoInfo'
 import { Account } from '../../types'
@@ -30,7 +29,7 @@ class UploadVideoWizard extends Component<UploadVideoWizardProps, UploadVideoWiz
   ws = null
 
   componentWillUnmount = () => {
-    this.ws.close()
+    if (this.ws) this.ws.close()
   }
 
   initializeWebsocket = () => {
@@ -161,7 +160,7 @@ class UploadVideoWizard extends Component<UploadVideoWizardProps, UploadVideoWiz
           Authorization: `Bearer ${account.token}`,
         },
       })
-      setTimeout(() => this.initializeWebsocket(), 3000)
+      setTimeout(() => this.initializeWebsocket(), 1000)
       await resp
       // @ts-ignore
       if (resp.ok) {
