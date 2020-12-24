@@ -15,8 +15,8 @@ export const attemptAutoLoginFromCookies = (history: any) => async (dispatch: an
       url,
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
+        Authorization: `Bearer ${accessToken}`
+      }
     })
     if (loginResponse.statusText !== 'OK') {
       console.log(loginResponse.statusText)
@@ -36,8 +36,8 @@ export const attemptAutoLoginFromCookies = (history: any) => async (dispatch: an
       history.push({
         pathname: '/username',
         state: {
-          ...user,
-        },
+          ...user
+        }
       })
     } else {
       if (process.env.NODE_ENV === 'development') return history.push('/')
@@ -53,8 +53,8 @@ export const attemptAutoLoginFromCookies = (history: any) => async (dispatch: an
       data: {
         type: 'error',
         message,
-        autoDismiss: true,
-      },
+        autoDismiss: true
+      }
     })
     dispatch(logout())
   }
@@ -73,12 +73,9 @@ export const login = (userInfo: UserInfo, history: any, isAnimated?: boolean, is
       const data: FormData = new FormData()
       data.append('password', password)
       data.append('email', email)
-      // @ts-ignore
-      loginResponse = await axios({
-        url,
+      loginResponse = await axios(url, {
         method: 'POST',
-        // @ts-ignore
-        data,
+        data
       })
       if (loginResponse.statusText !== 'OK') {
         console.log(loginResponse.statusText)
@@ -100,8 +97,8 @@ export const login = (userInfo: UserInfo, history: any, isAnimated?: boolean, is
         history.push({
           pathname: '/username',
           state: {
-            ...userInfo,
-          },
+            ...userInfo
+          }
         })
       } else {
         let newPath = '/'
@@ -121,8 +118,8 @@ export const login = (userInfo: UserInfo, history: any, isAnimated?: boolean, is
         data: {
           type: 'error',
           message,
-          autoDismiss: true,
-        },
+          autoDismiss: true
+        }
       })
       dispatch(logout())
     }
@@ -157,7 +154,7 @@ export const createUser = (newUserInfo: UserInfo, history: object) => async (dis
 
 export const logout = () => (dispatch: any): void => {
   dispatch({
-    type: 'LOGOUT',
+    type: 'LOGOUT'
   })
   localStorage.clear()
 }
@@ -165,6 +162,6 @@ export const logout = () => (dispatch: any): void => {
 export const updateEdgeAccount = (account: any) => (dispatch: any, getState: any) => {
   dispatch({
     type: 'UPDATE_EDGE_ACCOUNT',
-    data: account,
+    data: account
   })
 }

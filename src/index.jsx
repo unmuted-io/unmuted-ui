@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from 'react'
 import ReactDOM from 'react-dom'
 import { UALProvider, withUAL } from 'ual-reactjs-renderer'
 import { KeycatAuthenticator } from '@telosnetwork/ual-telos-keycat'
+import { Anchor } from 'ual-anchor'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 import store from './redux'
@@ -28,6 +29,16 @@ const TELOS_MAINNET = {
 }
 
 const keycat = new KeycatAuthenticator([TELOS_MAINNET], { appName: 'Unmuted.io' })
+const anchor = new Anchor([TELOS_MAINNET], {
+  // Required: The app name, required by anchor-link. Short string identifying the app
+  appName: 'Unmuted.io',
+  // Optional: The callback service URL to use, defaults to https://cb.anchor.link
+  service: 'https://cb.anchor.link',
+  // Optional: A flag to disable the Greymass Fuel integration, defaults to false (enabled)
+  disableGreymassFuel: false,
+  // Optional: A flag to enable the Anchor Link UI request status, defaults to false (disabled)
+  requestStatus: false,
+})
 
 const App = lazy(() => import('./App/App'))
 
@@ -42,7 +53,7 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter basename={Config.basename} history={history}>
       <Suspense fallback={<Spinner />}>
-        <UALProvider chains={[TELOS_MAINNET]} authenticators={[keycat]} appName={'Unmuted.io'}>
+        <UALProvider chains={[TELOS_MAINNET]} authenticators={[keycat, anchor]} appName={'Unmuted.io'}>
           <MyUALConsumer />
         </UALProvider>
         ,

@@ -25,7 +25,7 @@ export class AuthSinginComponent extends Component<AuthSinginComponentProps, Aut
   state = {
     disabled: true,
     email: '',
-    password: '',
+    password: ''
   }
 
   componentDidMount = async () => {
@@ -38,7 +38,7 @@ export class AuthSinginComponent extends Component<AuthSinginComponentProps, Aut
         {
           disabled: false,
           email: 'kylan.hurt@gmail.com',
-          password: 'Test123456',
+          password: 'Test123456'
         },
         () => {
           this.onClickLogin({ preventDefault: () => {} })
@@ -50,14 +50,14 @@ export class AuthSinginComponent extends Component<AuthSinginComponentProps, Aut
   onChangeEmail = (e: any) => {
     const email: string = e.target.value
     this.setState({
-      email,
+      email
     })
   }
 
   onChangePassword = (e: any) => {
     const password: string = e.target.value
     this.setState({
-      password,
+      password
     })
   }
 

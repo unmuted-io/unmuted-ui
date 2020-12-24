@@ -8,8 +8,6 @@ import { attemptAutoLoginFromCookies, login } from '../redux/actions/authActions
 import axios from 'axios'
 
 class Layout extends Component {
-  fetchExchangeRateInterval
-
   componentDidMount = () => {
     // on dev will automatically log in
     // if (process.env.REACT_APP_ENVIRONMENT === 'dev') {
@@ -21,32 +19,7 @@ class Layout extends Component {
   componentWillMount = () => {
     const { history, dispatch } = this.props
     dispatch(attemptAutoLoginFromCookies(history))
-    this.fetchExchangeRates()
     // this.fetchExchangeRateInterval = setInterval(this.fetchExchangeRates, 10000 * 60)
-  }
-
-  fetchExchangeRates = async () => {
-    const { dispatch } = this.props
-    const { REACT_APP_NOMICS_API_KEY, REACT_APP_NOMICS_API_BASE_URL } = process.env
-    const response = await axios.get(
-      `${REACT_APP_NOMICS_API_BASE_URL}/currencies/ticker?key=${REACT_APP_NOMICS_API_KEY}&ids=BTC,ETH,EOS`
-    )
-    console.log('response.data: ', response.data)
-    const prices = {}
-    response.data.forEach(rateData => {
-      const newData = {
-        currencyCode: rateData.currency,
-        name: rateData.name,
-        price: rateData.price,
-      }
-      prices[rateData.currency] = newData
-    })
-    prices.TLOS = {
-      currencyCode: 'TLOS',
-      name: 'Telos',
-      price: '0.03',
-    }
-    dispatch({ type: 'UPDATE_EXCHANGE_RATES', data: prices })
   }
 
   componentWillUnmount = () => {
@@ -62,7 +35,7 @@ class Layout extends Component {
           path={route.path}
           exact={route.exact}
           name={route.name}
-          render={props => <route.component {...props} />}
+          render={(props) => <route.component {...props} />}
         />
       ) : null
     })
@@ -78,11 +51,11 @@ class Layout extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {}
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     dispatch,
   }
